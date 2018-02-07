@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Character))]
 public class playerController : MonoBehaviour {
-// Component for player specific (rather than character specific) stuff. 
+// Component for player specific (rather than character specific) stuff
 // Checks inputs, stores player specific actions, interacts with Character component
 
 	public bool isPlayer1;
@@ -20,13 +20,14 @@ public class playerController : MonoBehaviour {
 	};
 	Buttons buttons;
 
-	Character character; // Component for character specific (rather than player specific) stuff
+	//The character component of the gameobject
+	Character character;
 
 	//Player specific actions
 	public delegate void Action0(string buttonName);
 	public Action0 action0;
 
-	void Start () { 
+	void Start () {
 	/*  TODO
 	 *  Check OS, make different inputs for p1 and p2 and for different controllers,
 	 *  set strings accordingly, actually set inputs to right buttons/axes
@@ -48,8 +49,9 @@ public class playerController : MonoBehaviour {
 		
 
 	void Update () {
+		//Check input and such
 		handleAxes(Input.GetAxisRaw(buttons.xAxis), Input.GetAxisRaw(buttons.yAxis));
-		if(Input.GetButtonDown(buttons.switchPlayers)) {
+		if(Input.GetButtonDown(buttons.switchPlayers)) { //I realize this is not quite how this is gonna work
 			switchPlayers();
 		}
 		if(action0 != null) {
@@ -66,10 +68,11 @@ public class playerController : MonoBehaviour {
 		if(isMovingPlayer) {
 			character.setMove(x, y);
 		}
+		//else move camera?
 	}
 
 	public void switchPlayers() {
-
+		character.switchPlayers();
 	}
 
 }

@@ -514,4 +514,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4071b43b86b54340a384eb871a66982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 893243163}
+  settings:
+    maxWalkSpeed: 15
+    walkAcc: 80
+    switchDirAcc: 200
+    stopAcc: 150
+    jumpVelocity: 10
+    jumpGravity: 20
+    endJumpGravity: 30
+    fallingGravity: 30
   velocity: {x: 0, y: 0, z: 0}
