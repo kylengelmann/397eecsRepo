@@ -8,7 +8,8 @@ public class Character : MonoBehaviour {
 // Handles character physics and animations
 
 	public Camera cam;
-	public moveSettings settings;
+    public MoveSettings moveSettings;
+    public CameraSettings camSettings;
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl;
 	Vector2 moveAxis;
@@ -21,7 +22,7 @@ public class Character : MonoBehaviour {
 
 	void Update () {
 		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
-		if(horizontalVel.sqrMagnitude > 0f) {
+		if(horizontalVel.sqrMagnitude > 0.001f) {
 			transform.rotation = Quaternion.LookRotation(horizontalVel, groundNormal);	
 		}
 	}
@@ -50,41 +51,22 @@ public class Character : MonoBehaviour {
 		Vector3 forwardDir = Vector3.Cross(cam.transform.right, groundNormal).normalized;
 
 		//Split velocity into up, right, and forward components
-		float up = Vector3.Dot(groundNormal, velocity);
-		float right = Vector3.Dot(cam.transform.right, velocity);
-		float forward = Vector3.Dot(forwardDir, velocity);
+		float up = Vector3.Dot(groundNormal, velocity); // Amount parallel to ground normal
+        float right = Vector3.Dot(cam.transform.right, velocity); // Amount to the right;
+		float forward = Vector3.Dot(forwardDir, velocity); // Amount forwards
 
-		//Figure out whether we're slowing down, speeding up, or switching directions and apply the correct acceleration
-		Vector2 horizontalVel = new Vector2(right, forward);
-		/*Vector2 accDir = moveAxis - (horizontalVel/settings.maxWalkSpeed);
-		accDir.Normalize();
-		if(Vector2.Dot(moveAxis, horizontalVel) >= 0f) { //not switching directions
-			if(moveAxis.sqrMagnitude >= (horizontalVel/settings.maxWalkSpeed).sqrMagnitude) {//speeding up
-				horizontalVel += accDir*settings.walkAcc*Time.fixedDeltaTime;
-				horizontalVel = Vector2.ClampMagnitude(horizontalVel, moveAxis.magnitude*settings.maxWalkSpeed);
-			}
-			else {
-				Vector2 acc = accDir*settings.stopAcc*Time.fixedDeltaTime;
-				if(acc.sqrMagnitude >= horizontalVel.sqrMagnitude) {
-					horizontalVel = Vector2.zero;
-				}
-				else {
-					horizontalVel += acc;
-				}
-			}
-		}
-		else { //Switching directions
-			horizontalVel += accDir*settings.switchDirAcc*Time.fixedDeltaTime;
-			Vector2.ClampMagnitude(horizontalVel, moveAxis.magnitude*settings.maxWalkSpeed);
-		}*/
+        Vector2 horizontalVel = new Vector2(right, forward); 
+		Vector2 goalVel = moveAxis*moveSettings.maxWalkSpeed;
+		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
+		Vector2 perpVel = horizontalVel - parVel; //Perpendicular to goal
 
-		Vector2 goalVel = moveAxis*settings.maxWalkSpeed;
-		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized;
-		Vector2 perpVel = horizontalVel - parVel;
-        if (Vector2.Dot(goalVel, parVel) < 0f || switchingDir)
+        // Figure out whether we're slowing down, speeding up, or switching directions and apply the correct acceleration
+        // Only apply it to parallel velocity, the perpendicular velocity is cancelled out by friction
+
+        if (Vector2.Dot(goalVel, parVel) < 0f || switchingDir) // Switching directions
         {
             Vector2 diff = goalVel - parVel;
-            float dVel = settings.switchDirAcc * Time.fixedDeltaTime;
+            float dVel = moveSettings.switchDirAcc * Time.fixedDeltaTime;
             if (dVel * dVel > diff.sqrMagnitude)
             {
                 switchingDir = false;
@@ -99,52 +81,52 @@ public class Character : MonoBehaviour {
         }
         else
         {
-            if (goalVel.sqrMagnitude >= parVel.sqrMagnitude)
+            if (goalVel.sqrMagnitude >= parVel.sqrMagnitude) // Speeding up
             {
-                parVel += moveAxis.normalized * settings.walkAcc * Time.fixedDeltaTime;
+                parVel += moveAxis.normalized * moveSettings.walkAcc * Time.fixedDeltaTime;
                 parVel = Vector2.ClampMagnitude(parVel, goalVel.magnitude);
             }
-            else
+            else // Slowing down
             {
-                float dVel = settings.stopAcc * Time.fixedDeltaTime;
-                if (dVel * dVel < (parVel - goalVel).sqrMagnitude)
+                float dVel = moveSettings.stopAcc * Time.fixedDeltaTime;
+                if (dVel * dVel < (parVel - goalVel).sqrMagnitude) // Check for overcorrection
                 {
-                    parVel += moveAxis.normalized * settings.stopAcc * Time.fixedDeltaTime;
+                    parVel += moveAxis.normalized * moveSettings.stopAcc * Time.fixedDeltaTime;
                 }
-                else parVel = goalVel;
+                else parVel = goalVel; // Prevent overcorrection;
 
             }
         }
 
-        if (perpVel.sqrMagnitude > 0.01f)
+        if (perpVel.sqrMagnitude > 0.01f) // Let friction sort out the perpendicular velocity
         {
-            float dPerp = settings.stopAcc * Time.fixedDeltaTime;
-            if (dPerp * dPerp < perpVel.sqrMagnitude)
+            float dPerp = moveSettings.stopAcc * Time.fixedDeltaTime;
+            if (dPerp * dPerp < perpVel.sqrMagnitude) // Check for overcorrection
             {
                 perpVel -= dPerp * perpVel.normalized;
             }
             else
-            {
-                perpVel = Vector2.zero;
+            { 
+                perpVel = Vector2.zero; // Prevent overcorrection
             }
         }
         else perpVel = Vector2.zero;
 
-        horizontalVel = parVel + perpVel;
+        horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
 
         //Jumping
 		if(!isGrounded) {
 			if(up > 0f) {
 				if(isJumping) {
-					up -= settings.jumpGravity*Time.fixedDeltaTime;
+					up -= moveSettings.jumpGravity*Time.fixedDeltaTime;
 				}
 				else {
-					up -= settings.endJumpGravity*Time.fixedDeltaTime;
+					up -= moveSettings.endJumpGravity*Time.fixedDeltaTime;
 				}
 			}
 			else {
-				up -= settings.fallingGravity*Time.fixedDeltaTime;
+				up -= moveSettings.fallingGravity*Time.fixedDeltaTime;
 			}
 		}
 		else {
@@ -166,7 +148,7 @@ public class Character : MonoBehaviour {
 	public void jump(string buttonName) {
 		if(Input.GetButtonDown(buttonName) && isGrounded) {
 			isJumping = true;
-			velocity += groundNormal*settings.jumpVelocity;
+			velocity += groundNormal*moveSettings.jumpVelocity;
 		}
 		else if(Input.GetButton(buttonName)) {
 			isJumping = true;
@@ -190,7 +172,7 @@ public class Character : MonoBehaviour {
 
 
 [System.Serializable]
-public struct moveSettings {
+public struct MoveSettings {
 	public float maxWalkSpeed;
 	public float walkAcc;
 	public float switchDirAcc;
@@ -201,3 +183,10 @@ public struct moveSettings {
 	public float endJumpGravity;
 	public float fallingGravity;
 }
+
+[System.Serializable]
+public struct CameraSettings {
+    public float sensitivity;
+    public float distance;
+}
+
