@@ -41,6 +41,7 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+    bool switchingDir = false;
 	void FixedUpdate() {
 		checkGrounded();
 
@@ -55,7 +56,7 @@ public class Character : MonoBehaviour {
 
 		//Figure out whether we're slowing down, speeding up, or switching directions and apply the correct acceleration
 		Vector2 horizontalVel = new Vector2(right, forward);
-		Vector2 accDir = moveAxis - (horizontalVel/settings.maxWalkSpeed);
+		/*Vector2 accDir = moveAxis - (horizontalVel/settings.maxWalkSpeed);
 		accDir.Normalize();
 		if(Vector2.Dot(moveAxis, horizontalVel) >= 0f) { //not switching directions
 			if(moveAxis.sqrMagnitude >= (horizontalVel/settings.maxWalkSpeed).sqrMagnitude) {//speeding up
@@ -75,8 +76,64 @@ public class Character : MonoBehaviour {
 		else { //Switching directions
 			horizontalVel += accDir*settings.switchDirAcc*Time.fixedDeltaTime;
 			Vector2.ClampMagnitude(horizontalVel, moveAxis.magnitude*settings.maxWalkSpeed);
-		}
+		}*/
 
+		Vector2 goalVel = moveAxis*settings.maxWalkSpeed;
+		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized;
+		Vector2 perpVel = horizontalVel - parVel;
+        if (Vector2.Dot(goalVel, parVel) < 0f || switchingDir)
+        {
+            Vector2 diff = goalVel - parVel;
+            float dVel = settings.switchDirAcc * Time.fixedDeltaTime;
+            if (dVel * dVel > diff.sqrMagnitude)
+            {
+                switchingDir = false;
+                parVel = goalVel;
+            }
+            else
+            {
+                switchingDir = true;
+                parVel += moveAxis.normalized * dVel;
+            }
+
+        }
+        else
+        {
+            if (goalVel.sqrMagnitude >= parVel.sqrMagnitude)
+            {
+                parVel += moveAxis.normalized * settings.walkAcc * Time.fixedDeltaTime;
+                parVel = Vector2.ClampMagnitude(parVel, goalVel.magnitude);
+            }
+            else
+            {
+                float dVel = settings.stopAcc * Time.fixedDeltaTime;
+                if (dVel * dVel < (parVel - goalVel).sqrMagnitude)
+                {
+                    parVel += moveAxis.normalized * settings.stopAcc * Time.fixedDeltaTime;
+                }
+                else parVel = goalVel;
+
+            }
+        }
+
+        if (perpVel.sqrMagnitude > 0.01f)
+        {
+            float dPerp = settings.stopAcc * Time.fixedDeltaTime;
+            if (dPerp * dPerp < perpVel.sqrMagnitude)
+            {
+                perpVel -= dPerp * perpVel.normalized;
+            }
+            else
+            {
+                perpVel = Vector2.zero;
+            }
+        }
+        else perpVel = Vector2.zero;
+
+        horizontalVel = parVel + perpVel;
+
+
+        //Jumping
 		if(!isGrounded) {
 			if(up > 0f) {
 				if(isJumping) {
