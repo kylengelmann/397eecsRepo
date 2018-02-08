@@ -60,13 +60,15 @@ public class Character : MonoBehaviour {
 		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
 		Vector2 perpVel = horizontalVel - parVel; //Perpendicular to goal
 
+        float control = isGrounded ? 1f : moveSettings.airControl;
+
         // Figure out whether we're slowing down, speeding up, or switching directions and apply the correct acceleration
         // Only apply it to parallel velocity, the perpendicular velocity is cancelled out by friction
 
         if (Vector2.Dot(goalVel, parVel) < 0f || switchingDir) // Switching directions
         {
             Vector2 diff = goalVel - parVel;
-            float dVel = moveSettings.switchDirAcc * Time.fixedDeltaTime;
+            float dVel = moveSettings.switchDirAcc * control * Time.fixedDeltaTime;
             if (dVel * dVel > diff.sqrMagnitude)
             {
                 switchingDir = false;
@@ -83,15 +85,15 @@ public class Character : MonoBehaviour {
         {
             if (goalVel.sqrMagnitude >= parVel.sqrMagnitude) // Speeding up
             {
-                parVel += moveAxis.normalized * moveSettings.walkAcc * Time.fixedDeltaTime;
+                parVel += moveAxis.normalized * moveSettings.walkAcc * control * Time.fixedDeltaTime;
                 parVel = Vector2.ClampMagnitude(parVel, goalVel.magnitude);
             }
             else // Slowing down
             {
-                float dVel = moveSettings.stopAcc * Time.fixedDeltaTime;
+                float dVel = moveSettings.stopAcc * control * Time.fixedDeltaTime;
                 if (dVel * dVel < (parVel - goalVel).sqrMagnitude) // Check for overcorrection
                 {
-                    parVel += moveAxis.normalized * moveSettings.stopAcc * Time.fixedDeltaTime;
+                    parVel += moveAxis.normalized * dVel;
                 }
                 else parVel = goalVel; // Prevent overcorrection;
 
@@ -100,7 +102,7 @@ public class Character : MonoBehaviour {
 
         if (perpVel.sqrMagnitude > 0.01f) // Let friction sort out the perpendicular velocity
         {
-            float dPerp = moveSettings.stopAcc * Time.fixedDeltaTime;
+            float dPerp = moveSettings.stopAcc * control * Time.fixedDeltaTime;
             if (dPerp * dPerp < perpVel.sqrMagnitude) // Check for overcorrection
             {
                 perpVel -= dPerp * perpVel.normalized;
@@ -182,6 +184,7 @@ public struct MoveSettings {
 	public float jumpGravity;
 	public float endJumpGravity;
 	public float fallingGravity;
+    public float airControl;
 }
 
 [System.Serializable]
