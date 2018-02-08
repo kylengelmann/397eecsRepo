@@ -20,17 +20,24 @@ public class Character : MonoBehaviour {
 	}
 
 	void Update () {
+		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
+		if(horizontalVel.sqrMagnitude > 0f) {
+			transform.rotation = Quaternion.LookRotation(horizontalVel, groundNormal);	
+		}
 	}
 
 	bool isGrounded;
 	RaycastHit groundHit;
 	void checkGrounded() {
 		if(Vector3.Dot(groundNormal, velocity) <= 0f) {
-			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, out groundHit, charCtrl.height/2f + 0.01f);
+			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.05f);
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
 //			}
+		}
+		else {
+			isGrounded = false;
 		}
 	}
 
@@ -65,9 +72,26 @@ public class Character : MonoBehaviour {
 				}
 			}
 		}
-		else {
+		else { //Switching directions
 			horizontalVel += accDir*settings.switchDirAcc*Time.fixedDeltaTime;
 			Vector2.ClampMagnitude(horizontalVel, moveAxis.magnitude*settings.maxWalkSpeed);
+		}
+
+		if(!isGrounded) {
+			if(up > 0f) {
+				if(isJumping) {
+					up -= settings.jumpGravity*Time.fixedDeltaTime;
+				}
+				else {
+					up -= settings.endJumpGravity*Time.fixedDeltaTime;
+				}
+			}
+			else {
+				up -= settings.fallingGravity*Time.fixedDeltaTime;
+			}
+		}
+		else {
+			up = 0f;
 		}
 
 
@@ -83,9 +107,9 @@ public class Character : MonoBehaviour {
 		
 
 	public void jump(string buttonName) {
-		if(Input.GetButtonDown(buttonName)) {
+		if(Input.GetButtonDown(buttonName) && isGrounded) {
 			isJumping = true;
-			velocity += gameObject.transform.up*settings.jumpVelocity;
+			velocity += groundNormal*settings.jumpVelocity;
 		}
 		else if(Input.GetButton(buttonName)) {
 			isJumping = true;
