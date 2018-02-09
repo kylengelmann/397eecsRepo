@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	public bool isPaused = false;
+    public GameObject pauseMenu;
+	[HideInInspector]public bool isPaused = false;
 
 	public void togglePause() {
-	/*  TODO
-	 * 	Create pause menu and implement pausing
-	 */ 
 		isPaused = !isPaused;
+        pauseMenu.SetActive(isPaused);
 	}
 
 	// Use this for initialization

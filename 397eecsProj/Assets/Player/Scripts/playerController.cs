@@ -23,6 +23,8 @@ public class playerController : MonoBehaviour {
 	//The character component of the gameobject
 	Character character;
 
+
+
 	//Player specific actions
 	public delegate void Action0(string buttonName);
 	public Action0 action0;

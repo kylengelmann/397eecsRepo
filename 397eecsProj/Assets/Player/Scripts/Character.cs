@@ -10,28 +10,46 @@ public class Character : MonoBehaviour {
 	public Camera cam;
     public MoveSettings moveSettings;
     public CameraSettings camSettings;
+    //Transform goalCamTransform;
+    Vector3 prevCamPos;
+    Quaternion prevCamRot;
+    Vector3 goalCamPos;
+    Quaternion goalCamRot;
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl;
 	Vector2 moveAxis;
 	bool isJumping = false;
 	Vector3 groundNormal;
+
+    //Vector3 prevPos;
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
+        //prevPos = transform.position;
+        goalCamPos = cam.transform.position;
+        goalCamRot = cam.transform.rotation;
 	}
 
 	void Update () {
+        //charCtrl.Move(velocity*Time.deltaTime);
 		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
 		if(horizontalVel.sqrMagnitude > 0.001f) {
 			transform.rotation = Quaternion.LookRotation(horizontalVel, groundNormal);	
 		}
+
+
+
+
 	}
 
 	bool isGrounded;
 	RaycastHit groundHit;
 	void checkGrounded() {
 		if(Vector3.Dot(groundNormal, velocity) <= 0f) {
-			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.05f);
+            int lm = gameObject.layer;
+            lm = ~(1<<(lm-1));
+			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
+                                            out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.05f, lm);
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
@@ -46,7 +64,7 @@ public class Character : MonoBehaviour {
 	void FixedUpdate() {
 		checkGrounded();
 
-		//Walking Physics
+		
 		//Find forwards direction
 		Vector3 forwardDir = Vector3.Cross(cam.transform.right, groundNormal).normalized;
 
@@ -55,6 +73,22 @@ public class Character : MonoBehaviour {
         float right = Vector3.Dot(cam.transform.right, velocity); // Amount to the right;
 		float forward = Vector3.Dot(forwardDir, velocity); // Amount forwards
 
+        //Camera Calculations
+        prevCamPos = cam.transform.position;
+        prevCamRot = cam.transform.rotation;
+        cam.transform.position = goalCamPos;
+        cam.transform.rotation = goalCamRot;
+        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius;
+        Vector3 center = transform.position - forwardDir*moveSettings.turningRadius;
+
+        cam.transform.RotateAround(center, groundNormal, Mathf.Rad2Deg*angle);
+        goalCamPos = transform.position - cam.transform.forward*camSettings.distance;
+        goalCamRot = cam.transform.rotation;
+        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, .3f);
+        cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, .3f);
+
+
+        //Walking Physics
         Vector2 horizontalVel = new Vector2(right, forward); 
 		Vector2 goalVel = moveAxis*moveSettings.maxWalkSpeed;
 		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
@@ -144,6 +178,10 @@ public class Character : MonoBehaviour {
 
 
 		charCtrl.Move(velocity*Time.fixedDeltaTime);
+        //rig.MovePosition(rig.position + velocity*Time.fixedDeltaTime);
+
+
+
 	}
 		
 
@@ -166,6 +204,10 @@ public class Character : MonoBehaviour {
 		if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
 	}
 
+    public void setCam(float x, float y) {
+        
+    }
+
 	public void switchPlayers() {
 
 	}
@@ -179,6 +221,7 @@ public struct MoveSettings {
 	public float walkAcc;
 	public float switchDirAcc;
 	public float stopAcc;
+    public float turningRadius;
 
 	public float jumpVelocity;
 	public float jumpGravity;
