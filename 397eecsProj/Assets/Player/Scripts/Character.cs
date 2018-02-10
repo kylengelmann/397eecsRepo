@@ -5,51 +5,59 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class Character : MonoBehaviour {
 // Component for character specific (rather than player specific) stuff
-// Handles character physics and animations
+// Handles character physics and animations, as well as camera motion
 
 	public Camera cam;
-    public MoveSettings moveSettings;
-    public CameraSettings camSettings;
-    //Transform goalCamTransform;
+
+    //Settings
+    public MoveSettings moveSettings; //See bottom of script
+    public CameraSettings camSettings; //See bottom of script
+
+    //For camera calculations
     Vector3 prevCamPos;
     Quaternion prevCamRot;
     Vector3 goalCamPos;
     Quaternion goalCamRot;
+
+    //For physics calculations
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl;
-	Vector2 moveAxis;
-	bool isJumping = false;
-	Vector3 groundNormal;
+    Vector2 moveAxis; // The values of the input axes e.g moveAxis.x = Input.GetAxis("Horizontal")
+	bool isJumping = false; // Is the jumping button being held down?
+	Vector3 groundNormal; 
 
-    //Vector3 prevPos;
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
-        //prevPos = transform.position;
         goalCamPos = cam.transform.position;
         goalCamRot = cam.transform.rotation;
 	}
 
 	void Update () {
-        //charCtrl.Move(velocity*Time.deltaTime);
+        // Checks the velocity parallel to the ground plane and rotates the character
+        // to face that direction
 		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
 		if(horizontalVel.sqrMagnitude > 0.001f) {
 			transform.rotation = Quaternion.LookRotation(horizontalVel, groundNormal);	
 		}
-
-
-
-
 	}
 
-	bool isGrounded;
-	RaycastHit groundHit;
+
+    //*************************************************
+    //Physics and Camera
+    //*************************************************
+
+	bool isGrounded; // Is the player on the ground?
+    RaycastHit groundHit; // Stores information about the ground
+
+
+    // Checks if the player is on the ground
 	void checkGrounded() {
-		if(Vector3.Dot(groundNormal, velocity) <= 0f) {
+		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer;
             lm = ~(1<<(lm-1));
 			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
-                                            out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.05f, lm);
+                                            out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
@@ -60,50 +68,72 @@ public class Character : MonoBehaviour {
 		}
 	}
 
-    bool switchingDir = false;
+
+
+
+    bool switchingDir = false; // Used for walking physics. Stores whether the character is switching directions
+
 	void FixedUpdate() {
+
+        //Check if the player is on the ground
 		checkGrounded();
 
 		
-		//Find forwards direction
+        //Find forwards direction (relative to camera)
 		Vector3 forwardDir = Vector3.Cross(cam.transform.right, groundNormal).normalized;
 
-		//Split velocity into up, right, and forward components
+        //Split velocity into up, right, and forward components (relative to camera)
+        // Walking input moves the player relative to the camera, so this is needed for walking,
+        // And it is also useful for camera calculations
 		float up = Vector3.Dot(groundNormal, velocity); // Amount parallel to ground normal
-        float right = Vector3.Dot(cam.transform.right, velocity); // Amount to the right;
-		float forward = Vector3.Dot(forwardDir, velocity); // Amount forwards
+        float right = Vector3.Dot(cam.transform.right, velocity);
+		float forward = Vector3.Dot(forwardDir, velocity);
 
+
+        ////////////////////////
         //Camera Calculations
         prevCamPos = cam.transform.position;
         prevCamRot = cam.transform.rotation;
+
+        //I can't make a dummy transform cause unity's a dummy, so I'll use the camera's for calculation
         cam.transform.position = goalCamPos;
         cam.transform.rotation = goalCamRot;
-        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius;
-        Vector3 center = transform.position - forwardDir*moveSettings.turningRadius;
 
+        //Angle (in radians) the player has moved in a frame
+        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius;
+        //Center of the player's rotation
+        Vector3 center = transform.position - forwardDir*moveSettings.turningRadius;
+        //Calculate the camera's goal rotation using the transform because unity decided not to let you
+        //do an axis angle rotation of a quaternion (wtf unity)
         cam.transform.RotateAround(center, groundNormal, Mathf.Rad2Deg*angle);
+
+        //Store the result into the goal pos/rot
         goalCamPos = transform.position - cam.transform.forward*camSettings.distance;
         goalCamRot = cam.transform.rotation;
-        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, .3f);
-        cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, .3f);
+        //Move the camera towards the goal pos/rot
+        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness);
+        cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
 
 
+
+        /////////////////////
         //Walking Physics
-        Vector2 horizontalVel = new Vector2(right, forward); 
-		Vector2 goalVel = moveAxis*moveSettings.maxWalkSpeed;
+        Vector2 horizontalVel = new Vector2(right, forward); // Horizontal component of velocity relative to camera
+		Vector2 goalVel = moveAxis*moveSettings.maxWalkSpeed; // Goal velocity relative to camera
 		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
 		Vector2 perpVel = horizontalVel - parVel; //Perpendicular to goal
 
-        float control = isGrounded ? 1f : moveSettings.airControl;
+        float control = isGrounded ? 1f : moveSettings.airControl; //This allows for more floaty controls in the air by 
+                                                                    // modifying acceleration
 
         // Figure out whether we're slowing down, speeding up, or switching directions and apply the correct acceleration
         // Only apply it to parallel velocity, the perpendicular velocity is cancelled out by friction
-
         if (Vector2.Dot(goalVel, parVel) < 0f || switchingDir) // Switching directions
         {
             Vector2 diff = goalVel - parVel;
             float dVel = moveSettings.switchDirAcc * control * Time.fixedDeltaTime;
-            if (dVel * dVel > diff.sqrMagnitude)
+
+            if (dVel * dVel > diff.sqrMagnitude) // Have we finished the switch?
             {
                 switchingDir = false;
                 parVel = goalVel;
@@ -150,11 +180,11 @@ public class Character : MonoBehaviour {
 
         horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
-
+        /////////////////
         //Jumping
 		if(!isGrounded) {
 			if(up > 0f) {
-				if(isJumping) {
+				if(isJumping) { //is the jump button held down?
 					up -= moveSettings.jumpGravity*Time.fixedDeltaTime;
 				}
 				else {
@@ -166,29 +196,35 @@ public class Character : MonoBehaviour {
 			}
 		}
 		else {
-			up = 0f;
+            up = -moveSettings.fallingGravity*Time.fixedDeltaTime; // if we are grounded, add a bit of gravity
+                                                                    // when moveing the character to keep them 
+                                                                    // grounded, but later this velocity will be
+                                                                    // set to zero
 		}
 
-
-		//Set velocity;
+        ////////////////////////////////////
+		//Set velocity and move character
 		velocity = horizontalVel.x*cam.transform.right + horizontalVel.y*forwardDir + up*groundNormal;
 
 
+		charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
 
-
-
-		charCtrl.Move(velocity*Time.fixedDeltaTime);
-        //rig.MovePosition(rig.position + velocity*Time.fixedDeltaTime);
-
-
-
+        if(isGrounded) velocity -= up*groundNormal; //Cancel out the gravity added when the caracter is grounded, since
+                                                    // we aren't actually moving that direction
 	}
 		
 
+
+    //**********************************************************
+    // Handling Input from playerControllers
+    //**********************************************************
+
 	public void jump(string buttonName) {
-		if(Input.GetButtonDown(buttonName) && isGrounded) {
-			isJumping = true;
-			velocity += groundNormal*moveSettings.jumpVelocity;
+        if(Input.GetButtonDown(buttonName) && isGrounded) { //
+            if(isGrounded) {
+    			isJumping = true;
+    			velocity += groundNormal*moveSettings.jumpVelocity;
+            }
 		}
 		else if(Input.GetButton(buttonName)) {
 			isJumping = true;
@@ -214,25 +250,31 @@ public class Character : MonoBehaviour {
 }
 
 
+//***************************************
+//Settings Structres
+//***************************************
 
 [System.Serializable]
 public struct MoveSettings {
 	public float maxWalkSpeed;
-	public float walkAcc;
-	public float switchDirAcc;
-	public float stopAcc;
-    public float turningRadius;
+	public float walkAcc; //Acceeration used when speeding up
+	public float switchDirAcc; //Used when switching directions until goal velocity is met
+	public float stopAcc; //Used when slowing down
+    public float turningRadius; //Radius when input is exactly sideways
 
-	public float jumpVelocity;
-	public float jumpGravity;
-	public float endJumpGravity;
-	public float fallingGravity;
-    public float airControl;
+	public float jumpVelocity; //Initial impulse when jump button is pressed
+	public float jumpGravity; //gravity while the jump button is held down and still moving up
+    public float endJumpGravity; //gravity while the jump button is not held down and still moving up
+	public float fallingGravity; //gravity while moving down
+    public float airControl; //1 is exactly like ground movement
+                                // 0 is no control
 }
 
 [System.Serializable]
 public struct CameraSettings {
-    public float sensitivity;
-    public float distance;
+    public float sensitivity; //Not yet implemented, base sensitivity of camera controls
+    public float distance; //Maximum distance between camera and player
+    public float stiffness; //How much the camera lags behind during motion. 1 is no lag, 0 is no
+                            //camera movement
 }
 
