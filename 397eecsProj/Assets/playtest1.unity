@@ -439,6 +439,16 @@ Prefab:
       propertyPath: camSettings.xSensitivity
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 114970917858719556, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 549770705}
+    - target: {fileID: 114989729677081322, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: otherPlayer
+      value: 
+      objectReference: {fileID: 549770704}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f2d785ca9694ee59143c17cb2c1ff6, type: 2}
   m_IsPrefabParent: 0
@@ -599,6 +609,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &549770704 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114970917858719556, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+    type: 2}
+  m_PrefabInternal: {fileID: 469445211}
+  m_Script: {fileID: 11500000, guid: 9f6ed99953cf14ccb83c809b81ce90da, type: 3}
+--- !u!114 &549770705 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114989729677081322, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+    type: 2}
+  m_PrefabInternal: {fileID: 469445211}
+  m_Script: {fileID: 11500000, guid: 9f6ed99953cf14ccb83c809b81ce90da, type: 3}
 --- !u!1 &564050140
 GameObject:
   m_ObjectHideFlags: 0

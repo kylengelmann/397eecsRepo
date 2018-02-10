@@ -215,7 +215,6 @@ public class Character : MonoBehaviour {
                                                                     // grounded, but later this velocity will be
                                                                     // set to zero
 		}
-        isJumping = false;
 
         ////////////////////////////////////
 		//Set velocity and move character
@@ -234,14 +233,14 @@ public class Character : MonoBehaviour {
     // Handling Input from playerControllers
     //**********************************************************
 
-	public void jump(string buttonName) {
-        if(Input.GetButtonDown(buttonName) && isGrounded) { //
+	public void jump(bool isPressed) {
+        if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
     			velocity += groundNormal*moveSettings.jumpVelocity;
             }
 		}
-		else if(Input.GetButton(buttonName)) {
+        else if(isPressed) {
 			isJumping = true;
 		}
 		else {
