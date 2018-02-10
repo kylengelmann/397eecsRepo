@@ -8,15 +8,33 @@ public class playerController : MonoBehaviour {
 // Checks inputs, stores player specific actions, interacts with Character component
 
 	public bool isPlayer1;
-	[HideInInspector] public bool isMovingPlayer; //Is this player moving the character?
+	[HideInInspector] public bool MovingPlayer; //Which player is controlling the player's movement? false for Player 1, true for Player 2
+    private const bool Player1 = false;
+    private const bool Player2 = true;
 
 	// Holds button/axis names
 	struct Buttons {
 		public string xAxis;
 		public string yAxis;
 		public string pause;
-		public string switchPlayers;
-		public string action0;
+		public string playerOneControl; //Left Trigger
+	    public string playerTwoControl; //Right Trigger
+	    public string pausePlayerOne;
+	    public string pausePlayerTwo;
+	    public string AButton;
+	    public string BButton;
+	    public string XButton;
+	    public string YButton;
+        //For Windows
+	    public string DPadHorizontal;
+        public string DPadVertical;
+        //For Mac
+	    public string DPadUp;
+	    public string DPadDown;
+        public string DPadLeft;
+	    public string DPadRight;
+
+        public string action0;
 	};
 	Buttons buttons;
 
@@ -34,14 +52,41 @@ public class playerController : MonoBehaviour {
 	 *  Check OS, make different inputs for p1 and p2 and for different controllers,
 	 *  set strings accordingly, actually set inputs to right buttons/axes
 	 */
-		buttons.xAxis = "horizontalUnix";
-		buttons.yAxis = "verticalUnix";
+		buttons.xAxis = "LeftHorizontalJoystick";
+		buttons.yAxis = "LeftVerticalJoystick";
 		buttons.pause = "pauseUnix";
-		buttons.switchPlayers = "switchUnix";
+	    if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
+	    {
+	        buttons.playerOneControl = "LeftTriggerMac";
+	        buttons.playerTwoControl = "RightTriggerMac";
+	        buttons.AButton = "AButtonMac";
+	        buttons.BButton = "BButtonMac";
+	        buttons.XButton = "XButtonMac";
+	        buttons.YButton = "YButtonMac";
+	        buttons.pausePlayerOne = "SelectButtonMac";
+	        buttons.pausePlayerTwo = "StartButtonMac";
+	    }
+	    else
+	    {
+	        buttons.playerOneControl = "LeftTriggerWin";
+	        buttons.playerTwoControl = "RightTriggerWin";
+	        buttons.AButton = "AButtonWin";
+	        buttons.BButton = "BButtonWin";
+	        buttons.XButton = "XButtonWin";
+	        buttons.YButton = "YButtonWin";
+	        buttons.pausePlayerOne = "SelectButtonWin";
+	        buttons.pausePlayerTwo = "StartButtonWin";
+	    }
+	    buttons.DPadHorizontal = "DPadHorizontal";
+	    buttons.DPadVertical = "DPadVertical";
+	    buttons.DPadUp = "DPadUp";
+	    buttons.DPadDown = "DPadDown";
+	    buttons.DPadLeft = "DPadLeft";
+	    buttons.DPadRight = "DPadRight";
 		buttons.action0 = "action0Unix";
 
 
-		isMovingPlayer = isPlayer1;
+		MovingPlayer = Player1; //Default to start with Player 1 in control
 
 		character = gameObject.GetComponent<Character>();
 		if(!isPlayer1) {
@@ -52,17 +97,24 @@ public class playerController : MonoBehaviour {
 
 	void Update () {
 		//Check input and such
-		handleAxes(Input.GetAxisRaw(buttons.xAxis), Input.GetAxisRaw(buttons.yAxis));
-		if(Input.GetButtonDown(buttons.switchPlayers)) { //I realize this is not quite how this is gonna work
-			switchPlayers();
+
+        //Switch if an appropriate trigger is pressed
+		if(MovingPlayer == Player1 && Input.GetAxisRaw(buttons.playerTwoControl) == 1) {
+            switchPlayers();
 		}
-		if(action0 != null) {
+	    else if (MovingPlayer == Player2 && Input.GetAxisRaw(buttons.playerOneControl) == 1)
+	    {
+	        switchPlayers();
+	    }
+        if (action0 != null) {
 			action0(buttons.action0);
 		}
-		if(Input.GetButtonDown(buttons.pause)) {
+		if(Input.GetButtonDown(buttons.pausePlayerOne) || Input.GetButtonDown(buttons.pausePlayerTwo)) {
 			Global.gameManager.togglePause();
 		}
-	}
+
+	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1 * Input.GetAxisRaw(buttons.yAxis)));
+    }
 
 
 
@@ -76,7 +128,29 @@ public class playerController : MonoBehaviour {
 	}
 
 	public void switchPlayers() {
-		character.switchPlayers();
+	    if (MovingPlayer == Player1)
+	    {
+	        if (Application.platform == RuntimePlatform.OSXEditor ||
+	            Application.platform == RuntimePlatform.OSXPlayer)
+	        {
+	            buttons.xAxis = "RightHorizontalJoystickMac";
+	            buttons.yAxis = "RightVerticalJoystickMac";
+	        }
+	        else
+	        {
+	            buttons.xAxis = "RightHorizontalJoystickWin";
+	            buttons.yAxis = "RightVerticalJoystickWin";
+	        }
+
+	        MovingPlayer = Player2;
+	    }
+	    else
+	    {
+	        buttons.xAxis = "LeftHorizontalJoystick";
+	        buttons.yAxis = "LeftVerticalJoystick";
+
+	        MovingPlayer = Player1;
+	    }
 	}
 
 }
