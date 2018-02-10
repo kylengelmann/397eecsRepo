@@ -8,6 +8,7 @@ public class Character : MonoBehaviour {
 // Handles character physics and animations, as well as camera motion
 
 	public Camera cam;
+    Animator anim;
 
     //Settings
     public MoveSettings moveSettings; //See bottom of script
@@ -33,6 +34,9 @@ public class Character : MonoBehaviour {
 		groundNormal = Vector3.up;
         //goalCamPos = cam.transform.position;
         //goalCamRot = cam.transform.rotation;
+
+        anim = gameObject.GetComponent<Animator>();
+        anim.SetBool("isP1Moving", true);
 	}
 
 	void Update () {
@@ -68,6 +72,7 @@ public class Character : MonoBehaviour {
 		else {
 			isGrounded = false;
 		}
+        anim.SetBool("isJumping", !isGrounded);
 	}
 
 
@@ -259,6 +264,7 @@ public class Character : MonoBehaviour {
 		moveAxis.x = x;
 		moveAxis.y = y;
 		if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
+        anim.SetBool("isWalking", moveAxis.sqrMagnitude > 0.001f);
 	}
 
     public void setCam(float x, float y) {
@@ -267,7 +273,10 @@ public class Character : MonoBehaviour {
     }
 
 	public void switchPlayers() {
-
+        anim.ResetTrigger("isSwitching");
+        anim.SetTrigger("isSwitching");
+        bool p1OrNah = anim.GetBool("isP1Moving");
+        anim.SetBool("isP1Moving", !p1OrNah);
 	}
 }
 
