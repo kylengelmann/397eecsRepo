@@ -215,6 +215,7 @@ public class Character : MonoBehaviour {
                                                                     // grounded, but later this velocity will be
                                                                     // set to zero
 		}
+        isJumping = false;
 
         ////////////////////////////////////
 		//Set velocity and move character
@@ -256,7 +257,6 @@ public class Character : MonoBehaviour {
 
     public void setCam(float x, float y) {
         camAxis.y = -y*camSettings.ySensitivity; //Positive rotations rotate the camera down;
-
         camAxis.x = x*camSettings.xSensitivity;
     }
 
@@ -267,7 +267,7 @@ public class Character : MonoBehaviour {
 
 
 //***************************************
-//Settings Structres
+//Settings Structures
 //***************************************
 
 [System.Serializable]
