@@ -18,6 +18,8 @@ public class Character : MonoBehaviour {
     Quaternion prevCamRot;
     Vector3 goalCamPos;
     Quaternion goalCamRot;
+    Vector2 camAxis;
+    float camRotY = 30f;
 
     //For physics calculations
 	[HideInInspector] public Vector3 velocity;
@@ -29,8 +31,8 @@ public class Character : MonoBehaviour {
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
-        goalCamPos = cam.transform.position;
-        goalCamRot = cam.transform.rotation;
+        //goalCamPos = cam.transform.position;
+        //goalCamRot = cam.transform.rotation;
 	}
 
 	void Update () {
@@ -92,8 +94,6 @@ public class Character : MonoBehaviour {
 
         ////////////////////////
         //Camera Calculations
-        prevCamPos = cam.transform.position;
-        prevCamRot = cam.transform.rotation;
 
         //I can't make a dummy transform cause unity's a dummy, so I'll use the camera's for calculation
         cam.transform.position = goalCamPos;
@@ -107,12 +107,26 @@ public class Character : MonoBehaviour {
         //do an axis angle rotation of a quaternion (wtf unity)
         cam.transform.RotateAround(center, groundNormal, Mathf.Rad2Deg*angle);
 
+        float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
+        cam.transform.RotateAround(transform.position,groundNormal, xAngle); //Rotate for player input
+
         //Store the result into the goal pos/rot
         goalCamPos = transform.position - cam.transform.forward*camSettings.distance;
         goalCamRot = cam.transform.rotation;
+
+        cam.transform.position = prevCamPos;
+        cam.transform.rotation = prevCamRot;
+        cam.transform.RotateAround(transform.position,groundNormal ,xAngle); //Rotate from player input
         //Move the camera towards the goal pos/rot
         cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness);
         cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
+
+        prevCamPos = cam.transform.position;
+        prevCamRot = cam.transform.rotation;
+
+        camRotY += camAxis.y*Time.fixedDeltaTime;//Handle vertical separately to keep camRotY accurate and clamped
+        camRotY = Mathf.Clamp(camRotY, -camSettings.maxAngle, camSettings.maxAngle);
+        cam.transform.RotateAround(transform.position, cam.transform.right, camRotY);
 
 
 
@@ -241,7 +255,9 @@ public class Character : MonoBehaviour {
 	}
 
     public void setCam(float x, float y) {
-        
+        camAxis.y = -y*camSettings.ySensitivity; //Positive rotations rotate the camera down;
+
+        camAxis.x = x*camSettings.xSensitivity;
     }
 
 	public void switchPlayers() {
@@ -272,9 +288,12 @@ public struct MoveSettings {
 
 [System.Serializable]
 public struct CameraSettings {
-    public float sensitivity; //Not yet implemented, base sensitivity of camera controls
+    public float xSensitivity; 
+    public float ySensitivity;
+
     public float distance; //Maximum distance between camera and player
     public float stiffness; //How much the camera lags behind during motion. 1 is no lag, 0 is no
                             //camera movement
+    public float maxAngle;
 }
 

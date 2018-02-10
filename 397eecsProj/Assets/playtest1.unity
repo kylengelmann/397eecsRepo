@@ -419,6 +419,26 @@ Prefab:
       propertyPath: camSettings.stiffness
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: camSettings.maxAngle
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: camSettings.sensitivity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: camSettings.ySensitivity
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: camSettings.xSensitivity
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f2d785ca9694ee59143c17cb2c1ff6, type: 2}
   m_IsPrefabParent: 0

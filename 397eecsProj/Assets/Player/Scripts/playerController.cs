@@ -70,7 +70,9 @@ public class playerController : MonoBehaviour {
 		if(isMovingPlayer) {
 			character.setMove(x, y);
 		}
-		//else move camera?
+        //else {
+        //    character.setCam(x, y);
+        //}
 	}
 
 	public void switchPlayers() {
