@@ -133,7 +133,9 @@ public class Character : MonoBehaviour {
         /////////////////////
         //Walking Physics
         Vector2 horizontalVel = new Vector2(right, forward); // Horizontal component of velocity relative to camera
-		Vector2 goalVel = moveAxis*moveSettings.maxWalkSpeed; // Goal velocity relative to camera
+        float maxSpeed = moveSettings.maxWalkSpeed;
+        if(isRunning) maxSpeed = moveSettings.maxRunSpeed;
+		Vector2 goalVel = moveAxis*maxSpeed; // Goal velocity relative to camera
 		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
 		Vector2 perpVel = horizontalVel - parVel; //Perpendicular to goal
 
@@ -171,7 +173,7 @@ public class Character : MonoBehaviour {
                 float dVel = moveSettings.stopAcc * control * Time.fixedDeltaTime;
                 if (dVel * dVel < (parVel - goalVel).sqrMagnitude) // Check for overcorrection
                 {
-                    parVel += moveAxis.normalized * dVel;
+                    parVel -= moveAxis.normalized * dVel;
                 }
                 else parVel = goalVel; // Prevent overcorrection;
 
@@ -248,6 +250,11 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+    bool isRunning;
+    public void run(bool isPressed) {
+        isRunning = isPressed;
+    }
+
 	public void setMove(float x, float y) {
 		moveAxis.x = x;
 		moveAxis.y = y;
@@ -272,6 +279,7 @@ public class Character : MonoBehaviour {
 [System.Serializable]
 public struct MoveSettings {
 	public float maxWalkSpeed;
+    public float maxRunSpeed;
 	public float walkAcc; //Acceeration used when speeding up
 	public float switchDirAcc; //Used when switching directions until goal velocity is met
 	public float stopAcc; //Used when slowing down

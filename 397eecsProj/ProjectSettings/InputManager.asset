@@ -569,8 +569,8 @@ InputManager:
     m_Name: DPadHorizontalMac
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick button 7
-    positiveButton: joystick button 8
+    negativeButton: joystick button 8
+    positiveButton: joystick button 7
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -579,7 +579,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 0
-    axis: 6
+    axis: 7
     joyNum: 1
   - serializedVersion: 3
     m_Name: XBMac

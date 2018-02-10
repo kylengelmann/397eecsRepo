@@ -62,6 +62,9 @@ public class playerController : MonoBehaviour {
 		if(!isPlayer1) {
 			action0 = character.jump;
 		}
+        else {
+            action0 = character.run;
+        }
 	}
 		
 
