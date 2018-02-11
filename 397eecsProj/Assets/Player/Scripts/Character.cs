@@ -263,14 +263,8 @@ public class Character : MonoBehaviour {
 	public void setMove(float x, float y) {
 		moveAxis.x = x;
 		moveAxis.y = y;
-        if(moveAxis.sqrMagnitude < 0.05f) {
-            moveAxis = Vector2.zero;
-            anim.SetBool("isWalking", false);
-        }
-        else {
-            if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
-            anim.SetBool("isWalking", true);
-        }
+        if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
+        anim.SetBool("isWalking", (moveAxis.sqrMagnitude > 0.001f));
 	}
 
     public void setCam(float x, float y) {

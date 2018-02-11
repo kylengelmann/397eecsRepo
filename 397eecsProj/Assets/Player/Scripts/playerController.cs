@@ -88,6 +88,9 @@ public class playerController : MonoBehaviour {
 
 
 	public void handleAxes(float x, float y) {
+        if(x*x + y*y < 0.04f) {
+            x = y = 0f;
+        }
 		if(isMovingPlayer) {
 			character.setMove(x, y);
 		}
