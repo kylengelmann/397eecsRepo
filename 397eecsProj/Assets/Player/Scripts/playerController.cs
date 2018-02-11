@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour {
 
 	public bool isPlayer1;
     public playerController otherPlayer;
-    public bool invertY;
+    [HideInInspector] public bool invertY;
     [HideInInspector] public bool isMovingPlayer;
 	// Holds button/axis names
 	public struct Buttons {
