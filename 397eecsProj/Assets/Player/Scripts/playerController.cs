@@ -12,7 +12,7 @@ public class playerController : MonoBehaviour {
     public bool invertY;
     [HideInInspector] public bool isMovingPlayer;
 	// Holds button/axis names
-	struct Buttons {
+	public struct Buttons {
 		public string xAxis;
 		public string yAxis;
 		public string pause;
@@ -20,7 +20,7 @@ public class playerController : MonoBehaviour {
         public string actionAxis03;
         public string actionAxis12;
 	};
-	Buttons buttons;
+	[HideInInspector] public Buttons buttons;
 
 	//The character component of the gameobject
 	Character character;
@@ -72,7 +72,7 @@ public class playerController : MonoBehaviour {
 		//Check input and such
 
         //Switch if an appropriate trigger is pressed
-		if(isMovingPlayer && Input.GetAxisRaw(otherPlayer.buttons.switchControl) >= 0.5f) {
+		if(!isMovingPlayer && Input.GetAxisRaw(buttons.switchControl) >= 0.5f) {
             switchPlayers();
 		}
         if (action0 != null) {
@@ -98,10 +98,9 @@ public class playerController : MonoBehaviour {
 	}
 
 	void switchPlayers() {
-        otherPlayer.isMovingPlayer = isMovingPlayer;
-        isMovingPlayer = !isMovingPlayer;
-
-        character.switchPlayers();
+        if(character.switchPlayers()) {
+            otherPlayer.isMovingPlayer = isMovingPlayer;
+            isMovingPlayer = !isMovingPlayer;
+        }
 	}
-
 }

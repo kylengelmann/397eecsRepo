@@ -272,11 +272,12 @@ public class Character : MonoBehaviour {
         camAxis.x = x*camSettings.xSensitivity;
     }
 
-	public void switchPlayers() {
+	public bool switchPlayers() {
         anim.ResetTrigger("isSwitching");
         anim.SetTrigger("isSwitching");
         bool p1OrNah = anim.GetBool("isP1Moving");
         anim.SetBool("isP1Moving", !p1OrNah);
+        return true;
 	}
 }
 
