@@ -18,8 +18,12 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        pauseMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+    void Start () {
         Global.gameManager = this;
 	}
 	
