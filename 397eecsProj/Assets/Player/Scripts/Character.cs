@@ -24,17 +24,15 @@ public class Character : MonoBehaviour {
 
     //For physics calculations
 	[HideInInspector] public Vector3 velocity;
-	CharacterController charCtrl;
+	CharacterController charCtrl; //Object that checks for collisions and moves character
     Vector2 moveAxis; // The values of the input axes e.g moveAxis.x = Input.GetAxis("Horizontal")
 	bool isJumping = false; // Is the jumping button being held down?
+    bool isGrounded; // Is the player on the ground?
 	Vector3 groundNormal; 
 
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
-        //goalCamPos = cam.transform.position;
-        //goalCamRot = cam.transform.rotation;
-
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
 	}
@@ -53,14 +51,12 @@ public class Character : MonoBehaviour {
     //Physics and Camera
     //*************************************************
 
-	bool isGrounded; // Is the player on the ground?
+	
     RaycastHit groundHit; // Stores information about the ground
-
-
     // Checks if the player is on the ground
 	void checkGrounded() {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
-            int lm = gameObject.layer;
+            int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm-1));
 			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
                                             out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
@@ -123,7 +119,7 @@ public class Character : MonoBehaviour {
         cam.transform.rotation = prevCamRot;
         cam.transform.RotateAround(transform.position,groundNormal ,xAngle); //Rotate from player input
         //Move the camera towards the goal pos/rot
-        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness);
+        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness); //Stiffness controls lag amount
         cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
 
         prevCamPos = cam.transform.position;
@@ -247,11 +243,8 @@ public class Character : MonoBehaviour {
     			velocity += groundNormal*moveSettings.jumpVelocity;
             }
 		}
-        else if(isPressed) {
-			isJumping = true;
-		}
 		else {
-			isJumping = false;
+            isJumping = isPressed;
 		}
 	}
 

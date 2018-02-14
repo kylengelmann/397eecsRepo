@@ -30,6 +30,9 @@ public class playerController : MonoBehaviour {
 	//Player specific actions
 	public delegate void Action(bool isPressed);
 	public Action action0;
+    public Action action1;
+    public Action action2;
+    public Action action3;
 
 	void Start () {
 
@@ -44,7 +47,7 @@ public class playerController : MonoBehaviour {
             buttons.yAxis = "LeftVerticalJoystick";
             buttons.pause = "SelectButton" + platform;
             buttons.actionAxis03 = "DPadVertical" + platform;
-            buttons.actionAxis12 = "DPadVertical" + platform;
+            buttons.actionAxis12 = "DPadHorizontal" + platform;
             buttons.switchControl = "LeftTrigger" + platform;
         }
         else {
@@ -82,7 +85,7 @@ public class playerController : MonoBehaviour {
 			Global.gameManager.togglePause();
 		}
 
-	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1 * Input.GetAxisRaw(buttons.yAxis)));
+	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1f * Input.GetAxisRaw(buttons.yAxis)));
     }
 
 
@@ -101,7 +104,7 @@ public class playerController : MonoBehaviour {
 	}
 
 	void switchPlayers() {
-        if(character.switchPlayers()) {
+        if(character.switchPlayers()) { //TODO Disable camera and such, keep momentum in air
             otherPlayer.isMovingPlayer = isMovingPlayer;
             isMovingPlayer = !isMovingPlayer;
         }
