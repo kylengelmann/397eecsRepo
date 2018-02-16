@@ -38,7 +38,12 @@ public class playerController : MonoBehaviour {
 
         string platform = "";
         string joyNum = "_Key";
-        int numControllers = Input.GetJoystickNames().Length;
+        string controller = "";
+        string[] joys = Input.GetJoystickNames();
+        if(joys[0].IndexOf("Joy-Con") >= 0) {
+            controller = "_Joycon";
+        }
+        int numControllers = joys.Length;
         if(numControllers > 0) {
             platform = "Mac";
             if(Application.platform == RuntimePlatform.WindowsEditor 
@@ -53,17 +58,17 @@ public class playerController : MonoBehaviour {
             }
         }
         if(numControllers > 1) {
-            buttons.xAxis = "LeftHorizontalJoystick" + joyNum;
-            buttons.yAxis = "LeftVerticalJoystick" + joyNum;
-            buttons.pause = "StartButton" + platform + joyNum;
-            buttons.actionAxis03 = "AY" + platform + joyNum;
-            buttons.actionAxis12 = "XB" + platform + joyNum;
-            buttons.switchControl = "RightTrigger" + platform + joyNum;
+            buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum + controller;
+            buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum + controller;
+            buttons.pause = "StartButton" + platform + joyNum + controller;
+            buttons.actionAxis03 = "AY" + platform + joyNum + controller;
+            buttons.actionAxis12 = "XB" + platform + joyNum + controller;
+            buttons.switchControl = "RightTrigger" + platform + joyNum + controller;
         }
         else {
             if(isPlayer1) {
-                buttons.xAxis = "LeftHorizontalJoystick" + joyNum;
-                buttons.yAxis = "LeftVerticalJoystick" + joyNum;
+                buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum;
+                buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum;
                 buttons.pause = "SelectButton" + platform + joyNum;
                 buttons.actionAxis03 = "DPadVertical" + platform + joyNum;
                 buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
