@@ -36,27 +36,37 @@ public class playerController : MonoBehaviour {
 
 	void Start () {
 
-		
-        string platform = "Mac";
-        if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) {
-            platform = "Win";
+        string platform = "";
+        string joyNum = "_Key";
+        int numControllers = Input.GetJoystickNames().Length;
+        if(numControllers > 0) {
+            platform = "Mac";
+            if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) {
+                platform = "Win";
+            }
+            if(numControllers > 1 && !isPlayer1) {
+                joyNum = "_J2";
+            }
+            else {
+                joyNum = "_J1";
+            }
         }
 
         if(isPlayer1) {
-            buttons.xAxis = "LeftHorizontalJoystick";
-            buttons.yAxis = "LeftVerticalJoystick";
-            buttons.pause = "SelectButton" + platform;
-            buttons.actionAxis03 = "DPadVertical" + platform;
-            buttons.actionAxis12 = "DPadHorizontal" + platform;
-            buttons.switchControl = "LeftTrigger" + platform;
+            buttons.xAxis = "LeftHorizontalJoystick" + joyNum;
+            buttons.yAxis = "LeftVerticalJoystick" + joyNum;
+            buttons.pause = "SelectButton" + platform + joyNum;
+            buttons.actionAxis03 = "DPadVertical" + platform + joyNum;
+            buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
+            buttons.switchControl = "LeftTrigger" + platform + joyNum;
         }
         else {
-            buttons.xAxis = "RightHorizontalJoystick" + platform;
-            buttons.yAxis = "RightVerticalJoystick" + platform;
-            buttons.pause = "StartButton" + platform;
-            buttons.actionAxis03 = "AY" + platform;
-            buttons.actionAxis12 = "XB" + platform;
-            buttons.switchControl = "RightTrigger" + platform;
+            buttons.xAxis = "RightHorizontalJoystick" + platform + joyNum;
+            buttons.yAxis = "RightVerticalJoystick" + platform + joyNum;
+            buttons.pause = "StartButton" + platform + joyNum;
+            buttons.actionAxis03 = "AY" + platform + joyNum;
+            buttons.actionAxis12 = "XB" + platform + joyNum;
+            buttons.switchControl = "RightTrigger" + platform + joyNum;
         }
 
 		isMovingPlayer = isPlayer1; //Default to start with Player 1 in control
