@@ -40,11 +40,11 @@ public class playerController : MonoBehaviour {
         string joyNum = "_Key";
         string controller = "";
         string[] joys = Input.GetJoystickNames();
-        if(joys[0].IndexOf("Joy-Con") >= 0) {
-            controller = "_Joycon";
-        }
         int numControllers = joys.Length;
         if(numControllers > 0) {
+            if(joys[0].IndexOf("Joy-Con") >= 0) {
+                controller = "_Joycon";
+            }
             platform = "Mac";
             if(Application.platform == RuntimePlatform.WindowsEditor 
                || Application.platform == RuntimePlatform.WindowsPlayer) {
