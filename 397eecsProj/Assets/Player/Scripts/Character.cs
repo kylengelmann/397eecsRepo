@@ -15,10 +15,9 @@ public class Character : MonoBehaviour {
     public CameraSettings camSettings; //See bottom of script
 
     //For camera calculations
-    Vector3 prevCamPos;
-    Quaternion prevCamRot;
     Vector3 goalCamPos;
-    Quaternion goalCamRot;
+    Quaternion goalCamRot = Quaternion.identity;
+    Quaternion goalCamRotNoY = Quaternion.identity;
     Vector2 camAxis;
     float camRotY = 30f;
 
@@ -64,7 +63,7 @@ public class Character : MonoBehaviour {
 	void checkGrounded() {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
-            lm = ~(1<<(lm-1));
+            lm = ~(1<<(lm));
 			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
                                             out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
 			// For directional gravity, let's not mess with it yet
@@ -103,39 +102,35 @@ public class Character : MonoBehaviour {
         ////////////////////////
         //Camera Calculations
 
-        //I can't make a dummy transform cause unity's a dummy, so I'll use the camera's for calculation
-        cam.transform.position = goalCamPos;
-        cam.transform.rotation = goalCamRot;
-
-        //Angle (in radians) the player has moved in a frame
-        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius;
-        //Center of the player's rotation
-        Vector3 center = transform.position - forwardDir*moveSettings.turningRadius;
-        //Calculate the camera's goal rotation using the transform because unity decided not to let you
-        //do an axis angle rotation of a quaternion (wtf unity)
-        cam.transform.RotateAround(center, groundNormal, Mathf.Rad2Deg*angle);
+        //Angle (in degrees) The player has moved in a frame
+        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius * Mathf.Rad2Deg;
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, groundNormal); //Apply that angle to the goal rotation
 
         float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
-        cam.transform.RotateAround(transform.position,groundNormal, xAngle); //Rotate for player input
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, groundNormal); //Apply that angle to the goal rotation
 
-        //Store the result into the goal pos/rot
-        goalCamPos = transform.position - cam.transform.forward*camSettings.distance;
-        goalCamRot = cam.transform.rotation;
+        //Reapply vertical every frame to keep camRotY accurate
+        camRotY += camAxis.y*Time.fixedDeltaTime; //Amount to rotate from player input
+        camRotY = Mathf.Clamp(camRotY, camSettings.minAngle, camSettings.maxAngle); //Clamp to settings
+        goalCamRot = goalCamRotNoY*Quaternion.AngleAxis(camRotY, Vector3.right); //Apply rotation
 
-        cam.transform.position = prevCamPos;
-        cam.transform.rotation = prevCamRot;
-        cam.transform.RotateAround(transform.position, groundNormal, xAngle); //Rotate from player input
 
-        //Move the camera towards the goal pos/rot
-        cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness); //Stiffness controls lag amount
-        cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
+        //To prevent camera from clipping though the floor
+        RaycastHit camHit;
+        Vector3 camDir = goalCamRot*(-Vector3.forward); // Direction to perform sphere cast
+        float camDist = camSettings.distance; //Will store distance camera is from player
+        int lm = gameObject.layer;
+        lm = ~(1<<(lm-1));
+        lm &= ~(1<<(LayerMask.NameToLayer("Ignore Camera"))); //LayerMask used for cast
+        if(Physics.SphereCast(transform.position, .5f, camDir, out camHit, camSettings.distance - .5f, lm)) {
+            camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
+        }
+        goalCamPos = transform.position + camDir * camDist;
 
-        prevCamPos = cam.transform.position;
-        prevCamRot = cam.transform.rotation;
 
-        camRotY += camAxis.y*Time.fixedDeltaTime;//Handle vertical separately to keep camRotY accurate and clamped
-        camRotY = Mathf.Clamp(camRotY, -camSettings.maxAngle, camSettings.maxAngle);
-        cam.transform.RotateAround(transform.position, cam.transform.right, camRotY);
+        //Lerp/Slerp between previous and goal to get new. Stiffness determines amount of lag
+        cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
+        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
 
 
 
@@ -334,5 +329,6 @@ public struct CameraSettings {
     public float stiffness; //How much the camera lags behind during motion. 1 is no lag, 0 is no
                             //camera movement
     public float maxAngle;
+    public float minAngle;
 }
 

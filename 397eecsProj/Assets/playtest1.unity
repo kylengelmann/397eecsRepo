@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 45025950}
   - component: {fileID: 45025949}
   - component: {fileID: 45025948}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 222213012}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Stairs (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 373238004}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Stepping Stones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 409212962}
   - component: {fileID: 409212961}
   - component: {fileID: 409212960}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 409537192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 423338292}
   - component: {fileID: 423338291}
   - component: {fileID: 423338290}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 501914470}
   - component: {fileID: 501914469}
   - component: {fileID: 501914468}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 544559715}
   - component: {fileID: 544559714}
   - component: {fileID: 544559713}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1214,8 @@ MonoBehaviour:
     ySensitivity: 50
     distance: 7
     stiffness: 0.3
-    maxAngle: 70
+    maxAngle: 50
+    minAngle: -20
   velocity: {x: 0, y: 0, z: 0}
   currentState: 0
 --- !u!143 &549770703
@@ -1231,7 +1232,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.4
   m_SlopeLimit: 45
-  m_StepOffset: 0
+  m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -1429,7 +1430,7 @@ GameObject:
   - component: {fileID: 617162555}
   - component: {fileID: 617162554}
   - component: {fileID: 617162553}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1513,7 +1514,7 @@ GameObject:
   - component: {fileID: 639686223}
   - component: {fileID: 639686222}
   - component: {fileID: 639686221}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1964,7 @@ GameObject:
   - component: {fileID: 870197501}
   - component: {fileID: 870197500}
   - component: {fileID: 870197499}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2202,7 +2203,7 @@ GameObject:
   - component: {fileID: 931355177}
   - component: {fileID: 931355176}
   - component: {fileID: 931355175}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2354,7 +2355,7 @@ GameObject:
   - component: {fileID: 1058440470}
   - component: {fileID: 1058440469}
   - component: {fileID: 1058440468}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2855,7 +2856,7 @@ GameObject:
   - component: {fileID: 1219607481}
   - component: {fileID: 1219607480}
   - component: {fileID: 1219607479}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3008,7 +3009,7 @@ GameObject:
   - component: {fileID: 1248249404}
   - component: {fileID: 1248249403}
   - component: {fileID: 1248249402}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3092,7 +3093,7 @@ GameObject:
   - component: {fileID: 1295525562}
   - component: {fileID: 1295525561}
   - component: {fileID: 1295525560}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3382,7 +3383,7 @@ GameObject:
   - component: {fileID: 1460040014}
   - component: {fileID: 1460040013}
   - component: {fileID: 1460040012}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3564,7 +3565,7 @@ GameObject:
   - component: {fileID: 1570219977}
   - component: {fileID: 1570219976}
   - component: {fileID: 1570219975}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Platform (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3797,7 +3798,7 @@ GameObject:
   - component: {fileID: 1707229678}
   - component: {fileID: 1707229677}
   - component: {fileID: 1707229676}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4020,7 +4021,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1913221088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
