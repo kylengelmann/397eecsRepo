@@ -30,6 +30,13 @@ public class Character : MonoBehaviour {
     bool isGrounded; // Is the player on the ground?
 	Vector3 groundNormal; 
 
+    [HideInInspector] public enum characterState { // Various states the character can be in
+        free, // Default state for moving, idle, and jumping
+        switching // State while switching
+    }
+
+    public characterState currentState = characterState.free; // What the character is currently doing
+
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
@@ -117,7 +124,8 @@ public class Character : MonoBehaviour {
 
         cam.transform.position = prevCamPos;
         cam.transform.rotation = prevCamRot;
-        cam.transform.RotateAround(transform.position,groundNormal ,xAngle); //Rotate from player input
+        cam.transform.RotateAround(transform.position, groundNormal, xAngle); //Rotate from player input
+
         //Move the camera towards the goal pos/rot
         cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness); //Stiffness controls lag amount
         cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
@@ -237,6 +245,10 @@ public class Character : MonoBehaviour {
     //**********************************************************
 
 	public void jump(bool isPressed) {
+        if(currentState == characterState.switching) {
+            isJumping = false;
+            return;
+        }
         if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
@@ -254,6 +266,10 @@ public class Character : MonoBehaviour {
     }
 
 	public void setMove(float x, float y) {
+        if(currentState == characterState.switching) {
+            moveAxis = Vector2.zero;
+            return;
+        }
 		moveAxis.x = x;
 		moveAxis.y = y;
         if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
@@ -261,17 +277,30 @@ public class Character : MonoBehaviour {
 	}
 
     public void setCam(float x, float y) {
+        if(currentState == characterState.switching) {
+            camAxis = Vector2.zero;
+            return;
+        }
         camAxis.y = -y*camSettings.ySensitivity; //Positive rotations rotate the camera down;
         camAxis.x = x*camSettings.xSensitivity;
     }
 
 	public bool switchPlayers() {
+        if(currentState != characterState.free) { // If the character isn't in the default state,
+                                                    // it probably won't be allowed to switch
+            return false;
+        }
+        currentState = characterState.switching; // Record that the character is switching
         anim.ResetTrigger("isSwitching");
         anim.SetTrigger("isSwitching");
         bool p1OrNah = anim.GetBool("isP1Moving");
         anim.SetBool("isP1Moving", !p1OrNah);
         return true;
 	}
+
+    public void endSwitch() {
+        currentState = characterState.free; // Record thate the character is no longer switching
+    }
 }
 
 
