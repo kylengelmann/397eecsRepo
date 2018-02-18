@@ -713,8 +713,8 @@ InputManager:
     m_Name: AYMac_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 16
-    positiveButton: joystick 1 button 19
+    negativeButton: joystick 2 button 16
+    positiveButton: joystick 2 button 19
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -729,8 +729,8 @@ InputManager:
     m_Name: AYWin_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 0
-    positiveButton: joystick 1 button 3
+    negativeButton: joystick 2 button 0
+    positiveButton: joystick 2 button 3
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0

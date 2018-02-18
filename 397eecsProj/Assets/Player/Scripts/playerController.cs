@@ -89,10 +89,12 @@ public class playerController : MonoBehaviour {
 		character = gameObject.GetComponent<Character>();
 		if(!isPlayer1) {
 			action0 = character.jump;
+		    action1 = character.breakObject;
 		}
         else {
             action0 = character.run;
-        }
+		    action1 = character.moveObject;
+		}
 	}
 		
 
