@@ -280,7 +280,7 @@ public class Character : MonoBehaviour {
             Vector3 currPosition = gameObject.transform.position;
             Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
 
-            foreach (Collider collider in touched)
+            foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
             {
                 if (collider.gameObject.GetComponent<InteractableObject>()) 
                 {
@@ -298,6 +298,7 @@ public class Character : MonoBehaviour {
     public void moveObject(bool isPressed)
     {
         //TODO While the button is pressed, if there is an interactable object that can be moved
+        //Refert to the breakObject function to see how capsule overlap is being used and how to find specific objects
     }
 
 	public void setMove(float x, float y) {
