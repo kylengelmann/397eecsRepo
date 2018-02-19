@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour {
 
 	public bool isPlayer1;
     public playerController otherPlayer;
-    [HideInInspector] public bool invertY;
+    [HideInInspector] public bool invertY; // cam ctrl (pause)
     [HideInInspector] public bool isMovingPlayer;
 	// Holds button/axis names
 	public struct Buttons {
@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour {
 		public string yAxis;
 		public string pause;
 		public string switchControl;
-        public string actionAxis03;
+        public string actionAxis03; // for cross platform
         public string actionAxis12;
 	};
 	[HideInInspector] public Buttons buttons;
@@ -30,9 +30,6 @@ public class playerController : MonoBehaviour {
 	//Player specific actions
 	public delegate void Action(bool isPressed);
 	public Action action0;
-    public Action action1;
-    public Action action2;
-    public Action action3;
 
 	void Start () {
 
@@ -47,7 +44,7 @@ public class playerController : MonoBehaviour {
             buttons.yAxis = "LeftVerticalJoystick";
             buttons.pause = "SelectButton" + platform;
             buttons.actionAxis03 = "DPadVertical" + platform;
-            buttons.actionAxis12 = "DPadHorizontal" + platform;
+            buttons.actionAxis12 = "DPadVertical" + platform;
             buttons.switchControl = "LeftTrigger" + platform;
         }
         else {
@@ -85,7 +82,7 @@ public class playerController : MonoBehaviour {
 			Global.gameManager.togglePause();
 		}
 
-	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1f * Input.GetAxisRaw(buttons.yAxis)));
+	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1 * Input.GetAxisRaw(buttons.yAxis)));
     }
 
 
@@ -104,7 +101,7 @@ public class playerController : MonoBehaviour {
 	}
 
 	void switchPlayers() {
-        if(character.switchPlayers()) { //TODO Disable camera and such, keep momentum in air
+        if(character.switchPlayers()) {
             otherPlayer.isMovingPlayer = isMovingPlayer;
             isMovingPlayer = !isMovingPlayer;
         }
