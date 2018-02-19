@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public GameObject pauseMenu;
 	[HideInInspector]public bool isPaused = false;
     public Character character;
+    public fade fadePanel;
 
 	public void togglePause() {
 		isPaused = !isPaused;
@@ -17,6 +18,14 @@ public class GameManager : MonoBehaviour {
             pc.enabled = !pc.enabled;
         }
 	}
+
+    public void die() {
+        fadePanel.beginFade();
+    }
+
+    public void reset() {
+        character.reset();
+    }
 
     void Awake()
     {
@@ -30,8 +39,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if(character.gameObject.transform.position.y < -5f) {
-            character.transform.position = new Vector3(0f, 1.08f, 0f);
-            character.velocity = Vector3.zero;
+            //character.transform.position = new Vector3(0f, 1.08f, 0f);
+            //character.velocity = Vector3.zero;
+            //character.reset();
+            die();
         }
 	}
 }

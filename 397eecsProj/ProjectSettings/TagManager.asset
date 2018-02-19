@@ -14,7 +14,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
+  - Moveable
+  - Ignore Camera
   - 
   - 
   - 
