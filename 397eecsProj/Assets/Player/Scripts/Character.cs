@@ -296,6 +296,7 @@ public class Character : MonoBehaviour {
             //Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
             anim.ResetTrigger("isBreakingObj");
             anim.SetTrigger("isBreakingObj");
+            currentState = characterState.smashing;
             // add a Time.deltaTime 
         //    foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
         //    {
@@ -329,6 +330,10 @@ public class Character : MonoBehaviour {
         }
     }
 
+    public void endBreak() {
+        currentState = characterState.free;
+    }
+
     pushable pushed;
     public void moveObject(bool isPressed)
     {
@@ -348,7 +353,7 @@ public class Character : MonoBehaviour {
     }
 
 	public void setMove(float x, float y) {
-        if(currentState == characterState.switching) {
+        if(currentState == characterState.switching || currentState == characterState.smashing) {
             moveAxis = Vector2.zero;
             return;
         }
