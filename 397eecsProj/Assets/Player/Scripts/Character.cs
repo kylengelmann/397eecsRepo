@@ -43,6 +43,15 @@ public class Character : MonoBehaviour {
         anim.SetBool("isP1Moving", true);
 	}
 
+    public void reset() {
+        transform.position = Vector3.up;
+        cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+        cam.transform.position = new Vector3(0f, 4.58f, -6.06f);
+        goalCamRotNoY = Quaternion.identity;
+        camRotY = 30f;
+
+    }
+
 	void Update () {
         // Checks the velocity parallel to the ground plane and rotates the character
         // to face that direction
@@ -97,40 +106,6 @@ public class Character : MonoBehaviour {
 		float up = Vector3.Dot(groundNormal, velocity); // Amount parallel to ground normal
         float right = Vector3.Dot(cam.transform.right, velocity);
 		float forward = Vector3.Dot(forwardDir, velocity);
-
-
-        ////////////////////////
-        //Camera Calculations
-
-        //Angle (in degrees) The player has moved in a frame
-        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius * Mathf.Rad2Deg;
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, groundNormal); //Apply that angle to the goal rotation
-
-        float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, groundNormal); //Apply that angle to the goal rotation
-
-        //Reapply vertical every frame to keep camRotY accurate
-        camRotY += camAxis.y*Time.fixedDeltaTime; //Amount to rotate from player input
-        camRotY = Mathf.Clamp(camRotY, camSettings.minAngle, camSettings.maxAngle); //Clamp to settings
-        goalCamRot = goalCamRotNoY*Quaternion.AngleAxis(camRotY, Vector3.right); //Apply rotation
-
-
-        //To prevent camera from clipping though the floor
-        RaycastHit camHit;
-        Vector3 camDir = goalCamRot*(-Vector3.forward); // Direction to perform sphere cast
-        float camDist = camSettings.distance; //Will store distance camera is from player
-        int lm = gameObject.layer;
-        lm = ~(1<<(lm-1));
-        lm &= ~(1<<(LayerMask.NameToLayer("Ignore Camera"))); //LayerMask used for cast
-        if(Physics.SphereCast(transform.position, .5f, camDir, out camHit, camSettings.distance - .5f, lm)) {
-            camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
-        }
-        goalCamPos = transform.position + camDir * camDist;
-
-
-        //Lerp/Slerp between previous and goal to get new. Stiffness determines amount of lag
-        cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
-        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
 
 
 
@@ -200,6 +175,43 @@ public class Character : MonoBehaviour {
 
         horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
+
+
+        ////////////////////////
+        //Camera Calculations
+
+        //Angle (in degrees) The player has moved in a frame
+        float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius * Mathf.Rad2Deg;
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, groundNormal); //Apply that angle to the goal rotation
+
+        float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, groundNormal); //Apply that angle to the goal rotation
+
+        //Reapply vertical every frame to keep camRotY accurate
+        camRotY += camAxis.y*Time.fixedDeltaTime; //Amount to rotate from player input
+        camRotY = Mathf.Clamp(camRotY, camSettings.minAngle, camSettings.maxAngle); //Clamp to settings
+        goalCamRot = goalCamRotNoY*Quaternion.AngleAxis(camRotY, Vector3.right); //Apply rotation
+
+
+        //To prevent camera from clipping though the floor
+        RaycastHit camHit;
+        Vector3 camDir = goalCamRot*(-Vector3.forward); // Direction to perform sphere cast
+        float camDist = camSettings.distance; //Will store distance camera is from player
+        int lm = gameObject.layer;
+        lm = ~(1<<(lm-1));
+        lm &= ~(1<<(LayerMask.NameToLayer("Ignore Camera"))); //LayerMask used for cast
+        float camRadius = .5f; // Radius of sphereCast
+        if(Physics.SphereCast(transform.position, camRadius, camDir, out camHit, camSettings.distance - camRadius, lm)) {
+            camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
+        }
+        goalCamPos = transform.position + camDir * camDist;
+
+        //Lerp/Slerp between previous and goal to get new. Stiffness determines amount of lag
+        cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
+        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
+
+
+
         /////////////////
         //Jumping
 		if(!isGrounded) {
@@ -227,10 +239,12 @@ public class Character : MonoBehaviour {
 		velocity = horizontalVel.x*cam.transform.right + horizontalVel.y*forwardDir + up*groundNormal;
 
 
-		charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
+		CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
 
-        if(isGrounded) velocity -= up*groundNormal; //Cancel out the gravity added when the caracter is grounded, since
-                                                    // we aren't actually moving that direction
+        //Cancel out velocity caracter hits the floor or ceiling
+        if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)){
+            velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;   
+        }
 	}
 		
 
