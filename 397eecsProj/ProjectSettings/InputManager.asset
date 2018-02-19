@@ -554,7 +554,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick 1 button 7
+    positiveButton: joystick 2 button 7
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -570,7 +570,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick 1 button 9
+    positiveButton: joystick 2 button 9
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -586,7 +586,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick 1 button 6
+    positiveButton: joystick 2 button 6
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -602,7 +602,7 @@ InputManager:
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick 1 button 10
+    positiveButton: joystick 2 button 10
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -745,8 +745,8 @@ InputManager:
     m_Name: DPadVerticalMac_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 6
-    positiveButton: joystick 1 button 5
+    negativeButton: joystick 2 button 6
+    positiveButton: joystick 2 button 5
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -761,8 +761,8 @@ InputManager:
     m_Name: DPadHorizontalMac_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 8
-    positiveButton: joystick 1 button 7
+    negativeButton: joystick 2 button 8
+    positiveButton: joystick 2 button 7
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -777,8 +777,8 @@ InputManager:
     m_Name: XBMac_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 18
-    positiveButton: joystick 1 button 17
+    negativeButton: joystick 2 button 18
+    positiveButton: joystick 2 button 17
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
@@ -793,8 +793,8 @@ InputManager:
     m_Name: XBWin_J2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick 1 button 2
-    positiveButton: joystick 1 button 1
+    negativeButton: joystick 2 button 2
+    positiveButton: joystick 2 button 1
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
