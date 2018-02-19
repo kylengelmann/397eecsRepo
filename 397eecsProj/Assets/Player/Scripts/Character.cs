@@ -36,7 +36,9 @@ public class Character : MonoBehaviour {
 
     [HideInInspector] public enum characterState { // Various states the character can be in
         free, // Default state for moving, idle, and jumping
-        switching // State while switching
+        switching, // State while switching
+        pushing,
+        smashing
     }
 
     public characterState currentState = characterState.free; // What the character is currently doing
@@ -299,12 +301,24 @@ public class Character : MonoBehaviour {
         }
     }
 
+    pushable pushed;
     public void moveObject(bool isPressed)
     {
         //TODO While the button is pressed, if there is an interactable object that can be moved
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
+        if(isPressed) {
+            int lm = LayerMask.NameToLayer("Moveable");
+            lm = ~(1<<lm);
+            Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward, Vector3.one*0.5f, transform.rotation, lm);
+            if(colliders.Length > 0) {
+                pushed = colliders[0].GetComponent<pushable>();
+
+            }
+        }
+
+
     }
 
 	public void setMove(float x, float y) {
