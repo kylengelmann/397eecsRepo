@@ -305,6 +305,32 @@ public class Character : MonoBehaviour {
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
+        Transform playerT = gameObject.transform;
+        Vector3 currPosition = gameObject.transform.position;
+        Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+        foreach (Collider collider in touched) 
+        {
+            if (collider.gameObject.GetComponent<InteractableObject>()) 
+            {
+                if (collider.gameObject.GetComponent<InteractableObject>().isMoveable) 
+                {
+                    if (isPressed)
+                    {
+                        collider.gameObject.transform.SetParent(playerT);
+                    }
+                    else 
+                    {
+                        if(collider.gameObject.transform.parent == playerT) 
+                        {
+                            collider.transform.gameObject.transform.parent = null;
+                        }
+                    }
+                }
+                //collider.gameObject.transform.SetParent(null);
+            }
+        }
+
+
     }
 
 	public void setMove(float x, float y) {
