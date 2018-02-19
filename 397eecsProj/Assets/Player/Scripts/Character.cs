@@ -27,9 +27,12 @@ public class Character : MonoBehaviour {
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl; //Object that checks for collisions and moves character
     Vector2 moveAxis; // The values of the input axes e.g moveAxis.x = Input.GetAxis("Horizontal")
-	bool isJumping = false; // Is the jumping button being held down?
+    Vector3 groundNormal; 
+
+    // Animation bools
+    bool isJumping = false; // Is the jumping button being held down?
     bool isGrounded; // Is the player on the ground?
-	Vector3 groundNormal; 
+    bool isMovingObj = false; // is the player moving an object
 
     [HideInInspector] public enum characterState { // Various states the character can be in
         free, // Default state for moving, idle, and jumping
@@ -279,7 +282,9 @@ public class Character : MonoBehaviour {
         {
             Vector3 currPosition = gameObject.transform.position;
             Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
-
+            anim.ResetTrigger("isBreakingObj");
+            anim.SetTrigger("isBreakingObj");
+            // add a Time.deltaTime 
             foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
             {
                 if (collider.gameObject.GetComponent<InteractableObject>()) 
@@ -292,13 +297,14 @@ public class Character : MonoBehaviour {
                 }
             }
         }
-
     }
 
     public void moveObject(bool isPressed)
     {
         //TODO While the button is pressed, if there is an interactable object that can be moved
-        //Refert to the breakObject function to see how capsule overlap is being used and how to find specific objects
+        //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
+
+        //anim.SetBool("isMovingObj", true);
     }
 
 	public void setMove(float x, float y) {
