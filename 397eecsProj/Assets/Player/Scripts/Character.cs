@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -30,11 +31,22 @@ public class Character : MonoBehaviour {
     bool isGrounded; // Is the player on the ground?
 	Vector3 groundNormal; 
 
+    [HideInInspector] public enum characterState { // Various states the character can be in
+        free, // Default state for moving, idle, and jumping
+        switching // State while switching
+    }
+
+    public characterState currentState = characterState.free; // What the character is currently doing
+
+    [HideInInspector] int movingPlayer;
+
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
+
+	    movingPlayer = 1;
 	}
 
 	void Update () {
@@ -117,7 +129,8 @@ public class Character : MonoBehaviour {
 
         cam.transform.position = prevCamPos;
         cam.transform.rotation = prevCamRot;
-        cam.transform.RotateAround(transform.position,groundNormal ,xAngle); //Rotate from player input
+        cam.transform.RotateAround(transform.position, groundNormal, xAngle); //Rotate from player input
+
         //Move the camera towards the goal pos/rot
         cam.transform.position = Vector3.Lerp(prevCamPos, goalCamPos, camSettings.stiffness); //Stiffness controls lag amount
         cam.transform.rotation = Quaternion.Slerp(prevCamRot, goalCamRot, camSettings.stiffness);
@@ -237,6 +250,10 @@ public class Character : MonoBehaviour {
     //**********************************************************
 
 	public void jump(bool isPressed) {
+        if(currentState == characterState.switching) {
+            isJumping = false;
+            return;
+        }
         if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
@@ -253,7 +270,42 @@ public class Character : MonoBehaviour {
         isRunning = isPressed;
     }
 
+    public void breakObject(bool isPressed)
+    {
+        //TODO Make it such that pressing the button makes the interactions capsule coll. enabled for a bit
+        //TODO but then is disabled regardless if the button is held down
+
+        if (isPressed)
+        {
+            Vector3 currPosition = gameObject.transform.position;
+            Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+
+            foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
+            {
+                if (collider.gameObject.GetComponent<InteractableObject>()) 
+                {
+                    if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
+                    {
+                        //TODO Play character and object animations for breaking
+                        Destroy(collider.gameObject);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void moveObject(bool isPressed)
+    {
+        //TODO While the button is pressed, if there is an interactable object that can be moved
+        //Refert to the breakObject function to see how capsule overlap is being used and how to find specific objects
+    }
+
 	public void setMove(float x, float y) {
+        if(currentState == characterState.switching) {
+            moveAxis = Vector2.zero;
+            return;
+        }
 		moveAxis.x = x;
 		moveAxis.y = y;
         if(moveAxis.sqrMagnitude > 1f) moveAxis.Normalize();
@@ -261,17 +313,40 @@ public class Character : MonoBehaviour {
 	}
 
     public void setCam(float x, float y) {
+        if(currentState == characterState.switching) {
+            camAxis = Vector2.zero;
+            return;
+        }
         camAxis.y = -y*camSettings.ySensitivity; //Positive rotations rotate the camera down;
         camAxis.x = x*camSettings.xSensitivity;
     }
 
 	public bool switchPlayers() {
+        if(currentState != characterState.free) { // If the character isn't in the default state,
+                                                    // it probably won't be allowed to switch
+            return false;
+        }
+        currentState = characterState.switching; // Record that the character is switching
         anim.ResetTrigger("isSwitching");
         anim.SetTrigger("isSwitching");
         bool p1OrNah = anim.GetBool("isP1Moving");
         anim.SetBool("isP1Moving", !p1OrNah);
+
+	    if (movingPlayer == 1)
+	    {
+	        movingPlayer = 2;
+	    }
+	    else
+	    {
+	        movingPlayer = 1;
+	    }
+
         return true;
 	}
+
+    public void endSwitch() {
+        currentState = characterState.free; // Record thate the character is no longer switching
+    }
 }
 
 

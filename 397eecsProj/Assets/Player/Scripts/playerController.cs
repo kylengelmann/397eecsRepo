@@ -30,30 +30,60 @@ public class playerController : MonoBehaviour {
 	//Player specific actions
 	public delegate void Action(bool isPressed);
 	public Action action0;
+    public Action action1;
+    public Action action2;
+    public Action action3;
 
 	void Start () {
 
-		
-        string platform = "Mac";
-        if(Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer) {
-            platform = "Win";
+        string platform = "";
+        string joyNum = "_Key";
+        string controller = "";
+        string[] joys = Input.GetJoystickNames();
+        int numControllers = joys.Length;
+        if(numControllers > 0) {
+            if(joys[0].IndexOf("Joy-Con") >= 0) {
+                controller = "_Joycon";
+            }
+            platform = "Mac";
+            if(Application.platform == RuntimePlatform.WindowsEditor 
+               || Application.platform == RuntimePlatform.WindowsPlayer) {
+                platform = "Win";
+            }
+            if(numControllers > 1 && !isPlayer1) {
+                joyNum = "_J2";
+            }
+            else {
+                joyNum = "_J1";
+            }
         }
 
-        if(isPlayer1) {
-            buttons.xAxis = "LeftHorizontalJoystick";
-            buttons.yAxis = "LeftVerticalJoystick";
-            buttons.pause = "SelectButton" + platform;
-            buttons.actionAxis03 = "DPadVertical" + platform;
-            buttons.actionAxis12 = "DPadVertical" + platform;
-            buttons.switchControl = "LeftTrigger" + platform;
+
+        if(numControllers > 1) {
+            buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum + controller;
+            buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum + controller;
+            buttons.pause = "StartButton" + platform + joyNum + controller;
+            buttons.actionAxis03 = "AY" + platform + joyNum + controller;
+            buttons.actionAxis12 = "XB" + platform + joyNum + controller;
+            buttons.switchControl = "RightTrigger" + platform + joyNum + controller;
         }
         else {
-            buttons.xAxis = "RightHorizontalJoystick" + platform;
-            buttons.yAxis = "RightVerticalJoystick" + platform;
-            buttons.pause = "StartButton" + platform;
-            buttons.actionAxis03 = "AY" + platform;
-            buttons.actionAxis12 = "XB" + platform;
-            buttons.switchControl = "RightTrigger" + platform;
+            if(isPlayer1) {
+                buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum;
+                buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum;
+                buttons.pause = "SelectButton" + platform + joyNum;
+                buttons.actionAxis03 = "DPadVertical" + platform + joyNum;
+                buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
+                buttons.switchControl = "LeftTrigger" + platform + joyNum;
+            }
+            else {
+                buttons.xAxis = "RightHorizontalJoystick" + platform + joyNum;
+                buttons.yAxis = "RightVerticalJoystick" + platform + joyNum;
+                buttons.pause = "StartButton" + platform + joyNum;
+                buttons.actionAxis03 = "AY" + platform + joyNum;
+                buttons.actionAxis12 = "XB" + platform + joyNum;
+                buttons.switchControl = "RightTrigger" + platform + joyNum;
+            }
         }
 
 		isMovingPlayer = isPlayer1; //Default to start with Player 1 in control
@@ -61,10 +91,12 @@ public class playerController : MonoBehaviour {
 		character = gameObject.GetComponent<Character>();
 		if(!isPlayer1) {
 			action0 = character.jump;
+		    action1 = character.breakObject;
 		}
         else {
             action0 = character.run;
-        }
+		    action1 = character.moveObject;
+		}
 	}
 		
 
@@ -78,11 +110,22 @@ public class playerController : MonoBehaviour {
         if (action0 != null) {
             action0((Input.GetAxisRaw(buttons.actionAxis03) < -0.5f) && !isMovingPlayer);
 		}
+        if(action1 != null) {
+            action1((Input.GetAxisRaw(buttons.actionAxis12) < -0.5f) && !isMovingPlayer);
+        }
+        if(action2 != null) {
+            action2((Input.GetAxisRaw(buttons.actionAxis12) > 0.5f) && !isMovingPlayer);
+        }
+        if (action3 != null) {
+            action3((Input.GetAxisRaw(buttons.actionAxis03) > 0.5f) && !isMovingPlayer);
+        }
 		if(Input.GetButtonDown(buttons.pause)) {
 			Global.gameManager.togglePause();
 		}
 
-	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (-1 * Input.GetAxisRaw(buttons.yAxis)));
+
+	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
+
     }
 
 

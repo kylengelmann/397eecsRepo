@@ -6,358 +6,6 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: LeftHorizontalJoystick
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightHorizontalJoystickWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 3
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightHorizontalJoystickMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 2
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: LeftVerticalJoystick
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 1
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightVerticalJoystickWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 4
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightVerticalJoystickMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0
-    sensitivity: 1
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 3
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: StartButtonWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 7
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: StartButtonMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 9
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: SelectButtonWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 6
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: SelectButtonMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 10
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: LeftTriggerWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 8
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: LeftTriggerMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 4
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightTriggerWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 9
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: RightTriggerMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 1000
-    dead: 0.001
-    sensitivity: 1000
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 5
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: DPadHorizontalWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 5
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: DPadVerticalWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 2
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: AYMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 16
-    positiveButton: joystick button 19
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: AYWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 0
-    positiveButton: joystick button 3
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: DPadVerticalMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 6
-    positiveButton: joystick button 5
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: DPadHorizontalMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 8
-    positiveButton: joystick button 7
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 7
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: XBMac
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 18
-    positiveButton: joystick button 17
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: XBWin
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: joystick button 2
-    positiveButton: joystick button 1
-    altNegativeButton: 
-    altPositiveButton: 
-    gravity: 0
-    dead: 0.2
-    sensitivity: 1
-    snap: 0
-    invert: 0
-    type: 0
-    axis: 6
-    joyNum: 1
-  - serializedVersion: 3
     m_Name: Submit
     descriptiveName: 
     descriptiveNegativeName: 
@@ -389,3 +37,1155 @@ InputManager:
     type: 0
     axis: 6
     joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightHorizontalJoystickWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: l
+    altPositiveButton: ''''
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 3
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightHorizontalJoystickMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: l
+    altPositiveButton: ''''
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightVerticalJoystickWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: ;
+    altPositiveButton: p
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightVerticalJoystickMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: ;
+    altPositiveButton: p
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: StartButtonWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: StartButtonMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 9
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: SelectButtonWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 6
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: SelectButtonMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 10
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftTriggerWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftTriggerMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightTriggerWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightTriggerMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadHorizontalWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadVerticalWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: AYMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 16
+    positiveButton: joystick 1 button 19
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: AYWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 0
+    positiveButton: joystick 1 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadVerticalMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 6
+    positiveButton: joystick 1 button 5
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadHorizontalMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 8
+    positiveButton: joystick 1 button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 7
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: XBMac_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 18
+    positiveButton: joystick 1 button 17
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: XBWin_J1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 2
+    positiveButton: joystick 1 button 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightHorizontalJoystickWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 3
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightHorizontalJoystickMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightVerticalJoystickWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 4
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightVerticalJoystickMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: StartButtonWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: StartButtonMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 9
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: SelectButtonWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 6
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: SelectButtonMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 10
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftTriggerWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 8
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftTriggerMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 4
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightTriggerWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 9
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightTriggerMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: DPadHorizontalWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: DPadVerticalWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: AYMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 2 button 16
+    positiveButton: joystick 2 button 19
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: AYWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 2 button 0
+    positiveButton: joystick 2 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: DPadVerticalMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 6
+    positiveButton: joystick 1 button 5
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: DPadHorizontalMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 8
+    positiveButton: joystick 1 button 7
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 7
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: XBMac_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 18
+    positiveButton: joystick 1 button 17
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: XBWin_J2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 2
+    positiveButton: joystick 1 button 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystick_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: a
+    positiveButton: d
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightHorizontalJoystick_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: l
+    positiveButton: ''''
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 3
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystick_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: s
+    positiveButton: w
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 1
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightVerticalJoystick_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ;
+    positiveButton: p
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: StartButton_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: k
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: SelectButton_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: f
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftTrigger_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: left shift
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightTrigger_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: right shift
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 9
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadVertical_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: z
+    positiveButton: v
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: AY_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: space
+    positiveButton: /
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: DPadHorizontal_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: x
+    positiveButton: c
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 7
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: XB_Key
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ','
+    positiveButton: .
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ','
+    positiveButton: .
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 10
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ','
+    positiveButton: .
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 1
+    type: 2
+    axis: 11
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: RightTriggerMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 5
+    altNegativeButton: 
+    altPositiveButton: joystick 1 button 4
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: StartButtonMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 1 button 8
+    altNegativeButton: 
+    altPositiveButton: joystick 2 button 9
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: AYMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 0
+    positiveButton: joystick 1 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: XBMac_J1_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 1 button 2
+    positiveButton: joystick 1 button 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: LeftHorizontalJoystickMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ','
+    positiveButton: .
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 10
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: LeftVerticalJoystickMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: ','
+    positiveButton: .
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 1
+    type: 2
+    axis: 11
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: RightTriggerMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 2 button 5
+    altNegativeButton: 
+    altPositiveButton: joystick 2 button 4
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: StartButtonMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick 2 button 8
+    altNegativeButton: 
+    altPositiveButton: joystick 2 button 9
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: AYMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 2 button 0
+    positiveButton: joystick 2 button 3
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: XBMac_J2_Joycon
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: joystick 2 button 2
+    positiveButton: joystick 2 button 1
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.2
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 6
+    joyNum: 2
