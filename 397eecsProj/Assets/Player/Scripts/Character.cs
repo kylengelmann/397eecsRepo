@@ -284,27 +284,46 @@ public class Character : MonoBehaviour {
         isRunning = isPressed;
     }
 
+    bool smash = false;
     public void breakObject(bool isPressed)
     {
         //TODO Make it such that pressing the button makes the interactions capsule coll. enabled for a bit
         //TODO but then is disabled regardless if the button is held down
 
-        if (isPressed)
+        if (isPressed && !smash)
         {
-            Vector3 currPosition = gameObject.transform.position;
-            Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+            //Vector3 currPosition = gameObject.transform.position;
+            //Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
             anim.ResetTrigger("isBreakingObj");
             anim.SetTrigger("isBreakingObj");
             // add a Time.deltaTime 
-            foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
+        //    foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
+        //    {
+        //        if (collider.gameObject.GetComponent<InteractableObject>()) 
+        //        {
+        //            if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
+        //            {
+        //                //TODO Play character and object animations for breaking
+        //                Destroy(collider.gameObject);
+        //            }
+        //        }
+        //    }
+        //}
+        }
+        smash = isPressed;
+    }
+
+    public void doBreak() {
+        Vector3 currPosition = gameObject.transform.position;
+        Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+        foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
+        {
+            if (collider.gameObject.GetComponent<InteractableObject>()) 
             {
-                if (collider.gameObject.GetComponent<InteractableObject>()) 
+                if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
                 {
-                    if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
-                    {
-                        //TODO Play character and object animations for breaking
-                        Destroy(collider.gameObject);
-                    }
+                    //TODO Play character and object animations for breaking
+                    Destroy(collider.gameObject);
                 }
             }
         }
@@ -317,17 +336,15 @@ public class Character : MonoBehaviour {
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
-        if(isPressed) {
-            int lm = LayerMask.NameToLayer("Moveable");
-            lm = ~(1<<lm);
-            Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward, Vector3.one*0.5f, transform.rotation, lm);
-            if(colliders.Length > 0) {
-                pushed = colliders[0].GetComponent<pushable>();
+        //if(isPressed) {
+        //    int lm = LayerMask.NameToLayer("Moveable");
+        //    lm = ~(1<<lm);
+        //    Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward, Vector3.one*0.5f, transform.rotation, lm);
+        //    if(colliders.Length > 0) {
+        //        pushed = colliders[0].GetComponent<pushable>();
 
-            }
-        }
-
-
+        //    }
+        //}
     }
 
 	public void setMove(float x, float y) {
