@@ -3010,7 +3010,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 616659293}
   isPaused: 0
   character: {fileID: 549770702}
-  fadePanel: {fileID: 0}
+  fadePanel: {fileID: 738620100}
 --- !u!1 &1089872277
 GameObject:
   m_ObjectHideFlags: 0
