@@ -252,9 +252,16 @@ public class Character : MonoBehaviour {
 		CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
 
         //Cancel out velocity caracter hits the floor or ceiling
-        if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)){
-            velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;   
+        float vDotG = Vector3.Dot(velocity, groundNormal);
+        if((cFlags&CollisionFlags.Below) != 0 && vDotG < 0f) {
+            velocity -= vDotG*groundNormal;
         }
+        if((cFlags&CollisionFlags.Above) != 0 && vDotG > 0f) {
+            velocity -= vDotG*groundNormal;
+        }
+        //if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)) {
+        //    velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;
+        //}
 	}
 		
 

@@ -1524,7 +1524,7 @@ MonoBehaviour:
     distance: 7
     stiffness: 0.2
     maxAngle: 50
-    minAngle: 0
+    minAngle: -20
   velocity: {x: 0, y: 0, z: 0}
   currentState: 0
 --- !u!143 &549770703
@@ -4314,6 +4314,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1172921471003432, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
   m_IsPrefabParent: 0
@@ -4552,7 +4556,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jump
+  m_Text: Run
 --- !u!222 &1578411190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5150,6 +5154,10 @@ Prefab:
     - target: {fileID: 4567967397058224, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_RootOrder
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172921471003432, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
