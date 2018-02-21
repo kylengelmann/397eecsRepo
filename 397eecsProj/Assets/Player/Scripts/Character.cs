@@ -275,12 +275,13 @@ public class Character : MonoBehaviour {
 
             Vector3 boxGoalPos = transform.position + transform.forward*(0.75f+moved.transform.localScale.z);
             Quaternion boxGoalRot = transform.rotation;
-            float boxGoalAngle = -Quaternion.Dot(movingCube.rotation, boxGoalRot); //Quaternion.Angle(movingCube.rotation, boxGoalRot);
+            //float boxGoalAngle = 1f - Quaternion.Dot(movingCube.rotation, boxGoalRot); //Quaternion.Angle(movingCube.rotation, boxGoalRot);
+            //Debug.Log(boxGoalAngle);
 
             Vector3 boxGoalDir = boxGoalPos - movingCube.position;
             movingCube.maxAngularVelocity = Mathf.Infinity;
             movingCube.AddForce(boxGoalDir*100f);
-            movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
+            //movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
             movingCube.MoveRotation(transform.rotation);
 
             if (worldHorizontalVel.sqrMagnitude > 0.001f)
@@ -372,7 +373,9 @@ public class Character : MonoBehaviour {
 
     public void doBreak() {
         Vector3 currPosition = gameObject.transform.position;
-        Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+        //Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+        Vector3 boxPos = transform.position + transform.right*0f + transform.up*0.25f + transform.forward*0.5f;
+        Collider[] touched = Physics.OverlapBox(boxPos, new Vector3(0.375f, 0.25f, 0.25f), transform.rotation);
         foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
         {
             if (collider.gameObject.GetComponent<InteractableObject>()) 
@@ -403,9 +406,11 @@ public class Character : MonoBehaviour {
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
+        anim.SetBool("isMovingObj", isPressed);
 
         if (isPressed && !isMoving) 
         {
+
             int lm = 1 << LayerMask.NameToLayer("Moveable"); // layer mask
             Collider[] touched = new Collider[1]; // get first object you touch after press
             Vector3 boxPos = transform.position + transform.right*0f + transform.up*0.25f + transform.forward*0.5f;
