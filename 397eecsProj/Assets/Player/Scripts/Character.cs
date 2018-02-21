@@ -187,15 +187,6 @@ public class Character : MonoBehaviour {
 
         horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
-        // move object
-        // TODO
-        if (currentState == characterState.moving) {
-            movingCube.isKinematic = false;
-
-            transform.position = grabPoint.position + grabPoint.forward * 0.75f;
-            transform.LookAt(grabPoint);
-        }
-
 
         ////////////////////////
         //Camera Calculations
@@ -228,13 +219,6 @@ public class Character : MonoBehaviour {
         cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
         cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
 
-        // direction facing
-        Vector3 worldHorizontalVel = velocity - Vector3.Dot(groundNormal, velocity) * groundNormal;
-        if (worldHorizontalVel.sqrMagnitude > 0.001f)
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.33f); // dir facing   
-        }
-
 
         /////////////////
         //Jumping
@@ -262,6 +246,56 @@ public class Character : MonoBehaviour {
 		//Set velocity and move character
 		velocity = horizontalVel.x*cam.transform.right + horizontalVel.y*forwardDir + up*groundNormal;
 
+        // direction facing
+        Vector3 worldHorizontalVel = velocity - Vector3.Dot(groundNormal, velocity) * groundNormal;
+
+        ////////////////////////////////////
+        // move object
+        // TODO
+        if (currentState == characterState.moving) {
+            movingCube.isKinematic = false;
+
+            Vector3 goalPos = grabPoint.position + grabPoint.forward * 0.75f;
+            Quaternion goalRot = moved.transform.rotation;
+            Vector3 goalDir = transform.position - goalPos; // dir from goal to player
+            float goalDist = goalDir.magnitude;
+            goalDir.Normalize();
+            float vDotGoal = Vector3.Dot(velocity, goalDir);
+
+            //velocity /= 1.3f;
+
+
+            if (vDotGoal > 0) 
+            {
+                Vector3 goalVelo = vDotGoal * goalDir; // vel towards goal
+                velocity -= goalVelo;
+                goalVelo /= Mathf.Exp(0.8f*goalDist);
+                velocity += goalVelo;
+            }
+
+            Vector3 boxGoalPos = transform.position + transform.forward*(0.75f+moved.transform.localScale.z);
+            Quaternion boxGoalRot = transform.rotation;
+            float boxGoalAngle = -Quaternion.Dot(movingCube.rotation, boxGoalRot); //Quaternion.Angle(movingCube.rotation, boxGoalRot);
+
+            Vector3 boxGoalDir = boxGoalPos - movingCube.position;
+            movingCube.maxAngularVelocity = Mathf.Infinity;
+            movingCube.AddForce(boxGoalDir*100f);
+            movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
+            movingCube.MoveRotation(transform.rotation);
+
+            if (worldHorizontalVel.sqrMagnitude > 0.001f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.1f); // dir facing   
+            }
+        }
+        else{
+            if (worldHorizontalVel.sqrMagnitude > 0.001f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.33f); // dir facing   
+            }
+        }
+
+
 
 		CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
 
@@ -277,11 +311,6 @@ public class Character : MonoBehaviour {
         //    velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;
         //}
 
-        if (currentState == characterState.moving)
-        {
-            movingCube.MovePosition(transform.position + transform.forward*(0.75f+moved.transform.localScale.z));
-            movingCube.MoveRotation(transform.rotation);
-        }
 	}
 		
 
@@ -403,15 +432,16 @@ public class Character : MonoBehaviour {
             transform.LookAt(grabPoint); // player face grabPoint
             moved.transform.rotation = transform.rotation; // make box's rot the player's rot
             grabPoint = moved.defaultGrab; // reassign grab point
-            moved.transform.parent = transform; // parent that ish
+            //moved.transform.parent = transform; // parent that ish
+            //movingCube.isKinematic = false;
         }
 
 
 
         isMoving = isPressed;
         if (!isMoving && currentState == characterState.moving) {
-            movingCube.isKinematic = true;
-            moved.transform.parent = null; // unparent that ish
+            //movingCube.isKinematic = true;
+            //moved.transform.parent = null; // unparent that ish
             currentState = characterState.free;
         }
     }

@@ -1,39 +1,46 @@
 fileFormatVersion: 2
-guid: 0d4f0cb86842840d390e3676787b6cb0
-timeCreated: 1519017721
+guid: 85782b3be13c14b858139be6db1e83ea
+timeCreated: 1519252751
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: arm1_l
-    100002: arm1_r
-    100004: arm2_l
-    100006: arm2_r
-    100008: Armature
-    100010: Bone
-    100012: Cube
-    100014: //RootNode
-    400000: arm1_l
-    400002: arm1_r
-    400004: arm2_l
-    400006: arm2_r
-    400008: Armature
-    400010: Bone
-    400012: Cube
-    400014: //RootNode
-    2100000: Material__tex_png
+    100000: arm1.l
+    100002: arm1.l_end
+    100004: arm1.r
+    100006: arm1.r_end
+    100008: arm2.l
+    100010: arm2.l_end
+    100012: arm2.r
+    100014: arm2.r_end
+    100016: Armature
+    100018: Bone
+    100020: Cube
+    100022: //RootNode
+    400000: arm1.l
+    400002: arm1.l_end
+    400004: arm1.r
+    400006: arm1.r_end
+    400008: arm2.l
+    400010: arm2.l_end
+    400012: arm2.r
+    400014: arm2.r_end
+    400016: Armature
+    400018: Bone
+    400020: Cube
+    400022: //RootNode
+    2100000: Material
     4300000: Cube
-    7400000: Default Take
-    7400002: p1Air
-    7400004: p1Idle
-    7400006: p1Switch
-    7400008: p1Walk
-    7400010: p2Air
-    7400012: p2Idle
-    7400014: p2Switch
-    7400016: p2Walk
-    7400018: breakObject
-    7400020: movingObj
+    7400000: Armature|breakObject
+    7400002: Armature|movingObj
+    7400004: Armature|p1Air
+    7400006: Armature|p1Idle
+    7400008: Armature|p1Switch
+    7400010: Armature|p1Walk
+    7400012: Armature|p2Air
+    7400014: Armature|p2Idle
+    7400016: Armature|p2Switch
+    7400018: Armature|p2Walk
     9500000: //RootNode
     13700000: Cube
   externalObjects: {}

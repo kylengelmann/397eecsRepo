@@ -20,10 +20,12 @@ public class GameManager : MonoBehaviour {
 	}
 
     public void die() {
+        fadePanel.gameObject.SetActive(true);
         fadePanel.beginFade();
     }
 
     public void reset() {
+        fadePanel.gameObject.SetActive(false);
         character.reset();
     }
 

@@ -104,7 +104,7 @@ public class playerController : MonoBehaviour {
 		//Check input and such
 
         //Switch if an appropriate trigger is pressed
-		if(!isMovingPlayer && Input.GetAxisRaw(buttons.switchControl) >= 0.5f) {
+		if(Input.GetAxisRaw(buttons.switchControl) >= 0.5f) {
             switchPlayers();
 		}
         if (action0 != null) {
