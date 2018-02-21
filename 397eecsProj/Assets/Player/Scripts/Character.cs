@@ -43,7 +43,8 @@ public class Character : MonoBehaviour {
 
     public characterState currentState = characterState.free; // What the character is currently doing
 
-    [HideInInspector] int movingPlayer;
+    [HideInInspector] public int MovingPlayer;
+    public Vector3 RespawnPoint;
 
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
@@ -51,11 +52,13 @@ public class Character : MonoBehaviour {
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
 
-	    movingPlayer = 1;
+	    MovingPlayer = 1;
+	    RespawnPoint = gameObject.transform.position;
 	}
 
     public void reset() {
-        transform.position = Vector3.up;
+        transform.position = RespawnPoint;
+        //transform.position = Vector3.up; Kyle's original
         cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
         cam.transform.position = new Vector3(0f, 4.58f, -6.06f);
         goalCamRotNoY = Quaternion.identity;
@@ -423,14 +426,7 @@ public class Character : MonoBehaviour {
         bool p1OrNah = anim.GetBool("isP1Moving");
         anim.SetBool("isP1Moving", !p1OrNah);
 
-	    if (movingPlayer == 1)
-	    {
-	        movingPlayer = 2;
-	    }
-	    else
-	    {
-	        movingPlayer = 1;
-	    }
+	    MovingPlayer = MovingPlayer == 1 ? 2 : 1;
 
         return true;
 	}
