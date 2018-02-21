@@ -185,9 +185,14 @@ public class Character : MonoBehaviour {
         horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
         // move object
+        // TODO
         if (currentState == characterState.moving) {
-            movingCube.AddForceAtPosition(velocity, grabPoint.position); // add force to moving cube at grabPoint
+            movingCube.isKinematic = false;
+
+            transform.position = grabPoint.position + grabPoint.forward * 0.75f;
+            transform.LookAt(grabPoint);
         }
+
 
         ////////////////////////
         //Camera Calculations
@@ -268,6 +273,12 @@ public class Character : MonoBehaviour {
         //if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)) {
         //    velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;
         //}
+
+        if (currentState == characterState.moving)
+        {
+            movingCube.MovePosition(transform.position + transform.forward*(0.75f+moved.transform.localScale.z));
+            movingCube.MoveRotation(transform.rotation);
+        }
 	}
 		
 
@@ -300,8 +311,8 @@ public class Character : MonoBehaviour {
     bool smash = false;
     public void breakObject(bool isPressed)
     {
-        //TODO Make it such that pressing the button makes the interactions capsule coll. enabled for a bit
-        //TODO but then is disabled regardless if the button is held down
+        //Make it such that pressing the button makes the interactions capsule coll. enabled for a bit
+        //but then is disabled regardless if the button is held down
 
         if (isPressed && !smash)
         {
@@ -354,25 +365,27 @@ public class Character : MonoBehaviour {
     Transform grabPoint; // transform corr. w/ face player grabs
 
     public void moveObject(bool isPressed) //////////////////////// MOVING OBJECTS
+    // TODO
     {
-        //TODO While the button is pressed, if there is an interactable object that can be moved
+        //While the button is pressed, if there is an interactable object that can be moved
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
 
-        int lm = ~(1 << gameObject.layer); // layer mask
-        Collider[] touched = new Collider[1]; // get first object you touch after press
-
         if (isPressed && !isMoving) 
         {
-            int objTouched = Physics.OverlapCapsuleNonAlloc(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1f), 0.5f, touched, lm);
+            int lm = 1 << LayerMask.NameToLayer("Moveable"); // layer mask
+            Collider[] touched = new Collider[1]; // get first object you touch after press
+            Vector3 boxPos = transform.position + transform.right*0f + transform.up*0.25f + transform.forward*0.5f;
+            int objTouched = Physics.OverlapBoxNonAlloc(boxPos, new Vector3(0.375f, 0.25f, 0.25f), 
+                                                        touched, transform.rotation, lm);
             if (objTouched == 0) {
                 return;
             }
+
             currentState = characterState.moving;
-            moved = touched[0].gameObject.GetComponent<moveable>();
-            movingCube = moved.gameObject.GetComponent<Rigidbody>();
-            movingCube.isKinematic = false;
+            moved = touched[0].gameObject.GetComponent<moveable>(); // the moved obj
+            movingCube = moved.gameObject.GetComponent<Rigidbody>(); // its rb
 
             float minDist = Mathf.Infinity;
             foreach(Transform t in moved.faceTs) { // get the closest face and set grabPoint
@@ -382,11 +395,20 @@ public class Character : MonoBehaviour {
                     grabPoint = t;
                 }
             }
+
+            transform.position = grabPoint.position + grabPoint.forward * 0.75f;// align player to center of face
+            transform.LookAt(grabPoint); // player face grabPoint
+            moved.transform.rotation = transform.rotation; // make box's rot the player's rot
+            grabPoint = moved.defaultGrab; // reassign grab point
+            moved.transform.parent = transform; // parent that ish
         }
+
+
 
         isMoving = isPressed;
         if (!isMoving && currentState == characterState.moving) {
             movingCube.isKinematic = true;
+            moved.transform.parent = null; // unparent that ish
             currentState = characterState.free;
         }
     }
