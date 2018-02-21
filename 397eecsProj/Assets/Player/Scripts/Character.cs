@@ -36,7 +36,7 @@ public class Character : MonoBehaviour {
     [HideInInspector] public enum characterState { // Various states the character can be in
         free, // Default state for moving, idle, and jumping
         switching, // State while switching
-        pushing,
+        moving,
         smashing
     }
 
@@ -66,9 +66,7 @@ public class Character : MonoBehaviour {
         // Checks the velocity parallel to the ground plane and rotates the character
         // to face that direction
 		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
-		if(horizontalVel.sqrMagnitude > 0.001f) {
-			transform.rotation = Quaternion.LookRotation(horizontalVel, groundNormal);	
-		}
+		
 	}
 
 
@@ -185,7 +183,10 @@ public class Character : MonoBehaviour {
 
         horizontalVel = parVel + perpVel; // Combine parallel and perpendicular
 
-
+        // move object
+        if (currentState == characterState.moving) {
+            movingCube.AddForceAtPosition(velocity, grabPoint.position); // add force to moving cube at grabPoint
+        }
 
         ////////////////////////
         //Camera Calculations
@@ -220,6 +221,12 @@ public class Character : MonoBehaviour {
         cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
         cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
 
+        // direction facing
+        Vector3 worldHorizontalVel = velocity - Vector3.Dot(groundNormal, velocity) * groundNormal;
+        if (worldHorizontalVel.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.33f); // dir facing   
+        }
 
 
         /////////////////
@@ -341,38 +348,76 @@ public class Character : MonoBehaviour {
         currentState = characterState.free;
     }
 
-    pushable pushed;
-    public void moveObject(bool isPressed)
+
+    bool isMoving;
+    moveable moved; // obj ur trying to move
+    Rigidbody movingCube; // rb of the cube player is moving 
+    Transform grabPoint; // transform corr. w/ face player grabs
+
+    public void moveObject(bool isPressed) //////////////////////// MOVING OBJECTS
     {
         //TODO While the button is pressed, if there is an interactable object that can be moved
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
 
-        Transform playerT = gameObject.transform;
-        Vector3 currPosition = gameObject.transform.position;
-        Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
-        foreach (Collider collider in touched) 
+        int lm = ~(1 << gameObject.layer); // layer mask
+        Collider[] touched = new Collider[1]; // get first object you touch after press
+
+        if (isPressed && !isMoving) 
         {
-            if (collider.gameObject.GetComponent<InteractableObject>()) 
-            {
-                if (collider.gameObject.GetComponent<InteractableObject>().isMoveable) 
-                {
-                    if (isPressed)
-                    {
-                        collider.gameObject.transform.SetParent(playerT);
-                    }
-                    else 
-                    {
-                        if(collider.gameObject.transform.parent == playerT) 
-                        {
-                            collider.transform.gameObject.transform.parent = null;
-                        }
-                    }
+            int objTouched = Physics.OverlapCapsuleNonAlloc(transform.position, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1f), 0.5f, touched, lm);
+            if (objTouched == 0) {
+                return;
+            }
+            currentState = characterState.moving;
+            moved = touched[0].gameObject.GetComponent<moveable>();
+            movingCube = moved.gameObject.GetComponent<Rigidbody>();
+            movingCube.isKinematic = false;
+
+            float minDist = Mathf.Infinity;
+            foreach(Transform t in moved.faceTs) { // get the closest face and set grabPoint
+                float currDist = Vector3.Distance(transform.position, t.position);
+                if(currDist < minDist) {
+                    minDist = currDist;
+                    grabPoint = t;
                 }
-                //collider.gameObject.transform.SetParent(null);
             }
         }
+
+        isMoving = isPressed;
+        if (!isMoving && currentState == characterState.moving) {
+            movingCube.isKinematic = true;
+            currentState = characterState.free;
+        }
+
+
+        //Vector3 currPosition = gameObject.transform.position;
+        //Collider[] touched = new CollliderPhysics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
+
+        //Transform playerT = gameObject.transform;
+        //foreach (Collider collider in touched) 
+        //{
+        //    if (collider.gameObject.GetComponent<InteractableObject>()) 
+        //    {
+        //        if (collider.gameObject.GetComponent<InteractableObject>().isMoveable) 
+        //        {
+        //            if (isPressed)
+        //            {
+        //                collider.gameObject.transform.SetParent(playerT);
+        //                collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        //            }
+        //            else 
+        //            {
+        //                if(collider.gameObject.transform.parent == playerT) 
+        //                {
+        //                    collider.transform.gameObject.transform.parent = null;
+        //                    collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
 
@@ -381,12 +426,13 @@ public class Character : MonoBehaviour {
         //    lm = ~(1<<lm);
         //    Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward, Vector3.one*0.5f, transform.rotation, lm);
         //    if(colliders.Length > 0) {
-        //        pushed = colliders[0].GetComponent<pushable>();
+        //        pushed = colliders[0].GetComponent<moveable>();
 
         //    }
         //}
 
     }
+
 
 	public void setMove(float x, float y) {
         if(currentState == characterState.switching || currentState == characterState.smashing) {

@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pushable : MonoBehaviour {
+public class moveable : MonoBehaviour {
+
+    public bool isMoveable;
+
+    public Transform[] faceTs;
 
     BoxCollider box;
     RaycastHit hit;
+
 	// Use this for initialization
 	void Start () {
 		
