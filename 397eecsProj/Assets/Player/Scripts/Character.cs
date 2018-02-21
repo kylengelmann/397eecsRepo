@@ -9,6 +9,7 @@ public class Character : MonoBehaviour {
 // Handles character physics and animations, as well as camera motion
 
 	public Camera cam;
+    public LayerMask camMask;
     Animator anim;
 
     //Settings
@@ -208,9 +209,7 @@ public class Character : MonoBehaviour {
         RaycastHit camHit;
         Vector3 camDir = goalCamRot*(-Vector3.forward); // Direction to perform sphere cast
         float camDist = camSettings.distance; //Will store distance camera is from player
-        int lm = gameObject.layer;
-        lm = ~(1<<(lm-1));
-        lm &= ~(1<<(LayerMask.NameToLayer("Ignore Camera"))); //LayerMask used for cast
+        int lm = camMask.value;
         float camRadius = .5f; // Radius of sphereCast
         if(Physics.SphereCast(transform.position, camRadius, camDir, out camHit, camSettings.distance - camRadius, lm)) {
             camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping

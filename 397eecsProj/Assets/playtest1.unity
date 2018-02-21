@@ -1506,6 +1506,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 893243163}
+  camMask:
+    serializedVersion: 2
+    m_Bits: 1
   moveSettings:
     maxWalkSpeed: 5
     maxRunSpeed: 8
