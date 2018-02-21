@@ -389,47 +389,6 @@ public class Character : MonoBehaviour {
             movingCube.isKinematic = true;
             currentState = characterState.free;
         }
-
-
-        //Vector3 currPosition = gameObject.transform.position;
-        //Collider[] touched = new CollliderPhysics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
-
-        //Transform playerT = gameObject.transform;
-        //foreach (Collider collider in touched) 
-        //{
-        //    if (collider.gameObject.GetComponent<InteractableObject>()) 
-        //    {
-        //        if (collider.gameObject.GetComponent<InteractableObject>().isMoveable) 
-        //        {
-        //            if (isPressed)
-        //            {
-        //                collider.gameObject.transform.SetParent(playerT);
-        //                collider.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        //            }
-        //            else 
-        //            {
-        //                if(collider.gameObject.transform.parent == playerT) 
-        //                {
-        //                    collider.transform.gameObject.transform.parent = null;
-        //                    collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
-
-        //if(isPressed) {
-        //    int lm = LayerMask.NameToLayer("Moveable");
-        //    lm = ~(1<<lm);
-        //    Collider[] colliders = Physics.OverlapBox(transform.position + transform.forward, Vector3.one*0.5f, transform.rotation, lm);
-        //    if(colliders.Length > 0) {
-        //        pushed = colliders[0].GetComponent<moveable>();
-
-        //    }
-        //}
-
     }
 
 
