@@ -27,7 +27,7 @@ public class Character : MonoBehaviour {
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl; //Object that checks for collisions and moves character
     Vector2 moveAxis; // The values of the input axes e.g moveAxis.x = Input.GetAxis("Horizontal")
-    Vector3 groundNormal; 
+    Gravity gravity;
 
     // Animation bools
     bool isJumping = false; // Is the jumping button being held down?
@@ -48,7 +48,8 @@ public class Character : MonoBehaviour {
 
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
-		groundNormal = Vector3.up;
+        gravity = gameObject.GetComponent<Gravity>();
+        print(gravity);
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
 
@@ -69,7 +70,7 @@ public class Character : MonoBehaviour {
 	void Update () {
         // Checks the velocity parallel to the ground plane and rotates the character
         // to face that direction
-		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
+		Vector3 horizontalVel = velocity - Vector3.Dot(gravity.revGrav, velocity)*gravity.revGrav;
 		
 	}
 
@@ -82,10 +83,10 @@ public class Character : MonoBehaviour {
     RaycastHit groundHit; // Stores information about the ground
     // Checks if the player is on the ground
 	void checkGrounded() {
-		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
+		if(Vector3.Dot(gravity.revGrav, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
-			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
+			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -gravity.revGrav, 
                                             out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
@@ -110,12 +111,12 @@ public class Character : MonoBehaviour {
 
 		
         //Find forwards direction (relative to camera)
-		Vector3 forwardDir = Vector3.Cross(cam.transform.right, groundNormal).normalized;
+		Vector3 forwardDir = Vector3.Cross(cam.transform.right, gravity.revGrav).normalized;
 
         //Split velocity into up, right, and forward components (relative to camera)
         // Walking input moves the player relative to the camera, so this is needed for walking,
         // And it is also useful for camera calculations
-		float up = Vector3.Dot(groundNormal, velocity); // Amount parallel to ground normal
+		float up = Vector3.Dot(gravity.revGrav, velocity); // Amount parallel to ground normal
         float right = Vector3.Dot(cam.transform.right, velocity);
 		float forward = Vector3.Dot(forwardDir, velocity);
 
@@ -193,10 +194,10 @@ public class Character : MonoBehaviour {
 
         //Angle (in degrees) The player has moved in a frame
         float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius * Mathf.Rad2Deg;
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, groundNormal); //Apply that angle to the goal rotation
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, gravity.revGrav); //Apply that angle to the goal rotation
 
         float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, groundNormal); //Apply that angle to the goal rotation
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, gravity.revGrav); //Apply that angle to the goal rotation
 
         //Reapply vertical every frame to keep camRotY accurate
         camRotY += camAxis.y*Time.fixedDeltaTime; //Amount to rotate from player input
@@ -217,7 +218,9 @@ public class Character : MonoBehaviour {
 
         //Lerp/Slerp between previous and goal to get new. Stiffness determines amount of lag
         cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
-        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, goalCamRot, camSettings.stiffness);
+        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, 
+                                                  Quaternion.LookRotation(Vector3.forward, gravity.revGrav) * goalCamRot, 
+                                                  camSettings.stiffness);
 
 
         /////////////////
@@ -244,10 +247,10 @@ public class Character : MonoBehaviour {
 
         ////////////////////////////////////
 		//Set velocity and move character
-		velocity = horizontalVel.x*cam.transform.right + horizontalVel.y*forwardDir + up*groundNormal;
+		velocity = horizontalVel.x*cam.transform.right + horizontalVel.y*forwardDir + up*gravity.revGrav;
 
         // direction facing
-        Vector3 worldHorizontalVel = velocity - Vector3.Dot(groundNormal, velocity) * groundNormal;
+        Vector3 worldHorizontalVel = velocity - Vector3.Dot(gravity.revGrav, velocity) * gravity.revGrav;
 
         ////////////////////////////////////
         // move object
@@ -286,13 +289,13 @@ public class Character : MonoBehaviour {
 
             if (worldHorizontalVel.sqrMagnitude > 0.001f)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.1f); // dir facing   
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, gravity.revGrav), 0.1f); // dir facing   
             }
         }
         else{
             if (worldHorizontalVel.sqrMagnitude > 0.001f)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, groundNormal), 0.33f); // dir facing   
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, gravity.revGrav), 0.33f); // dir facing   
             }
         }
 
@@ -301,12 +304,12 @@ public class Character : MonoBehaviour {
 		CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
 
         //Cancel out velocity caracter hits the floor or ceiling
-        float vDotG = Vector3.Dot(velocity, groundNormal);
+        float vDotG = Vector3.Dot(velocity, gravity.revGrav);
         if((cFlags&CollisionFlags.Below) != 0 && vDotG < 0f) {
-            velocity -= vDotG*groundNormal;
+            velocity -= vDotG*gravity.revGrav;
         }
         if((cFlags&CollisionFlags.Above) != 0 && vDotG > 0f) {
-            velocity -= vDotG*groundNormal;
+            velocity -= vDotG*gravity.revGrav;
         }
         //if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)) {
         //    velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;
@@ -328,7 +331,7 @@ public class Character : MonoBehaviour {
         if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
-    			velocity += groundNormal*moveSettings.jumpVelocity;
+    			velocity += gravity.revGrav*moveSettings.jumpVelocity;
             }
 		}
 		else {
