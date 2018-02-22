@@ -26,6 +26,9 @@ public class Character : MonoBehaviour {
     //For physics calculations
 	[HideInInspector] public Vector3 velocity;
 	CharacterController charCtrl; //Object that checks for collisions and moves character
+
+    Rigidbody rig;
+
     Vector2 moveAxis; // The values of the input axes e.g moveAxis.x = Input.GetAxis("Horizontal")
     Gravity gravity;
 
@@ -48,6 +51,7 @@ public class Character : MonoBehaviour {
 
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
+        rig = gameObject.GetComponent<Rigidbody>();
         gravity = gameObject.GetComponent<Gravity>();
         print(gravity);
         anim = gameObject.GetComponent<Animator>();
@@ -194,10 +198,10 @@ public class Character : MonoBehaviour {
 
         //Angle (in degrees) The player has moved in a frame
         float angle = right*Time.fixedDeltaTime / moveSettings.turningRadius * Mathf.Rad2Deg;
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, gravity.revGrav); //Apply that angle to the goal rotation
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(angle, Vector3.up); //Apply that angle to the goal rotation
 
         float xAngle = camAxis.x*Time.fixedDeltaTime; //Amount to rotate from player input
-        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, gravity.revGrav); //Apply that angle to the goal rotation
+        goalCamRotNoY = goalCamRotNoY*Quaternion.AngleAxis(xAngle, Vector3.up); //Apply that angle to the goal rotation
 
         //Reapply vertical every frame to keep camRotY accurate
         camRotY += camAxis.y*Time.fixedDeltaTime; //Amount to rotate from player input
@@ -207,7 +211,7 @@ public class Character : MonoBehaviour {
 
         //To prevent camera from clipping though the floor
         RaycastHit camHit;
-        Vector3 camDir = goalCamRot*(-Vector3.forward); // Direction to perform sphere cast
+        Vector3 camDir = (goalCamRot* Quaternion.LookRotation(Vector3.forward, gravity.revGrav))*(-Vector3.forward); // Direction to perform sphere cast
         float camDist = camSettings.distance; //Will store distance camera is from player
         int lm = camMask.value;
         float camRadius = .5f; // Radius of sphereCast
@@ -219,7 +223,7 @@ public class Character : MonoBehaviour {
         //Lerp/Slerp between previous and goal to get new. Stiffness determines amount of lag
         cam.transform.position = Vector3.Lerp(cam.transform.position, goalCamPos, camSettings.stiffness);
         cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, 
-                                                  Quaternion.LookRotation(Vector3.forward, gravity.revGrav) * goalCamRot, 
+                                                  goalCamRot * Quaternion.LookRotation(Vector3.forward, gravity.revGrav), 
                                                   camSettings.stiffness);
 
 
@@ -298,19 +302,27 @@ public class Character : MonoBehaviour {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(worldHorizontalVel, gravity.revGrav), 0.33f); // dir facing   
             }
         }
+        Vector3 forwards = transform.forward;
+        forwards -= Vector3.Dot(forwards, gravity.revGrav)*gravity.revGrav;
 
 
-
-		CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
+		//CollisionFlags cFlags = charCtrl.Move(velocity*Time.fixedDeltaTime); //Move the character
+        rig.MovePosition(rig.position + velocity*Time.fixedDeltaTime);
+        rig.MoveRotation(Quaternion.LookRotation(forwards, gravity.revGrav));
 
         //Cancel out velocity caracter hits the floor or ceiling
         float vDotG = Vector3.Dot(velocity, gravity.revGrav);
-        if((cFlags&CollisionFlags.Below) != 0 && vDotG < 0f) {
-            velocity -= vDotG*gravity.revGrav;
+        checkGrounded();
+        if(isGrounded) {
+            velocity -= vDotG*gravity.revGrav; 
         }
-        if((cFlags&CollisionFlags.Above) != 0 && vDotG > 0f) {
-            velocity -= vDotG*gravity.revGrav;
-        }
+        rig.velocity = Vector2.zero;
+        //if((cFlags&CollisionFlags.Below) != 0 && vDotG < 0f) {
+        //    velocity -= vDotG*gravity.revGrav;
+        //}
+        //if((cFlags&CollisionFlags.Above) != 0 && vDotG > 0f) {
+        //    velocity -= vDotG*gravity.revGrav;
+        //}
         //if(((cFlags&CollisionFlags.Below) != 0) || ((cFlags&CollisionFlags.Above) != 0)) {
         //    velocity -= Vector3.Dot(velocity, groundNormal)*groundNormal;
         //}
@@ -436,7 +448,7 @@ public class Character : MonoBehaviour {
                 }
             }
 
-            transform.position = grabPoint.position + grabPoint.forward * 0.75f;// align player to center of face
+            transform.position = grabPoint.position + grabPoint.forward * 0.75f; // align player to center of face
             transform.LookAt(grabPoint); // player face grabPoint
             moved.transform.rotation = transform.rotation; // make box's rot the player's rot
             grabPoint = moved.defaultGrab; // reassign grab point
