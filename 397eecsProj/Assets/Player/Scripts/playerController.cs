@@ -15,6 +15,8 @@ public class playerController : MonoBehaviour {
 	public struct Buttons {
 		public string xAxis;
 		public string yAxis;
+	    public string xAxisCam;
+	    public string yAxisCam;
 		public string pause;
 		public string switchControl;
         public string actionAxis03; // for cross platform
@@ -62,6 +64,8 @@ public class playerController : MonoBehaviour {
         if(numControllers > 1) {
             buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum + controller;
             buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum + controller;
+            buttons.xAxisCam = "RightHorizontalJoystick" + platform + joyNum + controller;
+            buttons.yAxisCam = "RightVerticalJoystick" + platform + joyNum + controller;
             buttons.pause = "StartButton" + platform + joyNum + controller;
             buttons.actionAxis03 = "AY" + platform + joyNum + controller;
             buttons.actionAxis12 = "XB" + platform + joyNum + controller;
