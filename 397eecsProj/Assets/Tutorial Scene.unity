@@ -2435,6 +2435,68 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &851844407
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1292710737}
+    m_Modifications:
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 77.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715691551637016, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_Name
+      value: Telepad A2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114661081560105304, guid: 6b03a06b98aea16408bd635f3366be37,
+        type: 2}
+      propertyPath: PairedTelepad
+      value: 
+      objectReference: {fileID: 1214572713}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+  m_IsPrefabParent: 0
+--- !u!114 &851844408 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114661081560105304, guid: 6b03a06b98aea16408bd635f3366be37,
+    type: 2}
+  m_PrefabInternal: {fileID: 851844407}
+  m_Script: {fileID: 11500000, guid: 87754a250ba3d034f8b78a476e269e82, type: 3}
+--- !u!4 &851844409 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37,
+    type: 2}
+  m_PrefabInternal: {fileID: 851844407}
 --- !u!1 &854170537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3582,9 +3644,80 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1127883016350942, guid: 2fa1a4daec2402c46b7e168d11798f97, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa1a4daec2402c46b7e168d11798f97, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &1214572712
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1292710737}
+    m_Modifications:
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 77.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1715691551637016, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+      propertyPath: m_Name
+      value: Telepad A1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114661081560105304, guid: 6b03a06b98aea16408bd635f3366be37,
+        type: 2}
+      propertyPath: PairedTelepad
+      value: 
+      objectReference: {fileID: 851844408}
+    - target: {fileID: 114661081560105304, guid: 6b03a06b98aea16408bd635f3366be37,
+        type: 2}
+      propertyPath: IsEntrance
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6b03a06b98aea16408bd635f3366be37, type: 2}
+  m_IsPrefabParent: 0
+--- !u!114 &1214572713 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114661081560105304, guid: 6b03a06b98aea16408bd635f3366be37,
+    type: 2}
+  m_PrefabInternal: {fileID: 1214572712}
+  m_Script: {fileID: 11500000, guid: 87754a250ba3d034f8b78a476e269e82, type: 3}
+--- !u!4 &1214572714 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4072954079240390, guid: 6b03a06b98aea16408bd635f3366be37,
+    type: 2}
+  m_PrefabInternal: {fileID: 1214572712}
 --- !u!1 &1218680673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,6 +4047,36 @@ RectTransform:
   m_AnchoredPosition: {x: 60, y: -80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1292710736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1292710737}
+  m_Layer: 0
+  m_Name: Telepads
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1292710737
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1292710736}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1214572714}
+  - {fileID: 851844409}
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1360804548
 Prefab:
   m_ObjectHideFlags: 0
