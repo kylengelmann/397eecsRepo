@@ -63,7 +63,7 @@ public class Character : MonoBehaviour {
         transform.position = lastCkpt.transform.position;
         //transform.position = Vector3.up; //Kyle's original
         cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
-        cam.transform.position = new Vector3(0f, 4.58f, -6.06f);
+        cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
         goalCamRotNoY = Quaternion.identity;
         camRotY = 30f;
 
