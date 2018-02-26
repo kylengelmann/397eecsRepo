@@ -17,7 +17,7 @@ public class moveable : MonoBehaviour {
     private void FixedUpdate()
     {
         RaycastHit trash;
-        if (!rb.SweepTest(Vector3.down, out trash, 0.08f)) {
+        if (!rb.SweepTest(Vector3.down, out trash, 0.1f)) {
             rb.AddForce(Vector3.down*100f, ForceMode.Acceleration);
         }
     }

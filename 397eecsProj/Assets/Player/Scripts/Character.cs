@@ -289,7 +289,7 @@ public class Character : MonoBehaviour {
 
             Vector3 boxGoalDir = boxGoalPos - movingCube.position;
             movingCube.maxAngularVelocity = Mathf.Infinity;
-            movingCube.AddForce(boxGoalDir*100f);
+            movingCube.AddForce(boxGoalDir*120f);
             //movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
             movingCube.MoveRotation(transform.rotation);
 
