@@ -11,6 +11,7 @@ public class Character : MonoBehaviour {
 	public Camera cam;
     public LayerMask camMask;
     Animator anim;
+    public checkpoint lastCkpt;
 
     //Settings
     public MoveSettings moveSettings; //See bottom of script
@@ -57,12 +58,14 @@ public class Character : MonoBehaviour {
 	}
 
     public void reset() {
-        transform.position = RespawnPoint;
-        //transform.position = Vector3.up; Kyle's original
+        //transform.position = RespawnPoint;
+        transform.position = lastCkpt.transform.position;
+        //transform.position = Vector3.up; //Kyle's original
         cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
         cam.transform.position = new Vector3(0f, 4.58f, -6.06f);
         goalCamRotNoY = Quaternion.identity;
         camRotY = 30f;
+
 
     }
 
@@ -491,6 +494,8 @@ public class Character : MonoBehaviour {
     public void endSwitch() {
         currentState = characterState.free; // Record thate the character is no longer switching
     }
+
+
 }
 
 
