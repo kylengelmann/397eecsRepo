@@ -95,6 +95,7 @@ public class Character : MonoBehaviour {
 
                 isGrounded = !groundHit.collider.isTrigger;
             }
+            else isGrounded = false;
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
