@@ -523,7 +523,7 @@ MonoBehaviour:
   cam: {fileID: 1218680676}
   camMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294965503
   lastCkpt: {fileID: 1359900991}
   moveSettings:
     maxWalkSpeed: 5
@@ -1020,7 +1020,7 @@ GameObject:
   - component: {fileID: 365050157}
   - component: {fileID: 365050156}
   - component: {fileID: 365050155}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Jump Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1326,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 457205232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10, y: 2.5, z: 30}
-  m_LocalScale: {x: 10, y: 5, z: 7.5}
+  m_LocalScale: {x: 10, y: 5, z: 9.75}
   m_Children: []
   m_Father: {fileID: 1440437322}
   m_RootOrder: 0
@@ -3691,6 +3691,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114475656887823900, guid: 2fa1a4daec2402c46b7e168d11798f97,
+        type: 2}
+      propertyPath: initCheck
+      value: 
+      objectReference: {fileID: 1359900991}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fa1a4daec2402c46b7e168d11798f97, type: 2}
   m_IsPrefabParent: 0
@@ -4734,7 +4739,7 @@ Transform:
   m_GameObject: {fileID: 1538366287}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10, y: 2.5, z: 30}
-  m_LocalScale: {x: 10, y: 5, z: 7.5}
+  m_LocalScale: {x: 10, y: 5, z: 9.75}
   m_Children: []
   m_Father: {fileID: 1440437322}
   m_RootOrder: 1

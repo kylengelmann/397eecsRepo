@@ -59,6 +59,7 @@ public class Character : MonoBehaviour {
 
     public void reset() {
         //transform.position = RespawnPoint;
+        velocity = Vector3.zero;
         transform.position = lastCkpt.transform.position;
         //transform.position = Vector3.up; //Kyle's original
         cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
@@ -88,8 +89,12 @@ public class Character : MonoBehaviour {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
-			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
-                                            out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
+			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
+                                  out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm)) {
+
+
+                isGrounded = !groundHit.collider.isTrigger;
+            }
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
@@ -214,7 +219,7 @@ public class Character : MonoBehaviour {
         int lm = camMask.value;
         float camRadius = .5f; // Radius of sphereCast
         if(Physics.SphereCast(transform.position, camRadius, camDir, out camHit, camSettings.distance - camRadius, lm)) {
-            camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
+            if(!camHit.collider.isTrigger) camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
         }
         goalCamPos = transform.position + camDir * camDist;
 

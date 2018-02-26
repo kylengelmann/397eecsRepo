@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 
     public void reset() {
         fadePanel.gameObject.SetActive(false);
+        character.enabled = true;
         character.reset();
         world.BroadcastMessage("reset"); // calls all the resets
     }
