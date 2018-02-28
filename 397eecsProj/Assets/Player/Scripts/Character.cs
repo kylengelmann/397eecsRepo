@@ -89,7 +89,7 @@ public class Character : MonoBehaviour {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
-			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
+			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.05f, -groundNormal, 
                                   out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm)) {
 
 
@@ -392,7 +392,8 @@ public class Character : MonoBehaviour {
                 if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
                 {
                     //TODO Play character and object animations for breaking
-                    Destroy(collider.gameObject);
+                    //Destroy(collider.gameObject);
+                    collider.gameObject.SetActive(false);
                 }
             }
         }

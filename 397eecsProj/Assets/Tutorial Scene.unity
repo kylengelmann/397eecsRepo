@@ -3291,6 +3291,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 917338672}
+  - component: {fileID: 917338673}
   m_Layer: 0
   m_Name: Breakables
   m_TagString: Untagged
@@ -3328,6 +3329,17 @@ Transform:
   m_Father: {fileID: 462682027}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917338673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 917338671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537718dd559e24b16ba4e0ce472515c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &921832809
 GameObject:
   m_ObjectHideFlags: 0
