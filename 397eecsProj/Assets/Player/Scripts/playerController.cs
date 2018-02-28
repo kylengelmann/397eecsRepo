@@ -135,7 +135,7 @@ public class playerController : MonoBehaviour {
             handleMove(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
         }
         else {
-            handleCam(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
+            handleCam(Input.GetAxisRaw(buttons.xAxisCam), (Input.GetAxisRaw(buttons.yAxisCam)));
         }
 
     }

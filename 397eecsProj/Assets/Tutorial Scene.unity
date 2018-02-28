@@ -1517,10 +1517,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 108
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &462682026
 GameObject:
@@ -5191,7 +5191,7 @@ Transform:
   m_GameObject: {fileID: 1459471885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.51}
-  m_LocalScale: {x: 0.09, y: 0.17, z: 10}
+  m_LocalScale: {x: 0.05, y: 0.14, z: 10}
   m_Children: []
   m_Father: {fileID: 1380591564}
   m_RootOrder: 0
@@ -5230,7 +5230,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a08935bf0c2164d01b2a1fc0dbbdca71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae6e00c713347471487747cae75d0c99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5452,10 +5452,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 108
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &1546264062
 GameObject:
