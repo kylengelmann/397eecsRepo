@@ -47,11 +47,22 @@ public class Character : MonoBehaviour {
     [HideInInspector] public int MovingPlayer;
     public Vector3 RespawnPoint;
 
+    velocityTaker velTake;
+
+    void transferVelFromVelTaker(Vector3 vel) {
+        velocity += vel;
+    }
+
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
+
+        velTake = gameObject.GetComponent<velocityTaker>();
+        if(velTake != null) {
+            velTake.transferVelocity = transferVelFromVelTaker;
+        }
 
 	    MovingPlayer = 1;
 	    RespawnPoint = gameObject.transform.position;
