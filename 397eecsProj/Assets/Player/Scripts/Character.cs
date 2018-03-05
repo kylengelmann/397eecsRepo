@@ -13,6 +13,10 @@ public class Character : MonoBehaviour {
     Animator anim;
     public checkpoint lastCkpt;
 
+    public ParticleSystem jetPackParticles;
+
+    public ParticleSystem runThrusterParticles;
+
     //Settings
     public MoveSettings moveSettings; //See bottom of script
     public CameraSettings camSettings; //See bottom of script
@@ -66,16 +70,20 @@ public class Character : MonoBehaviour {
 
 	    MovingPlayer = 1;
 	    RespawnPoint = gameObject.transform.position;
+
+        reset();
 	}
 
     public void reset() {
         //transform.position = RespawnPoint;
         velocity = Vector3.zero;
         transform.position = lastCkpt.transform.position;
+        transform.rotation = lastCkpt.transform.rotation;
         //transform.position = Vector3.up; //Kyle's original
-        cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+        cam.transform.rotation = lastCkpt.transform.rotation*Quaternion.AngleAxis(30f, Vector3.right);
+        //cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
         cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
-        goalCamRotNoY = Quaternion.identity;
+        goalCamRotNoY = lastCkpt.transform.rotation;
         camRotY = 30f;
 
 
@@ -252,6 +260,7 @@ public class Character : MonoBehaviour {
 				}
 			}
 			else {
+                jetPackParticles.Stop();
 				up -= moveSettings.fallingGravity*Time.fixedDeltaTime;
 			}
 		}
@@ -341,23 +350,35 @@ public class Character : MonoBehaviour {
     //**********************************************************
 
 	public void jump(bool isPressed) {
-        if(currentState == characterState.switching) {
-            isJumping = false;
-            return;
+        if(currentState == characterState.switching) { 
+            isPressed = false;
         }
         if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
     			velocity += groundNormal*moveSettings.jumpVelocity;
             }
+            jetPackParticles.Play();
 		}
 		else {
+            if(!isPressed && isJumping) {
+                jetPackParticles.Stop();
+            }
             isJumping = isPressed;
-		}
+        }
 	}
 
     bool isRunning;
     public void run(bool isPressed) {
+        if(currentState == characterState.switching) {
+            isPressed = false;
+        }
+        if(!isRunning && isPressed) {
+            runThrusterParticles.Play();
+        }
+        else if(isRunning && !isPressed) {
+            runThrusterParticles.Stop();
+        }
         isRunning = isPressed;
     }
 
@@ -510,6 +531,8 @@ public class Character : MonoBehaviour {
 	}
 
     public void endSwitch() {
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -transform.localScale.z);
+        transform.LookAt(transform.position - transform.forward);
         currentState = characterState.free; // Record thate the character is no longer switching
     }
 
