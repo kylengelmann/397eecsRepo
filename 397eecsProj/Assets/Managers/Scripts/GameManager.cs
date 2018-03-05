@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector]public bool isPaused = false;
     public Character character;
     public fade fadePanel;
+    public GameObject world;
 
 	public void togglePause() {
 		isPaused = !isPaused;
@@ -26,7 +27,9 @@ public class GameManager : MonoBehaviour {
 
     public void reset() {
         fadePanel.gameObject.SetActive(false);
+        character.enabled = true;
         character.reset();
+        world.BroadcastMessage("reset"); // calls all the resets
     }
 
     void Awake()
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour {
         pauseMenu.SetActive(true);
         pauseMenu.SetActive(false);
     }
+
     void Start () {
         Global.gameManager = this;
 	}

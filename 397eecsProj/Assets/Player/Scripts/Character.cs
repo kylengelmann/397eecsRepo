@@ -11,6 +11,7 @@ public class Character : MonoBehaviour {
 	public Camera cam;
     public LayerMask camMask;
     Animator anim;
+    public checkpoint lastCkpt;
 
     //Settings
     public MoveSettings moveSettings; //See bottom of script
@@ -57,12 +58,15 @@ public class Character : MonoBehaviour {
 	}
 
     public void reset() {
-        transform.position = RespawnPoint;
-        //transform.position = Vector3.up; Kyle's original
+        //transform.position = RespawnPoint;
+        velocity = Vector3.zero;
+        transform.position = lastCkpt.transform.position;
+        //transform.position = Vector3.up; //Kyle's original
         cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
-        cam.transform.position = new Vector3(0f, 4.58f, -6.06f);
+        cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
         goalCamRotNoY = Quaternion.identity;
         camRotY = 30f;
+
 
     }
 
@@ -85,8 +89,13 @@ public class Character : MonoBehaviour {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
-			isGrounded = Physics.SphereCast(transform.position, charCtrl.radius - 0.01f, -groundNormal, 
-                                            out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm);
+			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.05f, -groundNormal, 
+                                  out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm)) {
+
+
+                isGrounded = !groundHit.collider.isTrigger;
+            }
+            else isGrounded = false;
 			// For directional gravity, let's not mess with it yet
 //			if(isGrounded) {
 //				groundNormal = groundHit.normal.normalized;
@@ -211,7 +220,7 @@ public class Character : MonoBehaviour {
         int lm = camMask.value;
         float camRadius = .5f; // Radius of sphereCast
         if(Physics.SphereCast(transform.position, camRadius, camDir, out camHit, camSettings.distance - camRadius, lm)) {
-            camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
+            if(!camHit.collider.isTrigger) camDist  = camHit.distance; //If object is inbetween camera and player, adjust distance to prevent clipping
         }
         goalCamPos = transform.position + camDir * camDist;
 
@@ -280,7 +289,7 @@ public class Character : MonoBehaviour {
 
             Vector3 boxGoalDir = boxGoalPos - movingCube.position;
             movingCube.maxAngularVelocity = Mathf.Infinity;
-            movingCube.AddForce(boxGoalDir*100f);
+            movingCube.AddForce(boxGoalDir*120f);
             //movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
             movingCube.MoveRotation(transform.rotation);
 
@@ -383,7 +392,8 @@ public class Character : MonoBehaviour {
                 if (collider.gameObject.GetComponent<InteractableObject>().isBreakable)
                 {
                     //TODO Play character and object animations for breaking
-                    Destroy(collider.gameObject);
+                    //Destroy(collider.gameObject);
+                    collider.gameObject.SetActive(false);
                 }
             }
         }
@@ -491,6 +501,8 @@ public class Character : MonoBehaviour {
     public void endSwitch() {
         currentState = characterState.free; // Record thate the character is no longer switching
     }
+
+
 }
 
 

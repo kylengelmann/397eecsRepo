@@ -25,7 +25,8 @@ public class Telepad : MonoBehaviour
             //TODO Add in a fade or some form of animation during teleportation
 
             Vector3 endPosition = new Vector3(PairedTelepad.gameObject.transform.position.x,
-                PairedTelepad.gameObject.transform.position.y + 1.0f, PairedTelepad.gameObject.transform.position.z);
+                                              PairedTelepad.gameObject.transform.position.y + 1.0f, 
+                                              PairedTelepad.gameObject.transform.position.z);
             collider.gameObject.transform.position = endPosition;
         }
     }

@@ -4,6 +4,7 @@ namespace Assets.Obstacles.Scripts
 {
     public class Goal : MonoBehaviour {
 
+        public checkpoint initCheck;
         // Use this for initialization
         void Start () {
 		
@@ -19,6 +20,7 @@ namespace Assets.Obstacles.Scripts
             //Debug.Log("I am triggered");
             if (collision.gameObject.GetComponent<Character>())
             {
+                collision.gameObject.GetComponent<Character>().lastCkpt = initCheck;
                 FindObjectOfType<GameManager>().die();
             }
         }

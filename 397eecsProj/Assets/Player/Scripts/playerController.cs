@@ -75,6 +75,8 @@ public class playerController : MonoBehaviour {
             if(isPlayer1) {
                 buttons.xAxis = "LeftHorizontalJoystick" + platform + joyNum;
                 buttons.yAxis = "LeftVerticalJoystick" + platform + joyNum;
+                buttons.xAxisCam = buttons.xAxis;
+                buttons.yAxisCam = buttons.yAxis;
                 buttons.pause = "SelectButton" + platform + joyNum;
                 buttons.actionAxis03 = "DPadVertical" + platform + joyNum;
                 buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
@@ -83,6 +85,8 @@ public class playerController : MonoBehaviour {
             else {
                 buttons.xAxis = "RightHorizontalJoystick" + platform + joyNum;
                 buttons.yAxis = "RightVerticalJoystick" + platform + joyNum;
+                buttons.xAxisCam = buttons.xAxis;
+                buttons.yAxisCam = buttons.yAxis;
                 buttons.pause = "StartButton" + platform + joyNum;
                 buttons.actionAxis03 = "AY" + platform + joyNum;
                 buttons.actionAxis12 = "XB" + platform + joyNum;
@@ -127,25 +131,31 @@ public class playerController : MonoBehaviour {
 			Global.gameManager.togglePause();
 		}
 
-
-	    handleAxes(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
+        if(isMovingPlayer) {
+            handleMove(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
+        }
+        else {
+            handleCam(Input.GetAxisRaw(buttons.xAxisCam), (Input.GetAxisRaw(buttons.yAxisCam)));
+        }
 
     }
 
 
 
-	public void handleAxes(float x, float y) {
+	public void handleMove(float x, float y) {
         if(x*x + y*y < 0.04f) {
             x = y = 0f;
         }
-		if(isMovingPlayer) {
-			character.setMove(x, y);
-		}
-        else {
-            if(invertY) y = -y;
-            character.setCam(x, y);
-        }
+		character.setMove(x, y);
 	}
+
+    public void handleCam(float x, float y) {
+        if(x*x + y*y < 0.04f) {
+            x = y = 0f;
+        }
+        if(invertY) y = -y;
+        character.setCam(x, y);
+    }
 
 	void switchPlayers() {
         if(character.switchPlayers()) {

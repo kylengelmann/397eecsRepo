@@ -29,10 +29,16 @@ namespace Assets.Obstacles.Scripts
         }
 
         void OnCollisionEnter(Collision collision)
-        {
-            if (IsOut && collision.gameObject.GetComponent<Character>())
-            {
-                FindObjectOfType<GameManager>().die();
+        {   
+            if( IsOut&&collision.gameObject.GetComponent<Character>()) {
+                if ( Vector3.Distance(OutPosition, transform.position) < 0.5f)
+                {
+                    collision.gameObject.GetComponent<Character>().enabled = false;
+                    Global.gameManager.die();
+                }
+                else {
+                    collision.gameObject.GetComponent<Character>().velocity = (OutPosition - _safePosition) * Speed*2f;
+                }
             }
         }
 
