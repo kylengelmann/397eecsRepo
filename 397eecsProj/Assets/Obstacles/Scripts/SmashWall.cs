@@ -10,6 +10,11 @@ namespace Assets.Obstacles.Scripts
         public Vector3 OutPosition;
         public float Speed;
 
+        public void reset() {
+            IsOut = true;
+            StopAllCoroutines();
+        }
+
         // Use this for initialization
         void Start ()
         {
