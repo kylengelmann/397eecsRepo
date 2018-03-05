@@ -375,7 +375,7 @@ public class Character : MonoBehaviour {
         Vector3 currPosition = gameObject.transform.position;
         //Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
         Vector3 boxPos = transform.position + transform.right*0f + transform.up*0.25f + transform.forward*0.5f;
-        Collider[] touched = Physics.OverlapBox(boxPos, new Vector3(0.375f, 0.25f, 0.25f), transform.rotation);
+        Collider[] touched = Physics.OverlapBox(boxPos, new Vector3(0.375f, 0.25f, 1.0f), transform.rotation); //Z was originally 0.25
         foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
         {
             if (collider.gameObject.GetComponent<InteractableObject>()) 
