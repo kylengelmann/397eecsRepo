@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public Character character;
     public fade fadePanel;
     public GameObject world;
+    public bool[] gotCake;
 
 	public void togglePause() {
 		isPaused = !isPaused;
@@ -40,6 +41,11 @@ public class GameManager : MonoBehaviour {
 
     void Start () {
         Global.gameManager = this;
+        gotCake = new bool[6];
+        for (int i = 0; i < 6; i++) {
+            gotCake[i] = false;
+        }
+
 	}
 	
 	// Update is called once per frame
