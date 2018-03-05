@@ -6,11 +6,18 @@ public class Reset : MonoBehaviour {
 
     Vector3 initPos; // of block
     Quaternion initRot; // of block
+    Transform initParent;
+    Vector3 initVel;
+    Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
         initPos = transform.localPosition;
         initRot = transform.localRotation;
+        initParent = transform.parent;
+        if (rb = GetComponent<Rigidbody>()) {
+            initVel = rb.velocity;
+        }
 	}
 	
 	// Update is called once per frame
@@ -21,5 +28,9 @@ public class Reset : MonoBehaviour {
     public void reset() {
         transform.localPosition = initPos;
         transform.localRotation = initRot;
+        transform.parent = initParent;
+        if (rb) {
+            rb.velocity = initVel;
+        }
     }
 }
