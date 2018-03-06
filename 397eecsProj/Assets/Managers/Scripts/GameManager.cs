@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour {
     public void reset() {
         fadePanel.gameObject.SetActive(false);
         character.enabled = true;
-        character.reset();  
-        world.BroadcastMessage("reset", SendMessageOptions.DontRequireReceiver); // calls all the resets
+        character.reset();
+        world.BroadcastMessage("reset"); // calls all the resets
     }
 
     void Awake()
@@ -42,9 +42,10 @@ public class GameManager : MonoBehaviour {
     void Start () {
         Global.gameManager = this;
         gotCake = new bool[6];
-        for(int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             gotCake[i] = false;
         }
+
 	}
 	
 	// Update is called once per frame

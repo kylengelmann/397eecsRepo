@@ -13,10 +13,6 @@ public class Character : MonoBehaviour {
     Animator anim;
     public checkpoint lastCkpt;
 
-    public ParticleSystem jetPackParticles;
-
-    public ParticleSystem runThrusterParticles;
-
     //Settings
     public MoveSettings moveSettings; //See bottom of script
     public CameraSettings camSettings; //See bottom of script
@@ -51,39 +47,24 @@ public class Character : MonoBehaviour {
     [HideInInspector] public int MovingPlayer;
     public Vector3 RespawnPoint;
 
-    velocityTaker velTake;
-
-    void transferVelFromVelTaker(Vector3 vel) {
-        velocity += vel;
-    }
-
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
 		groundNormal = Vector3.up;
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
 
-        velTake = gameObject.GetComponent<velocityTaker>();
-        if(velTake != null) {
-            velTake.transferVelocity = transferVelFromVelTaker;
-        }
-
 	    MovingPlayer = 1;
 	    RespawnPoint = gameObject.transform.position;
-
-        reset();
 	}
 
     public void reset() {
         //transform.position = RespawnPoint;
         velocity = Vector3.zero;
         transform.position = lastCkpt.transform.position;
-        transform.rotation = lastCkpt.transform.rotation;
         //transform.position = Vector3.up; //Kyle's original
-        cam.transform.rotation = lastCkpt.transform.rotation*Quaternion.AngleAxis(30f, Vector3.right);
-        //cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+        cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
         cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
-        goalCamRotNoY = lastCkpt.transform.rotation;
+        goalCamRotNoY = Quaternion.identity;
         camRotY = 30f;
 
 
@@ -260,7 +241,6 @@ public class Character : MonoBehaviour {
 				}
 			}
 			else {
-                jetPackParticles.Stop();
 				up -= moveSettings.fallingGravity*Time.fixedDeltaTime;
 			}
 		}
@@ -350,35 +330,23 @@ public class Character : MonoBehaviour {
     //**********************************************************
 
 	public void jump(bool isPressed) {
-        if(currentState == characterState.switching) { 
-            isPressed = false;
+        if(currentState == characterState.switching) {
+            isJumping = false;
+            return;
         }
         if(isPressed && !isJumping && isGrounded) { //
             if(isGrounded) {
     			isJumping = true;
     			velocity += groundNormal*moveSettings.jumpVelocity;
             }
-            jetPackParticles.Play();
 		}
 		else {
-            if(!isPressed && isJumping) {
-                jetPackParticles.Stop();
-            }
             isJumping = isPressed;
-        }
+		}
 	}
 
     bool isRunning;
     public void run(bool isPressed) {
-        if(currentState == characterState.switching) {
-            isPressed = false;
-        }
-        if(!isRunning && isPressed) {
-            runThrusterParticles.Play();
-        }
-        else if(isRunning && !isPressed) {
-            runThrusterParticles.Stop();
-        }
         isRunning = isPressed;
     }
 
@@ -416,7 +384,7 @@ public class Character : MonoBehaviour {
         Vector3 currPosition = gameObject.transform.position;
         //Collider[] touched = Physics.OverlapCapsule(currPosition, new Vector3(currPosition.x, currPosition.y, currPosition.z + 1.0f), 0.5f);
         Vector3 boxPos = transform.position + transform.right*0f + transform.up*0.25f + transform.forward*0.5f;
-        Collider[] touched = Physics.OverlapBox(boxPos, new Vector3(0.375f, 0.25f, 1.0f), transform.rotation); //Z was originally 0.25
+        Collider[] touched = Physics.OverlapBox(boxPos, new Vector3(0.375f, 0.25f, 0.25f), transform.rotation);
         foreach (Collider collider in touched) //Checks everything it collided with to see if any objects it detected are breakable
         {
             if (collider.gameObject.GetComponent<InteractableObject>()) 
@@ -531,8 +499,6 @@ public class Character : MonoBehaviour {
 	}
 
     public void endSwitch() {
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -transform.localScale.z);
-        transform.LookAt(transform.position - transform.forward);
         currentState = characterState.free; // Record thate the character is no longer switching
     }
 
