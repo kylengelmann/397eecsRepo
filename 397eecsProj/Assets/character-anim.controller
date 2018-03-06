@@ -1002,7 +1002,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armature|p1Switch
-  m_Speed: 1
+  m_Speed: 2.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101646910352335592}
@@ -1030,7 +1030,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Armature|p2Switch
-  m_Speed: 1
+  m_Speed: 2.2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101815899669287194}
