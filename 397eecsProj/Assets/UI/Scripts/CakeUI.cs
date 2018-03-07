@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class CakeUI : MonoBehaviour {
 
-    public Sprite[] cakeCollection;
+    public GameObject cakes;
 
 	// Use this for initialization
 	void Start () {
-        cakeCollection = new Sprite[6];
-        //for (int i = 0; i < 6; i++) {
-        //    cakeCollection[i].SpriteRenderer.enabled = false;
-        //    return;
-        //}
+        for (int i = 0; i < 6; i++) {
+            Transform cakeT = cakes.transform.GetChild(i);
+            cakeT.gameObject.SetActive(true);
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        for (int i = 0; i < 6; i++) {
-            if (Global.gameManager.gotCake[i]) {
-                // get corresponding icon and display it
+        for (int i = 0; i < 6; i++)
+        {
+            if (Global.gameManager.gotCake[i])
+            {
+                Transform gotCakeT = cakes.transform.GetChild(i);
+                gotCakeT.gameObject.SetActive(true);
             }
         }
 	}
+
 }
