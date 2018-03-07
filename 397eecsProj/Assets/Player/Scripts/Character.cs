@@ -63,6 +63,7 @@ public class Character : MonoBehaviour {
         anim = gameObject.GetComponent<Animator>();
         anim.SetBool("isP1Moving", true);
 
+
         velTake = gameObject.GetComponent<velocityTaker>();
         if(velTake != null) {
             velTake.transferVelocity = transferVelFromVelTaker;
@@ -531,7 +532,7 @@ public class Character : MonoBehaviour {
 	}
 
     public void endSwitch() {
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -transform.localScale.z);
+        //transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, -transform.localScale.z);
         transform.LookAt(transform.position - transform.forward);
         currentState = characterState.free; // Record thate the character is no longer switching
     }

@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 136471669260727524}
   - component: {fileID: 114425480089241528}
   m_Layer: 2
-  m_Name: laser 1
+  m_Name: laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86b82fabf89d48f5858a65fc4ec1a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOn: 1
   length: 8
   radius: 0.1
   endCaps:

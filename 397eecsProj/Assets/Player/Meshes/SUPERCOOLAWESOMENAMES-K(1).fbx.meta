@@ -1,0 +1,521 @@
+fileFormatVersion: 2
+guid: 627e1616d3c07471b9b6ca67e89bb2db
+timeCreated: 1520404428
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature.002
+    100002: body.003
+    100004: leaf.003
+    100006: p1arm.l
+    100008: p1arm.r
+    100010: p1hand.l
+    100012: p1hand.l.001
+    100014: p1hand.l.001_end
+    100016: p1hand.r
+    100018: p1hand.r.001
+    100020: p1hand.r.001_end
+    100022: p1root
+    100024: p1shoulder.l
+    100026: p1shoulder.r
+    100028: p2arm.l
+    100030: p2arm.r
+    100032: p2body
+    100034: p2hand.l
+    100036: p2hand.l.001
+    100038: p2hand.l.001_end
+    100040: p2hand.r
+    100042: p2hand.r.001
+    100044: p2hand.r.001_end
+    100046: p2shoulder.l
+    100048: p2shoulder.r
+    100050: //RootNode
+    400000: Armature.002
+    400002: body.003
+    400004: leaf.003
+    400006: p1arm.l
+    400008: p1arm.r
+    400010: p1hand.l
+    400012: p1hand.l.001
+    400014: p1hand.l.001_end
+    400016: p1hand.r
+    400018: p1hand.r.001
+    400020: p1hand.r.001_end
+    400022: p1root
+    400024: p1shoulder.l
+    400026: p1shoulder.r
+    400028: p2arm.l
+    400030: p2arm.r
+    400032: p2body
+    400034: p2hand.l
+    400036: p2hand.l.001
+    400038: p2hand.l.001_end
+    400040: p2hand.r
+    400042: p2hand.r.001
+    400044: p2hand.r.001_end
+    400046: p2shoulder.l
+    400048: p2shoulder.r
+    400050: //RootNode
+    2100000: Material
+    2100002: No Name
+    2300000: leaf.003
+    3300000: leaf.003
+    4300000: body.003
+    4300002: leaf.003
+    7400000: Armature.002|p1Idle
+    7400002: Armature.002|p1Jump
+    7400004: Armature.002|p1Move
+    7400006: Armature.002|p1Switch
+    7400008: Armature.002|p1Walk
+    7400010: Armature.002|p2Idle
+    7400012: Armature.002|p2Jump
+    7400014: Armature.002|p2Smash
+    7400016: Armature.002|p2Switch
+    7400018: Armature.002|p2Walk
+    9500000: //RootNode
+    13700000: body.003
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature.002|p1Idle
+      takeName: Armature.002|p1Idle
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p1Jump
+      takeName: Armature.002|p1Jump
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p1Move
+      takeName: Armature.002|p1Move
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature.002
+        weight: 0
+      - path: Armature.002/p1root
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.l
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.l/p1arm.l
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.l/p1arm.l/p1hand.l
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.l/p1arm.l/p1hand.l/p1hand.l.001
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.l/p1arm.l/p1hand.l/p1hand.l.001/p1hand.l.001_end
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.r
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.r/p1arm.r
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.r/p1arm.r/p1hand.r
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.r/p1arm.r/p1hand.r/p1hand.r.001
+        weight: 1
+      - path: Armature.002/p1root/p1shoulder.r/p1arm.r/p1hand.r/p1hand.r.001/p1hand.r.001_end
+        weight: 1
+      - path: Armature.002/p1root/p2body
+        weight: 1
+      - path: Armature.002/p1root/p2body/p2shoulder.l
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.l/p2arm.l
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.l/p2arm.l/p2hand.l
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.l/p2arm.l/p2hand.l/p2hand.l.001
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.l/p2arm.l/p2hand.l/p2hand.l.001/p2hand.l.001_end
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.r
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.r/p2arm.r
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.r/p2arm.r/p2hand.r
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.r/p2arm.r/p2hand.r/p2hand.r.001
+        weight: 0
+      - path: Armature.002/p1root/p2body/p2shoulder.r/p2arm.r/p2hand.r/p2hand.r.001/p2hand.r.001_end
+        weight: 0
+      - path: body.003
+        weight: 0
+      - path: body.003/leaf.003
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p1Switch
+      takeName: Armature.002|p1Switch
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: endSwitch
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4071b43b86b54340a384eb871a66982,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p1Walk
+      takeName: Armature.002|p1Walk
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p2Idle
+      takeName: Armature.002|p2Idle
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p2Jump
+      takeName: Armature.002|p2Jump
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p2Smash
+      takeName: Armature.002|p2Smash
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.69307953
+        functionName: doBreak
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4071b43b86b54340a384eb871a66982,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: endBreak
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4071b43b86b54340a384eb871a66982,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p2Switch
+      takeName: Armature.002|p2Switch
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: endSwitch
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: c4071b43b86b54340a384eb871a66982,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature.002|p2Walk
+      takeName: Armature.002|p2Walk
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.3
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
