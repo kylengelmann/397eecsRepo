@@ -10,7 +10,7 @@ public class CakeUI : MonoBehaviour {
 	void Start () {
         for (int i = 0; i < 6; i++) {
             Transform cakeT = cakes.transform.GetChild(i);
-            cakeT.gameObject.SetActive(true);
+            cakeT.gameObject.SetActive(false);
         }
 	}
 	
