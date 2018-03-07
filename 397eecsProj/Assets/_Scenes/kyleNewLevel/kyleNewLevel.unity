@@ -371,13 +371,13 @@ Transform:
   - {fileID: 1926929824}
   - {fileID: 546709049}
   - {fileID: 1765669912}
+  - {fileID: 1356534676}
   - {fileID: 237435585}
   - {fileID: 1992714729}
-  - {fileID: 1356534676}
+  - {fileID: 1043605687}
   - {fileID: 459460729}
   - {fileID: 1263525052}
   - {fileID: 576388458}
-  - {fileID: 1043605687}
   - {fileID: 1289896197}
   - {fileID: 378629962}
   - {fileID: 1011340035}
@@ -1971,19 +1971,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4127179671862964, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4765156175162396, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4358645411888826, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4779684544090660, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4567967397058224, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2836,7 +2836,7 @@ Transform:
   m_LocalScale: {x: 3, y: 4, z: 5.000001}
   m_Children: []
   m_Father: {fileID: 98069054}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &1043605688
 MeshRenderer:
@@ -4108,7 +4108,7 @@ Transform:
   m_LocalScale: {x: 15.000008, y: 4, z: 5.000002}
   m_Children: []
   m_Father: {fileID: 98069054}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &1356534677
 MeshRenderer:
@@ -5320,7 +5320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plate: {fileID: 292488806}
   endPos: {fileID: 118367082}
-  speed: 0.875
+  speed: 0.9
 --- !u!1001 &1725408677
 Prefab:
   m_ObjectHideFlags: 0
@@ -6112,7 +6112,7 @@ Prefab:
         type: 2}
       propertyPath: lastCkpt
       value: 
-      objectReference: {fileID: 307913253}
+      objectReference: {fileID: 286364546}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f2d785ca9694ee59143c17cb2c1ff6, type: 2}
   m_IsPrefabParent: 0
