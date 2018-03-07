@@ -2108,6 +2108,7 @@ MonoBehaviour:
   character: {fileID: 1054152915}
   fadePanel: {fileID: 967474058}
   world: {fileID: 1924686341}
+  gotCake: 
 --- !u!4 &653000066
 Transform:
   m_ObjectHideFlags: 0
@@ -4094,7 +4095,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4603114362761972, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4603114362761972, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4126,7 +4127,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4603114362761972, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}

@@ -1021,6 +1021,11 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23236846951759252, guid: 74c948bff5b0e3d4eb893645916d00ac,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 75b6acb84b2da4eceb009ada428a4a73, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
   m_IsPrefabParent: 0
@@ -2438,10 +2443,6 @@ Prefab:
     - target: {fileID: 1798613281808006, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
       propertyPath: m_Name
       value: BreakableCube (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1798613281808006, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c948bff5b0e3d4eb893645916d00ac, type: 2}

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 54397753306036870}
   - component: {fileID: 114420195793494928}
   - component: {fileID: 114756477226579326}
+  - component: {fileID: 114499917415272134}
   m_Layer: 9
   m_Name: Moveable Cube
   m_TagString: Untagged
@@ -126,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1172921471003432}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 10}
+  m_LocalPosition: {x: -3, y: 1, z: 3}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4779684544090660}
@@ -216,7 +217,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &65703847119823978
 BoxCollider:
@@ -248,6 +249,19 @@ MonoBehaviour:
   - {fileID: 4358645411888826}
   - {fileID: 4765156175162396}
   defaultGrab: {fileID: 4127179671862964}
+--- !u!114 &114499917415272134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172921471003432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c1e5666e5354e1e8f086af4f3ec833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 0, z: 0}
+  isOnGround: 0
 --- !u!114 &114621030577440966
 MonoBehaviour:
   m_ObjectHideFlags: 1

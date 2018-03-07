@@ -427,6 +427,7 @@ public class Character : MonoBehaviour {
                     //TODO Play character and object animations for breaking
                     //Destroy(collider.gameObject);
                     collider.gameObject.SetActive(false);
+                    break;
                 }
             }
         }

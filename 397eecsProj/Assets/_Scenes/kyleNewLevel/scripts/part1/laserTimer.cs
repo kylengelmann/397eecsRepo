@@ -8,7 +8,7 @@ public class laserTimer : MonoBehaviour {
     public float offTime = 3f;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine("switchOn");
+		StartCoroutine("switchOff");
 	}
 
     IEnumerator switchOn() {
