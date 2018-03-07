@@ -5,7 +5,8 @@ using UnityEditor;
 
 [ExecuteInEditMode]
 public class Laser : MonoBehaviour {
-    
+
+    public bool isOn = true;
     public float length = 4f;
     float lastLength;
     public float radius = .2f;
@@ -26,6 +27,7 @@ public class Laser : MonoBehaviour {
 
     void Update()
     {
+        lineRenderer.enabled = isOn;
         if(!Mathf.Approximately(length, lastLength)) {
             lineRenderer.SetPosition(0, Vector3.left*(length/2f));
             lineRenderer.SetPosition(1, Vector3.left*(length/2f - radius));
@@ -47,8 +49,18 @@ public class Laser : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    //void OnTriggerEnter(Collider other)
+    //{   if(!isOn) return;
+    //    Character c;
+    //    if((c = other.gameObject.GetComponent<Character>()) != null) {
+    //        c.enabled = false;
+    //        Global.gameManager.die();
+    //    }
+    //}
+
+    void OnTriggerStay(Collider other)
     {
+        if(!isOn) return;
         Character c;
         if((c = other.gameObject.GetComponent<Character>()) != null) {
             c.enabled = false;
