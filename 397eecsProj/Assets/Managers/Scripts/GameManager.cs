@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public fade fadePanel;
     public GameObject world;
     public bool[] gotCake;
+    public float faceSwitchTime;
 
 	public void togglePause() {
 		isPaused = !isPaused;
@@ -30,7 +31,9 @@ public class GameManager : MonoBehaviour {
         fadePanel.gameObject.SetActive(false);
         character.enabled = true;
         character.reset();
-        world.BroadcastMessage("reset", SendMessageOptions.DontRequireReceiver); // calls all the resets
+        if(world != null) {
+            world.BroadcastMessage("reset", SendMessageOptions.DontRequireReceiver); // calls all the resets
+        }
     }
 
     void Awake()
@@ -57,4 +60,21 @@ public class GameManager : MonoBehaviour {
             die();
         }
 	}
+
+    public void switchFace(Quaternion startRot, Quaternion endRot, GameObject face, Transform linked) {
+        StartCoroutine(doSwitch(startRot, endRot, face, linked));
+    }
+
+    IEnumerator doSwitch(Quaternion startRot, Quaternion endRot, GameObject face, Transform linked) {
+        float t = 0f;
+        character.gameObject.SetActive(false);
+        while(t < faceSwitchTime) {
+            world.transform.rotation = Quaternion.Slerp(startRot, endRot, t/faceSwitchTime);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        character.gameObject.SetActive(true);
+        character.transform.position = linked.transform.position + linked.transform.up;
+        face.SetActive(true);
+    }
 }
