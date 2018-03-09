@@ -14,8 +14,14 @@ public class Character : MonoBehaviour {
     public checkpoint lastCkpt;
 
     public ParticleSystem jetPackParticles;
-
     public ParticleSystem runThrusterParticles;
+
+    public AudioClip smashSfx;
+    public AudioClip cakeSfx;
+    public AudioClip levelSfx; 
+
+    private AudioSource audioSource;
+
 
     //Settings
     public MoveSettings moveSettings; //See bottom of script
@@ -56,6 +62,11 @@ public class Character : MonoBehaviour {
     void transferVelFromVelTaker(Vector3 vel) {
         velocity += vel;
     }
+
+	private void Awake()
+	{
+        audioSource = GetComponent<AudioSource>();
+	}
 
 	void Start () {
 		charCtrl = gameObject.GetComponent<CharacterController>();
@@ -441,6 +452,8 @@ public class Character : MonoBehaviour {
                     //TODO Play character and object animations for breaking
                     //Destroy(collider.gameObject);
                     collider.gameObject.SetActive(false);
+                    audioSource.clip = smashSfx;
+                    audioSource.Play();
                     break;
                 }
             }
@@ -563,6 +576,18 @@ public class Character : MonoBehaviour {
         transform.LookAt(transform.position - transform.forward);
         currentState = characterState.free; // Record thate the character is no longer switching
     }
+
+	private void OnTriggerEnter(Collider other)
+	{
+        if (other.GetComponent<Collectible>()) {
+            audioSource.clip = cakeSfx;
+            audioSource.Play();
+        }
+        else if (other.GetComponent<Telepad>()) {
+            audioSource.clip = levelSfx;
+            audioSource.Play();
+        }
+	}
 
 
 }
