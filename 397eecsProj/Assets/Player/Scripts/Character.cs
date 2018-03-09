@@ -111,6 +111,7 @@ public class Character : MonoBehaviour {
 		if(Vector3.Dot(groundNormal, velocity) <= 0.1f) {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
+            lm &= ~(1<<(LayerMask.NameToLayer("Ignore Raycast")));
 			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.05f, -groundNormal, 
                                   out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm)) {
 

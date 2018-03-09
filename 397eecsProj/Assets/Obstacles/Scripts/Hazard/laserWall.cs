@@ -31,15 +31,15 @@ public class laserWall : MonoBehaviour {
 	void FixedUpdate () {
         if(isOn && movingBehavior != MovingBehavior.noMove) {
             transform.position = Vector3.MoveTowards(transform.position, goal, speed*Time.fixedDeltaTime);
-            if(movingBehavior == MovingBehavior.oneWayTurnOff) {
-                foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
-                    laser.isOn = false;
-                }
-                isOn = false;
-            }
-            else if(movingBehavior != MovingBehavior.oneWay && Vector3.SqrMagnitude(transform.position - goal) < 0.001f) {
+            if(movingBehavior != MovingBehavior.oneWay && Vector3.SqrMagnitude(transform.position - goal) < 0.001f) {
                 if(movingBehavior == MovingBehavior.oneWayReset) {
                     transform.position = start.position;
+                }
+                else if(movingBehavior == MovingBehavior.oneWayTurnOff) {
+                    foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
+                        laser.isOn = false;
+                    }
+                    isOn = false;
                 }
                 else if(Vector3.SqrMagnitude(goal - start.position) < 0.001f){
                     goal = end.position;

@@ -226,6 +226,7 @@ MonoBehaviour:
   isOn: 1
   length: 8
   radius: 0.1
+  lineRenderer: {fileID: 0}
   endCaps:
   - {fileID: 4006094726111028}
   - {fileID: 4893346705655102}

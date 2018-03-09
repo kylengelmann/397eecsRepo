@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4619850202261536}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4627151102302112}
   - component: {fileID: 65436059437461842}
   - component: {fileID: 114176520785848282}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: checkPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4054290904733916}
   - component: {fileID: 33591979681497320}
   - component: {fileID: 23603764282854776}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4737520588241010}
   - component: {fileID: 33488808728154916}
   - component: {fileID: 23863958338115634}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
