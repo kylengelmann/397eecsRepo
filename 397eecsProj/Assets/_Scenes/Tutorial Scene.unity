@@ -146,6 +146,7 @@ MonoBehaviour:
   fadePanel: {fileID: 1938819137}
   world: {fileID: 1620376053}
   gotCake: 
+  faceSwitchTime: 0
 --- !u!4 &1209427
 Transform:
   m_ObjectHideFlags: 0
@@ -235,6 +236,16 @@ Prefab:
     - target: {fileID: 1777098786182286, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54397753306036870, guid: 00d287a2f0a63b14199b12f55260591b,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 54397753306036870, guid: 00d287a2f0a63b14199b12f55260591b,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00d287a2f0a63b14199b12f55260591b, type: 2}

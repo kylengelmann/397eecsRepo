@@ -152,6 +152,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23818995836867592, guid: 11d0c9f5a931349a0bbd2feb46ae8dff,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08f5093dc93af43bbbeaacb5a31465a4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11d0c9f5a931349a0bbd2feb46ae8dff, type: 2}
   m_IsPrefabParent: 0
@@ -1100,6 +1105,7 @@ MonoBehaviour:
   fadePanel: {fileID: 576552498}
   world: {fileID: 434768636}
   gotCake: 
+  faceSwitchTime: 0
 --- !u!4 &804251571
 Transform:
   m_ObjectHideFlags: 0

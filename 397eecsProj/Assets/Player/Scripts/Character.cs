@@ -87,6 +87,8 @@ public class Character : MonoBehaviour {
         goalCamRotNoY = lastCkpt.transform.rotation;
         camRotY = 30f;
 
+        currentState = characterState.free;
+
 
     }
 
@@ -306,13 +308,15 @@ public class Character : MonoBehaviour {
             Vector3 boxGoalPos = transform.position + transform.forward*(0.75f+moved.transform.localScale.z);
             Quaternion boxGoalRot = transform.rotation;
             //float boxGoalAngle = 1f - Quaternion.Dot(movingCube.rotation, boxGoalRot); //Quaternion.Angle(movingCube.rotation, boxGoalRot);
-            //Debug.Log(boxGoalAngle);
+
+            float boxGoalAngle = Mathf.Asin(Vector3.Dot(Vector3.Cross(movingCube.transform.forward, transform.forward), groundNormal));
+            Debug.Log(Mathf.Rad2Deg*boxGoalAngle);
 
             Vector3 boxGoalDir = boxGoalPos - movingCube.position;
             movingCube.maxAngularVelocity = Mathf.Infinity;
             movingCube.AddForce(boxGoalDir*120f);
-            //movingCube.AddTorque(-boxGoalAngle*groundNormal*50f);
-            movingCube.MoveRotation(transform.rotation);
+            movingCube.AddTorque(boxGoalAngle*groundNormal*350f);
+            //movingCube.MoveRotation(transform.rotation);
 
             if (worldHorizontalVel.sqrMagnitude > 0.001f)
             {
@@ -386,6 +390,9 @@ public class Character : MonoBehaviour {
     bool smash = false;
     public void breakObject(bool isPressed)
     {
+        if(currentState == characterState.switching) {
+            isPressed = false;
+        }
         //Make it such that pressing the button makes the interactions capsule coll. enabled for a bit
         //but then is disabled regardless if the button is held down
 
@@ -450,6 +457,9 @@ public class Character : MonoBehaviour {
         //Refer to the breakObject function to see how capsule overlap is being used and how to find specific objects
 
         //anim.SetBool("isMovingObj", true);
+        if(currentState == characterState.switching) {
+            isPressed = false;
+        }
         anim.SetBool("isMovingObj", isPressed);
 
         if (isPressed && !isMoving) 
