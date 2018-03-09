@@ -4425,11 +4425,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1423171492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763b533bf38b84e0e827b6323b96fcee, type: 3}
+  m_Script: {fileID: 11500000, guid: bfbb5bc349d9c4d2889bdc1797cd8d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTime: 1
-  offTime: 5
+  offTime: 4
+  warnTime: 1
+  warnFrequency: 10
 --- !u!1 &1430453860
 GameObject:
   m_ObjectHideFlags: 0

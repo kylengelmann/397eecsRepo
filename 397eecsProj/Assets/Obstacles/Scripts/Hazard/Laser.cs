@@ -11,7 +11,7 @@ public class Laser : MonoBehaviour {
     float lastLength;
     public float radius = .2f;
     float lastRadius;
-    LineRenderer lineRenderer;
+    public LineRenderer lineRenderer;
     CapsuleCollider cap;
     public Transform[] endCaps;
 
@@ -66,6 +66,21 @@ public class Laser : MonoBehaviour {
             c.enabled = false;
             Global.gameManager.die();
         }
+    }
+
+    public void warn(float seconds, float frequency) {
+        StartCoroutine(__warn(seconds, frequency));
+    }
+
+    IEnumerator __warn(float seconds, float frequency) {
+        float time = 0f;
+        float timeBetween = 1f/frequency;
+        while(time < seconds) {
+            lineRenderer.enabled = !lineRenderer.enabled;
+            yield return new WaitForSeconds(timeBetween);
+            time += timeBetween;
+        }
+        isOn = true;
     }
 
 

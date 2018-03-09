@@ -285,8 +285,13 @@ public class Character : MonoBehaviour {
         // move object
         // TODO
         if (currentState == characterState.moving) {
-            movingCube.isKinematic = false;
-            movingCube.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            //movingCube.isKinematic = false;
+            movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
+            //movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
+            //                         RigidbodyConstraints.FreezeRotationZ | 
+            //                         RigidbodyConstraints.FreezePositionY;
+            //movingCube.drag = 10f;
+            //movingCube.angularDrag = 10f;
 
             Vector3 goalPos = grabPoint.position + grabPoint.forward * 0.75f;
             Quaternion goalRot = moved.transform.rotation;
@@ -311,12 +316,12 @@ public class Character : MonoBehaviour {
             //float boxGoalAngle = 1f - Quaternion.Dot(movingCube.rotation, boxGoalRot); //Quaternion.Angle(movingCube.rotation, boxGoalRot);
 
             float boxGoalAngle = Mathf.Asin(Vector3.Dot(Vector3.Cross(movingCube.transform.forward, transform.forward), groundNormal));
-            Debug.Log(Mathf.Rad2Deg*boxGoalAngle);
+            //Debug.Log(Mathf.Rad2Deg*boxGoalAngle);
 
             Vector3 boxGoalDir = boxGoalPos - movingCube.position;
             movingCube.maxAngularVelocity = Mathf.Infinity;
-            movingCube.AddForce(boxGoalDir*120f);
-            movingCube.AddTorque(boxGoalAngle*groundNormal*350f);
+            movingCube.AddForce(boxGoalDir*50f);
+            movingCube.AddTorque(boxGoalAngle*groundNormal*250f);
             //movingCube.MoveRotation(transform.rotation);
 
             if (worldHorizontalVel.sqrMagnitude > 0.001f)
@@ -494,6 +499,12 @@ public class Character : MonoBehaviour {
             grabPoint = moved.defaultGrab; // reassign grab point
             //moved.transform.parent = transform; // parent that ish
             //movingCube.isKinematic = false;
+
+            movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
+                RigidbodyConstraints.FreezeRotationZ | 
+                RigidbodyConstraints.FreezePositionY;
+            movingCube.drag = 8f;
+            movingCube.angularDrag = 10f;
         }
 
 
@@ -502,6 +513,8 @@ public class Character : MonoBehaviour {
         if (!isMoving && currentState == characterState.moving) {
             //movingCube.isKinematic = true;
             //moved.transform.parent = null; // unparent that ish
+            movingCube.drag = 1f;
+            movingCube.angularDrag = 0f;
             movingCube.constraints = RigidbodyConstraints.None;
             currentState = characterState.free;
         }
