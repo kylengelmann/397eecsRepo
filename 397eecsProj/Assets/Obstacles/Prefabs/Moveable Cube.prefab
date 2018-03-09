@@ -215,9 +215,9 @@ Rigidbody:
   m_Drag: 10
   m_AngularDrag: 10
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &65703847119823978
 BoxCollider:

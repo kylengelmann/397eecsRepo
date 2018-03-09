@@ -286,6 +286,7 @@ public class Character : MonoBehaviour {
         // TODO
         if (currentState == characterState.moving) {
             movingCube.isKinematic = false;
+            movingCube.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
             Vector3 goalPos = grabPoint.position + grabPoint.forward * 0.75f;
             Quaternion goalRot = moved.transform.rotation;
@@ -501,6 +502,7 @@ public class Character : MonoBehaviour {
         if (!isMoving && currentState == characterState.moving) {
             //movingCube.isKinematic = true;
             //moved.transform.parent = null; // unparent that ish
+            movingCube.constraints = RigidbodyConstraints.None;
             currentState = characterState.free;
         }
     }
