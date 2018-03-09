@@ -17,6 +17,8 @@ public class laserWall : MonoBehaviour {
     public Transform end;
     public float speed;
     public bool isOn;
+    public float warnTime = 1f;
+    public float warnFrequency = 10f;
     Vector3 goal;
 
 	// Use this for initialization
@@ -52,11 +54,13 @@ public class laserWall : MonoBehaviour {
 	}
 
     public void turnOn() {
-        foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
-            laser.isOn = true;
-        }
+        //foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
+        //    laser.isOn = true;
+        //}
 
-        isOn = true;
+        //isOn = true;
+
+        StartCoroutine(warn());
     }
 
     void reset()
@@ -66,5 +70,24 @@ public class laserWall : MonoBehaviour {
         }
 
         isOn = false;
+    }
+
+    IEnumerator warn() {
+        float time = 0f;
+        float timeBetween = 1f/warnFrequency;
+        while(time < warnTime) {
+            foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
+                if(!laser.isOn) {
+                    laser.lineRenderer.enabled = !laser.lineRenderer.enabled;
+                }
+            }
+            yield return new WaitForSeconds(timeBetween);
+            time += timeBetween;
+        }
+        foreach(Laser laser in gameObject.GetComponentsInChildren<Laser>()) {
+            laser.isOn = true;
+        }
+
+        isOn = true;
     }
 }
