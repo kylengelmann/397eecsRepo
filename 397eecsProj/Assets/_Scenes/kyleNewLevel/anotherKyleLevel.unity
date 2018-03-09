@@ -1774,7 +1774,7 @@ MonoBehaviour:
   movingBehavior: 1
   start: {fileID: 1229463818}
   end: {fileID: 1954521370}
-  speed: 3.25
+  speed: 3.2
   isOn: 0
 --- !u!114 &712912823
 MonoBehaviour:
@@ -2142,6 +2142,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43317e4eb28754c1282614824a0809ba, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &874792103 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114176520785848282, guid: 43317e4eb28754c1282614824a0809ba,
+    type: 2}
+  m_PrefabInternal: {fileID: 874792102}
+  m_Script: {fileID: 11500000, guid: 41ae0b6d8b1e14633952bdd39da57620, type: 3}
 --- !u!1 &893664859
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,12 +2492,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 985812074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1009866131 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114176520785848282, guid: 43317e4eb28754c1282614824a0809ba,
-    type: 2}
-  m_PrefabInternal: {fileID: 219778518}
-  m_Script: {fileID: 11500000, guid: 41ae0b6d8b1e14633952bdd39da57620, type: 3}
 --- !u!4 &1009866133 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4627151102302112, guid: 43317e4eb28754c1282614824a0809ba,
@@ -4350,7 +4350,7 @@ Prefab:
         type: 2}
       propertyPath: lastCkpt
       value: 
-      objectReference: {fileID: 1009866131}
+      objectReference: {fileID: 874792103}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f2d785ca9694ee59143c17cb2c1ff6, type: 2}
   m_IsPrefabParent: 0
