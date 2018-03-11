@@ -21,7 +21,6 @@ public class Collectible : MonoBehaviour {
     {
         if (other.GetComponent<Character>()) {
             Global.gameManager.gotCake[collectibleIndex] = true;
-            Debug.Log(Global.gameManager.gotCake[0]);
             Destroy(gameObject); 
         }
     }
