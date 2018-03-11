@@ -10,7 +10,7 @@ public class Character : MonoBehaviour {
 
 	public Camera cam;
     public LayerMask camMask;
-    Animator anim;
+    [HideInInspector] public Animator anim;
     public checkpoint lastCkpt;
 
     public ParticleSystem jetPackParticles;

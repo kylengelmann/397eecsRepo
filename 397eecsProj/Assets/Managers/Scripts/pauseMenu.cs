@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class pauseMenu : MonoBehaviour {
 
@@ -9,8 +10,10 @@ public class pauseMenu : MonoBehaviour {
     public Toggle invertY;
     playerController player;
 
+    public static int mainMenuScene = 0;
+
     void Start() {
-        foreach (playerController pc in Object.FindObjectsOfType<playerController>()) {
+        foreach (playerController pc in FindObjectsOfType<playerController>()) {
             if(pc.isPlayer1 == isPlayer1) player = pc;
         }
         invertY.isOn = player.invertY;
@@ -34,9 +37,11 @@ public class pauseMenu : MonoBehaviour {
                 toggle = true; 
             }
         }
+        if(Input.GetAxisRaw(player.buttons.switchControl) > 0.5f) {
+            SceneManager.LoadScene(mainMenuScene);
+        }
         else {
             toggle = false;
         }
     }
-
 }

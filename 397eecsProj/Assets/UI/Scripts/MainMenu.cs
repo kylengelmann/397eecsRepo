@@ -49,10 +49,8 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(Input.GetAxis(p1a));
-        if (Input.GetAxisRaw(p1a) < -0.25f)
+        if (Input.GetAxisRaw(p1a) < -0.25f || Input.GetAxisRaw(p2a) < -0.25f)
         {
-            Debug.Log("u pressed da button yey");
             SceneManager.LoadScene(sceneBuildIndex);
         }
 	}
