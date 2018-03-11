@@ -5,6 +5,7 @@ using UnityEngine;
 public class checkpoint : MonoBehaviour {
 
     public ParticleSystem fireworks;
+    [HideInInspector] public bool hasBeenTriggered;
 
 	// Use this for initialization
 	void Start () {
@@ -18,10 +19,13 @@ public class checkpoint : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) 
     {
-        Character chara;
-        if (chara = other.gameObject.GetComponent<Character>()) {
-            chara.lastCkpt = this;
-            fireworks.Play();
+        if(!hasBeenTriggered){
+            Character chara;
+            if (chara = other.gameObject.GetComponent<Character>()) {
+                chara.lastCkpt = this;
+                fireworks.Play();
+                hasBeenTriggered = true;
+            }
         }
     }
 }
