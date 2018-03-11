@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/MainMenu.unity
+    guid: b27b03b13825642c7bbba302a5127740
+  - enabled: 1
+    path: Assets/_Scenes/ALplatespits.unity
+    guid: 08ca7c329ee304ad9a26faa33494fe15

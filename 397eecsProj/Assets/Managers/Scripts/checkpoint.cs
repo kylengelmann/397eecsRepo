@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class checkpoint : MonoBehaviour {
 
+    public ParticleSystem fireworks;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,6 +21,7 @@ public class checkpoint : MonoBehaviour {
         Character chara;
         if (chara = other.gameObject.GetComponent<Character>()) {
             chara.lastCkpt = this;
+            fireworks.Play();
         }
     }
 }
