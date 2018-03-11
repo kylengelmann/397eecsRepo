@@ -21,11 +21,13 @@ public class playerController : MonoBehaviour {
 		public string switchControl;
         public string actionAxis03; // for cross platform
         public string actionAxis12;
+        public string holdKey;
 	};
 	[HideInInspector] public Buttons buttons;
 
 	//The character component of the gameobject
 	Character character;
+    KeyGrabber keyGrabber;
 
 
 
@@ -70,6 +72,7 @@ public class playerController : MonoBehaviour {
             buttons.actionAxis03 = "AY" + platform + joyNum + controller;
             buttons.actionAxis12 = "XB" + platform + joyNum + controller;
             buttons.switchControl = "RightTrigger" + platform + joyNum + controller;
+            buttons.holdKey = "RB" + platform + joyNum + controller;
         }
         else {
             if(isPlayer1) {
@@ -81,6 +84,7 @@ public class playerController : MonoBehaviour {
                 buttons.actionAxis03 = "DPadVertical" + platform + joyNum;
                 buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
                 buttons.switchControl = "LeftTrigger" + platform + joyNum;
+                buttons.holdKey = "LB" + platform + joyNum;
             }
             else {
                 buttons.xAxis = "RightHorizontalJoystick" + platform + joyNum;
@@ -91,12 +95,15 @@ public class playerController : MonoBehaviour {
                 buttons.actionAxis03 = "AY" + platform + joyNum;
                 buttons.actionAxis12 = "XB" + platform + joyNum;
                 buttons.switchControl = "RightTrigger" + platform + joyNum;
+                buttons.holdKey = "RB" + platform + joyNum;
             }
         }
 
 		isMovingPlayer = isPlayer1; //Default to start with Player 1 in control
 
 		character = gameObject.GetComponent<Character>();
+        keyGrabber = GetComponent<KeyGrabber>();
+        keyGrabber.isGrabbing = false;
 		if(!isPlayer1) {
 			action0 = character.jump;
 		    action1 = character.breakObject;
@@ -133,6 +140,9 @@ public class playerController : MonoBehaviour {
 
         if(isMovingPlayer) {
             handleMove(Input.GetAxisRaw(buttons.xAxis), (Input.GetAxisRaw(buttons.yAxis)));
+            bool b = Input.GetButton(buttons.holdKey);
+            keyGrabber.isGrabbing = Input.GetButton(buttons.holdKey) && 
+                                    character.currentState != Character.characterState.switching;
         }
         else {
             handleCam(Input.GetAxisRaw(buttons.xAxisCam), (Input.GetAxisRaw(buttons.yAxisCam)));

@@ -18,7 +18,7 @@ public class conveyorBelt : MonoBehaviour {
     public float maxMoveHeight;
 
     // The offset of the belt texture.
-    Vector2 beltOffset = Vector4.zero;
+    Vector2 beltOffset = Vector2.zero;
 
     // The belt's collider
     BoxCollider box;
@@ -50,7 +50,7 @@ public class conveyorBelt : MonoBehaviour {
         // Get all of the objects on the belt with an OverlapBox
 
         // Set the overlap box's center
-        Vector3 center = box.center + Vector3.up*(box.size.z/2f + maxMoveHeight/2f);
+        Vector3 center = box.center + Vector3.up*(box.size.y/2f + maxMoveHeight/2f);
 
         // For some reason you can't just multiply Vectors?
         center.x *= transform.lossyScale.x;
@@ -65,6 +65,8 @@ public class conveyorBelt : MonoBehaviour {
 
         halfExtents.x *= transform.lossyScale.x;
         halfExtents.z *= transform.lossyScale.z;
+
+        Debug.DrawLine(center, center + Vector3.up*halfExtents.y);
 
 
         // Overlap box to get objects on the belt

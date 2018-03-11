@@ -63,7 +63,7 @@ public class Character : MonoBehaviour {
         velocity += vel;
     }
 
-	private void Awake()
+	void Awake()
 	{
         audioSource = GetComponent<AudioSource>();
 	}
@@ -103,12 +103,12 @@ public class Character : MonoBehaviour {
 
     }
 
-	void Update () {
-        // Checks the velocity parallel to the ground plane and rotates the character
-        // to face that direction
-		Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
+	//void Update () {
+ //       // Checks the velocity parallel to the ground plane and rotates the character
+ //       // to face that direction
+	//	//Vector3 horizontalVel = velocity - Vector3.Dot(groundNormal, velocity)*groundNormal;
 		
-	}
+	//}
 
 
     //*************************************************
@@ -123,6 +123,7 @@ public class Character : MonoBehaviour {
             int lm = gameObject.layer; //LayerMask
             lm = ~(1<<(lm));
             lm &= ~(1<<(LayerMask.NameToLayer("Ignore Raycast")));
+            lm &= ~(1<<(LayerMask.NameToLayer("Key")));
 			if(Physics.SphereCast(transform.position, charCtrl.radius - 0.05f, -groundNormal, 
                                   out groundHit, charCtrl.height/2f - charCtrl.radius + charCtrl.skinWidth + 0.08f, lm)) {
 

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 114970917858719556}
   - component: {fileID: 143699043552432120}
   - component: {fileID: 114077155531772824}
+  - component: {fileID: 114267659964301966}
   - component: {fileID: 136072896984358984}
   - component: {fileID: 65006026556570112}
   - component: {fileID: 114519940795532616}
@@ -232,6 +233,21 @@ GameObject:
   m_Name: p1shoulder.l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1411519873607142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4374686003499188}
+  m_Layer: 8
+  m_Name: goalKeyPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -526,6 +542,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4913001689273340}
+  - {fileID: 4374686003499188}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -667,6 +684,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4385378955707490}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4374686003499188
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1411519873607142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4028133619019328}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4376153295056788
 Transform:
@@ -1076,7 +1106,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1193,7 +1223,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   camMask:
     serializedVersion: 2
-    m_Bits: 4294965503
+    m_Bits: 4294963455
   lastCkpt: {fileID: 0}
   jetPackParticles: {fileID: 198123886918019846}
   runThrusterParticles: {fileID: 198422444598461612}
@@ -1223,6 +1253,23 @@ MonoBehaviour:
   currentState: 0
   MovingPlayer: 0
   RespawnPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &114267659964301966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1153281029503158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72401404d8aad4754bc5b769d1524dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbing: 1
+  goalKeyPos: {fileID: 4374686003499188}
+  grabRadius: 2
+  grabForceMultiplier: 80
+  damping: 10
+  droppedVel: {x: 7, y: 4}
 --- !u!114 &114519940795532616
 MonoBehaviour:
   m_ObjectHideFlags: 1
