@@ -91,6 +91,9 @@ public class Character : MonoBehaviour {
 
         cooldownBarWidth = cooldownBar.sizeDelta.x;
         cooldownBar.gameObject.SetActive(false);
+        if(lastCkpt){
+            lastCkpt.hasBeenTriggered = true;
+        }
 
         reset();
 	}
@@ -117,6 +120,20 @@ public class Character : MonoBehaviour {
             goalCamRotNoY = Quaternion.identity;
         }
         camRotY = 30f;
+
+        StopAllCoroutines();
+        boostWindow = true;
+        cooldownBar.gameObject.SetActive(false);
+
+        maybeBoostJumping1 = false;
+        maybeBoostJumping2 = false;
+        isBoostJumping = false;
+        jetPackParticles.Stop();
+
+        maybeBoostRunning1 = false;
+        maybeBoostRunning2 = false;
+        isBoostRunning = false;
+        runThrusterParticles.Stop();
 
         currentState = characterState.free;
 
