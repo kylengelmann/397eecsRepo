@@ -139,7 +139,12 @@ public class Character : MonoBehaviour {
 		else {
 			isGrounded = false;
 		}
-        anim.SetBool("isJumping", !isGrounded);
+        if (!isBoostRunning) {
+            anim.SetBool("isJumping", !isGrounded);
+        }
+        else {
+            anim.SetBool("isJumping", false);
+        }
 	}
 
 
@@ -170,6 +175,7 @@ public class Character : MonoBehaviour {
         Vector2 horizontalVel = new Vector2(right, forward); // Horizontal component of velocity relative to camera
         float maxSpeed = moveSettings.maxWalkSpeed;
         if(isRunning) maxSpeed = moveSettings.maxRunSpeed;
+        if (isBoostRunning) maxSpeed = moveSettings.boostRunSpeed;
 		Vector2 goalVel = moveAxis*maxSpeed; // Goal velocity relative to camera
 		Vector2 parVel = Vector2.Dot(horizontalVel, moveAxis.normalized)*moveAxis.normalized; // Parallel to goal
 		Vector2 perpVel = horizontalVel - parVel; //Perpendicular to goal
@@ -266,26 +272,34 @@ public class Character : MonoBehaviour {
 
         /////////////////
         //Jumping
-		if(!isGrounded) {
-			if(up > 0f) {
-				if(isJumping) { //is the jump button held down?
-					up -= moveSettings.jumpGravity*Time.fixedDeltaTime;
-				}
-				else {
-					up -= moveSettings.endJumpGravity*Time.fixedDeltaTime;
-				}
-			}
-			else {
-                jetPackParticles.Stop();
-				up -= moveSettings.fallingGravity*Time.fixedDeltaTime;
-			}
-		}
-		else {
-            up = -moveSettings.fallingGravity*Time.fixedDeltaTime; // if we are grounded, add a bit of gravity
-                                                                    // when moveing the character to keep them 
-                                                                    // grounded, but later this velocity will be
-                                                                    // set to zero
-		}
+        if (!isBoostRunning) {
+            if (!isGrounded)
+            {
+                if (up > 0f)
+                {
+                    if (isJumping)
+                    { //is the jump button held down?
+                        up -= moveSettings.jumpGravity * Time.fixedDeltaTime;
+                    }
+                    else
+                    {
+                        up -= moveSettings.endJumpGravity * Time.fixedDeltaTime;
+                    }
+                }
+                else
+                {
+                    jetPackParticles.Stop();
+                    up -= moveSettings.fallingGravity * Time.fixedDeltaTime;
+                }
+            }
+            else
+            {
+                up = -moveSettings.fallingGravity * Time.fixedDeltaTime; // if we are grounded, add a bit of gravity
+                                                                         // when moveing the character to keep them 
+                                                                         // grounded, but later this velocity will be
+                                                                         // set to zero
+            }
+        }
 
         ////////////////////////////////////
 		//Set velocity and move character
@@ -404,6 +418,72 @@ public class Character : MonoBehaviour {
             runThrusterParticles.Stop();
         }
         isRunning = isPressed;
+    }
+
+    bool isBoostRunning;
+    bool maybeBoostRunning1;
+    bool maybeBoostRunning2;
+
+    public void boostRun(bool isP1Pressed, bool isP2Pressed) {
+        if (currentState == characterState.switching)
+        {
+            isP1Pressed = false;
+            isP2Pressed = false;
+        }
+        if (!isBoostRunning && ((isP1Pressed && maybeBoostRunning2) || (isP2Pressed && maybeBoostRunning1)) && boostWindow)
+        {
+            runThrusterParticles.Play();
+        }
+        else if (!boostWindow)
+        {
+            runThrusterParticles.Stop();
+        }
+
+        if (isP1Pressed) maybeBoostRunning1 = true;
+        if (isP2Pressed) maybeBoostRunning2 = true;
+
+        if (isBoostRunning == false) {
+            isBoostRunning = ((isP1Pressed && maybeBoostRunning2) || (isP2Pressed && maybeBoostRunning1)) && boostWindow;
+        }
+
+
+        if (isP1Pressed || isP2Pressed)
+        {
+            StartCoroutine(syncedCtrl());
+        }
+
+    }
+
+    bool boostWindow = true;
+    IEnumerator syncedCtrl() {
+        yield return new WaitForSeconds(moveSettings.boostRunLength);
+        boostWindow = false;
+        StartCoroutine(syncedCool());
+        maybeBoostRunning1 = false;
+        maybeBoostRunning2 = false;
+        isBoostRunning = false;
+    }
+
+    IEnumerator syncedCool() {
+        yield return new WaitForSeconds(moveSettings.boostRunCool);
+        boostWindow = true;
+    }
+
+    bool isBoostJumping;
+    public void boostJump(bool isP1Pressed, bool isP2Pressed) {
+        if (currentState == characterState.switching) {
+            isP1Pressed = false;
+            isP2Pressed = false;
+        }
+        if (!isBoostJumping && isP1Pressed && isP2Pressed)
+        {
+            jetPackParticles.Play();
+        }
+        else if (isBoostJumping && !isP1Pressed && !isP2Pressed)
+        {
+            jetPackParticles.Stop();
+        }
+        isBoostJumping = isP1Pressed && isP2Pressed;
     }
 
     bool smash = false;
@@ -612,7 +692,10 @@ public struct MoveSettings {
     public float endJumpGravity; //gravity while the jump button is not held down and still moving up
 	public float fallingGravity; //gravity while moving down
     public float airControl; //1 is exactly like ground movement
-                                // 0 is no control
+                             // 0 is no control
+    public float boostRunSpeed;
+    public float boostRunLength;
+    public float boostRunCool;
 }
 
 [System.Serializable]

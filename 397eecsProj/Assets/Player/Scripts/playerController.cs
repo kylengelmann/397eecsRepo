@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour {
         public string actionAxis03; // for cross platform
         public string actionAxis12;
         public string holdKey;
+        public string booster;
 	};
 	[HideInInspector] public Buttons buttons;
 
@@ -73,6 +74,7 @@ public class playerController : MonoBehaviour {
             buttons.actionAxis12 = "XB" + platform + joyNum + controller;
             buttons.switchControl = "RightTrigger" + platform + joyNum + controller;
             buttons.holdKey = "RB" + platform + joyNum + controller;
+            buttons.booster = "LS" + platform + joyNum + controller;
         }
         else {
             if(isPlayer1) {
@@ -85,6 +87,7 @@ public class playerController : MonoBehaviour {
                 buttons.actionAxis12 = "DPadHorizontal" + platform + joyNum;
                 buttons.switchControl = "LeftTrigger" + platform + joyNum;
                 buttons.holdKey = "LB" + platform + joyNum;
+                buttons.booster = "LS" + platform + joyNum;
             }
             else {
                 buttons.xAxis = "RightHorizontalJoystick" + platform + joyNum;
@@ -96,6 +99,7 @@ public class playerController : MonoBehaviour {
                 buttons.actionAxis12 = "XB" + platform + joyNum;
                 buttons.switchControl = "RightTrigger" + platform + joyNum;
                 buttons.holdKey = "RB" + platform + joyNum;
+                buttons.booster = "RS" + platform + joyNum;
             }
         }
 
@@ -148,6 +152,16 @@ public class playerController : MonoBehaviour {
             handleCam(Input.GetAxisRaw(buttons.xAxisCam), (Input.GetAxisRaw(buttons.yAxisCam)));
         }
 
+        if (isPlayer1) {
+            bool isP1Pressed = Input.GetButton(buttons.booster);
+            bool isP2Pressed = Input.GetButton(otherPlayer.buttons.booster);
+            if(isPlayer1 != isMovingPlayer) { // boost run
+                character.boostRun(isP1Pressed, isP2Pressed);
+            }
+            if(isPlayer1 == isMovingPlayer) {
+                character.boostJump(isP1Pressed, isP2Pressed);
+            }
+        }
     }
 
 
