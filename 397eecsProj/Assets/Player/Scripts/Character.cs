@@ -354,13 +354,6 @@ public class Character : MonoBehaviour {
         // TODO
         if (currentState == characterState.moving) {
             //movingCube.isKinematic = false;
-            if(isGrounded) {
-                movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
-                movingCube.constraints |= RigidbodyConstraints.FreezePositionY;
-            }
-            else {
-                movingCube.constraints &= ~RigidbodyConstraints.FreezePositionY;
-            }
             movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
             //movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
             //                         RigidbodyConstraints.FreezeRotationZ | 

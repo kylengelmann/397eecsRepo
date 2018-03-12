@@ -5,7 +5,7 @@ using UnityEngine;
 public class KataChild : MonoBehaviour {
 
     public GameObject kataChild;
-    public Vector3 kataChildPos;
+    [HideInInspector]public Vector3 kataChildPos;
 
 	// Use this for initialization
 	void Start () {
