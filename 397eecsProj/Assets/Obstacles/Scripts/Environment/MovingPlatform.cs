@@ -51,7 +51,7 @@ namespace Assets.Obstacles.Scripts
             //    StartCoroutine(ToPointOne());
             //}
 
-            Vector3 center = box.center + Vector3.up*(box.size.z/2f + maxMoveHeight/2f);
+            Vector3 center = box.center + Vector3.up*(box.size.y/2f + maxMoveHeight/2f);
 
             // For some reason you can't just multiply Vectors?
             center.x *= transform.lossyScale.x;
