@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class Character : MonoBehaviour {
@@ -21,6 +21,12 @@ public class Character : MonoBehaviour {
     public AudioClip levelSfx; 
 
     private AudioSource audioSource;
+
+    public RectTransform cooldownBar;
+
+    float cooldownBarWidth;
+
+
 
 
     //Settings
@@ -83,20 +89,51 @@ public class Character : MonoBehaviour {
 	    MovingPlayer = 1;
 	    RespawnPoint = gameObject.transform.position;
 
+        cooldownBarWidth = cooldownBar.sizeDelta.x;
+        cooldownBar.gameObject.SetActive(false);
+        if(lastCkpt){
+            lastCkpt.hasBeenTriggered = true;
+        }
+
         reset();
 	}
 
     public void reset() {
         //transform.position = RespawnPoint;
         velocity = Vector3.zero;
-        transform.position = lastCkpt.transform.position;
-        transform.rotation = lastCkpt.transform.rotation;
-        //transform.position = Vector3.up; //Kyle's original
-        cam.transform.rotation = lastCkpt.transform.rotation*Quaternion.AngleAxis(30f, Vector3.right);
-        //cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
-        cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
-        goalCamRotNoY = lastCkpt.transform.rotation;
+        if(lastCkpt) {
+            transform.position = lastCkpt.transform.position;
+            transform.rotation = lastCkpt.transform.rotation;
+            //transform.position = Vector3.up; //Kyle's original
+            cam.transform.rotation = lastCkpt.transform.rotation*Quaternion.AngleAxis(30f, Vector3.right);
+            //cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+            cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
+            goalCamRotNoY = lastCkpt.transform.rotation;
+        }
+        else {
+            transform.position = Vector3.up;
+            transform.rotation = Quaternion.identity;
+            //transform.position = Vector3.up; //Kyle's original
+            cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+            //cam.transform.rotation = Quaternion.AngleAxis(30f, Vector3.right);
+            cam.transform.position = transform.position - cam.transform.forward*camSettings.distance;
+            goalCamRotNoY = Quaternion.identity;
+        }
         camRotY = 30f;
+
+        StopAllCoroutines();
+        boostWindow = true;
+        cooldownBar.gameObject.SetActive(false);
+
+        maybeBoostJumping1 = false;
+        maybeBoostJumping2 = false;
+        isBoostJumping = false;
+        jetPackParticles.Stop();
+
+        maybeBoostRunning1 = false;
+        maybeBoostRunning2 = false;
+        isBoostRunning = false;
+        runThrusterParticles.Stop();
 
         currentState = characterState.free;
 
@@ -272,33 +309,37 @@ public class Character : MonoBehaviour {
 
         /////////////////
         //Jumping
-        if (!isBoostRunning) {
-            if (!isGrounded)
+        if (!isGrounded || isBoostJumping)
+        {
+            if(isBoostJumping && up < .1f && up > -.1f){
+                up = 0f;
+            }
+            else if (up > 0f)
             {
-                if (up > 0f)
-                {
-                    if (isJumping)
-                    { //is the jump button held down?
-                        up -= moveSettings.jumpGravity * Time.fixedDeltaTime;
-                    }
-                    else
-                    {
-                        up -= moveSettings.endJumpGravity * Time.fixedDeltaTime;
+                if (isJumping || isBoostJumping)
+                { //is the jump button held down?
+                    up -= moveSettings.jumpGravity * Time.fixedDeltaTime;
+                    if(isBoostJumping) {
+                        up = Mathf.Max(up, 0f);
                     }
                 }
                 else
                 {
-                    jetPackParticles.Stop();
-                    up -= moveSettings.fallingGravity * Time.fixedDeltaTime;
+                    up -= moveSettings.endJumpGravity * Time.fixedDeltaTime;
                 }
             }
             else
             {
-                up = -moveSettings.fallingGravity * Time.fixedDeltaTime; // if we are grounded, add a bit of gravity
-                                                                         // when moveing the character to keep them 
-                                                                         // grounded, but later this velocity will be
-                                                                         // set to zero
+                jetPackParticles.Stop();
+                up -= moveSettings.fallingGravity * Time.fixedDeltaTime;
             }
+        }
+        else
+        {
+            up = -moveSettings.fallingGravity * Time.fixedDeltaTime; // if we are grounded, add a bit of gravity
+                                                                     // when moveing the character to keep them 
+                                                                     // grounded, but later this velocity will be
+                                                                     // set to zero
         }
 
         ////////////////////////////////////
@@ -388,7 +429,7 @@ public class Character : MonoBehaviour {
     //**********************************************************
 
 	public void jump(bool isPressed) {
-        if(currentState == characterState.switching) { 
+        if(currentState == characterState.switching  || isBoostJumping) { 
             isPressed = false;
         }
         if(isPressed && !isJumping && isGrounded) { //
@@ -434,57 +475,108 @@ public class Character : MonoBehaviour {
         {
             runThrusterParticles.Play();
         }
-        else if (!boostWindow)
-        {
-            runThrusterParticles.Stop();
-        }
+        //else if (!boostWindow)
+        //{
+        //    runThrusterParticles.Stop();
+        //}
 
-        if (isP1Pressed) maybeBoostRunning1 = true;
-        if (isP2Pressed) maybeBoostRunning2 = true;
+
 
         if (isBoostRunning == false) {
             isBoostRunning = ((isP1Pressed && maybeBoostRunning2) || (isP2Pressed && maybeBoostRunning1)) && boostWindow;
         }
 
 
-        if (isP1Pressed || isP2Pressed)
+        if ((isP1Pressed || isP2Pressed) && !(maybeBoostRunning1 || maybeBoostRunning2) && boostWindow)
         {
-            StartCoroutine(syncedCtrl());
+            StartCoroutine(syncedRunCtrl());
         }
+
+        if (isP1Pressed && boostWindow) maybeBoostRunning1 = true;
+        if (isP2Pressed && boostWindow) maybeBoostRunning2 = true;
 
     }
 
     bool boostWindow = true;
-    IEnumerator syncedCtrl() {
+    IEnumerator syncedRunCtrl() {
         yield return new WaitForSeconds(moveSettings.boostRunLength);
         boostWindow = false;
-        StartCoroutine(syncedCool());
         maybeBoostRunning1 = false;
         maybeBoostRunning2 = false;
         isBoostRunning = false;
+        StartCoroutine(syncedCool());
+        runThrusterParticles.Stop();
+    }
+
+    IEnumerator syncedJumpCtrl() {
+        yield return new WaitForSeconds(moveSettings.boostRunLength);
+        boostWindow = false;
+        maybeBoostJumping1 = false;
+        maybeBoostJumping2 = false;
+        isBoostJumping = false;
+        StartCoroutine(syncedCool());
+        jetPackParticles.Stop();
     }
 
     IEnumerator syncedCool() {
-        yield return new WaitForSeconds(moveSettings.boostRunCool);
+        //cooldownBar.sizeDelta = new Vector2(cooldownBarWidth, cooldownBar.sizeDelta.y);
+        cooldownBar.gameObject.SetActive(true);
+        float time = moveSettings.boostRunCool;
+        while(time > 0f) {
+            cooldownBar.sizeDelta = new Vector2(cooldownBarWidth*time/moveSettings.boostRunCool, cooldownBar.sizeDelta.y);
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        cooldownBar.gameObject.SetActive(false);
         boostWindow = true;
     }
 
+
+
+
+
     bool isBoostJumping;
+    bool maybeBoostJumping1;
+    bool maybeBoostJumping2;
     public void boostJump(bool isP1Pressed, bool isP2Pressed) {
-        if (currentState == characterState.switching) {
+        if (currentState == characterState.switching)
+        {
             isP1Pressed = false;
             isP2Pressed = false;
         }
-        if (!isBoostJumping && isP1Pressed && isP2Pressed)
+        if (!isBoostJumping && ((isP1Pressed && maybeBoostJumping2) || (isP2Pressed && maybeBoostJumping1)) && boostWindow)
         {
             jetPackParticles.Play();
         }
-        else if (isBoostJumping && !isP1Pressed && !isP2Pressed)
-        {
-            jetPackParticles.Stop();
+        //else if (!boostWindow)
+        //{
+        //    runThrusterParticles.Stop();
+        //}
+
+
+
+        if (isBoostJumping == false) {
+            isBoostJumping = ((isP1Pressed && maybeBoostJumping2) || (isP2Pressed && maybeBoostJumping1)) && boostWindow;
+            if(isBoostJumping){
+                velocity += moveSettings.jumpVelocity*groundNormal;   
+            }
         }
-        isBoostJumping = isP1Pressed && isP2Pressed;
+
+
+        if ((isP1Pressed || isP2Pressed) && !(maybeBoostJumping1 || maybeBoostJumping2) && boostWindow)
+        {
+            StartCoroutine(syncedJumpCtrl());
+        }
+
+        if (isP1Pressed && boostWindow) maybeBoostJumping1 = true;
+        if (isP2Pressed && boostWindow) maybeBoostJumping2 = true;
     }
+
+
+
+
+
+
 
     bool smash = false;
     public void breakObject(bool isPressed)
@@ -637,7 +729,7 @@ public class Character : MonoBehaviour {
     }
 
 	public bool switchPlayers() {
-        if(currentState != characterState.free) { // If the character isn't in the default state,
+        if(currentState != characterState.free || isBoostJumping || isBoostRunning) { // If the character isn't in the default state,
                                                     // it probably won't be allowed to switch
             return false;
         }
