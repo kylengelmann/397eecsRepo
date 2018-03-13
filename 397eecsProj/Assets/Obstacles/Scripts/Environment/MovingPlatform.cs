@@ -98,11 +98,11 @@ namespace Assets.Obstacles.Scripts
                 if (travelTime < 1.0f)
                 {
                     travelTime += Time.fixedDeltaTime * Speed;
-                    gameObject.transform.position = Vector3.Lerp(PointOne, PointTwo, travelTime);
+                    gameObject.transform.localPosition = Vector3.Lerp(PointOne, PointTwo, travelTime);
                 }
                 else
                 {
-                    gameObject.transform.position = PointTwo;
+                    gameObject.transform.localPosition = PointTwo;
                     Return = true;
                 }
                 yield return new WaitForFixedUpdate();
@@ -118,11 +118,11 @@ namespace Assets.Obstacles.Scripts
                 if (travelTime < 1.0f)
                 {
                     travelTime += Time.fixedDeltaTime * Speed;
-                    gameObject.transform.position = Vector3.Lerp(PointTwo, PointOne, travelTime);
+                    gameObject.transform.localPosition = Vector3.Lerp(PointTwo, PointOne, travelTime);
                 }
                 else
                 {
-                    gameObject.transform.position = PointOne;
+                    gameObject.transform.localPosition = PointOne;
                     Return = false;
                 }
                 yield return new WaitForFixedUpdate();

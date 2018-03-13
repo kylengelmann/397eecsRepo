@@ -354,7 +354,13 @@ public class Character : MonoBehaviour {
         // TODO
         if (currentState == characterState.moving) {
             //movingCube.isKinematic = false;
-            movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
+            if(isGrounded) {
+                movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
+                movingCube.constraints |= RigidbodyConstraints.FreezePositionY;
+            }
+            else {
+                movingCube.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            }
             //movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
             //                         RigidbodyConstraints.FreezeRotationZ | 
             //                         RigidbodyConstraints.FreezePositionY;
@@ -364,6 +370,7 @@ public class Character : MonoBehaviour {
             Vector3 goalPos = grabPoint.position + grabPoint.forward * 0.75f;
             Quaternion goalRot = moved.transform.rotation;
             Vector3 goalDir = transform.position - goalPos; // dir from goal to player
+            goalDir -= Vector3.Dot(goalDir, groundNormal)*groundNormal;
             float goalDist = goalDir.magnitude;
             goalDir.Normalize();
             float vDotGoal = Vector3.Dot(velocity, goalDir);
