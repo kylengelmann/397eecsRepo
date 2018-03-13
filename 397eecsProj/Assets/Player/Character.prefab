@@ -1230,6 +1230,7 @@ MonoBehaviour:
   smashSfx: {fileID: 8300000, guid: 2dca0720dd003429281ed91ad0705be2, type: 3}
   cakeSfx: {fileID: 8300000, guid: 088a0b7894bcd425fab7ecb983314469, type: 3}
   levelSfx: {fileID: 8300000, guid: 8bd3d0edb737441d9be6705b5ab7b6d1, type: 3}
+  cooldownBar: {fileID: 0}
   moveSettings:
     maxWalkSpeed: 5
     maxRunSpeed: 8
@@ -1242,6 +1243,9 @@ MonoBehaviour:
     endJumpGravity: 40
     fallingGravity: 30
     airControl: 0.5
+    boostRunSpeed: 12
+    boostRunLength: 4
+    boostRunCool: 15
   camSettings:
     xSensitivity: 120
     ySensitivity: 50

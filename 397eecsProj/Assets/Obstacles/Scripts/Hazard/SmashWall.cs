@@ -18,7 +18,7 @@ namespace Assets.Obstacles.Scripts
         // Use this for initialization
         void Start ()
         {
-            _safePosition = gameObject.transform.position;
+            _safePosition = gameObject.transform.localPosition;
         }
 	
         // Update is called once per frame
@@ -36,7 +36,7 @@ namespace Assets.Obstacles.Scripts
         void OnCollisionEnter(Collision collision)
         {   
             if( IsOut&&collision.gameObject.GetComponent<Character>()) {
-                if ( Vector3.Distance(OutPosition, transform.position) < 0.5f)
+                if ( Vector3.Distance(OutPosition, transform.localPosition) < 0.5f)
                 {
                     collision.gameObject.GetComponent<Character>().enabled = false;
                     Global.gameManager.die();
@@ -55,14 +55,14 @@ namespace Assets.Obstacles.Scripts
                 if (time < 1.0f)
                 {
                     time += Time.deltaTime * Speed;
-                    gameObject.transform.position = new Vector3(
+                    gameObject.transform.localPosition = new Vector3(
                         Mathf.Lerp(_safePosition.x, OutPosition.x, time),
                         Mathf.Lerp(_safePosition.y, OutPosition.y, time),
                         Mathf.Lerp(_safePosition.z, OutPosition.z, time));
                 }
                 else
                 {
-                    gameObject.transform.position = OutPosition;
+                    gameObject.transform.localPosition = OutPosition;
                     IsOut = false;
                 }
                 yield return null;
@@ -78,14 +78,14 @@ namespace Assets.Obstacles.Scripts
                 if (time < 1.0f)
                 {
                     time += Time.deltaTime * Speed;
-                    gameObject.transform.position = new Vector3(
+                    gameObject.transform.localPosition = new Vector3(
                         Mathf.Lerp(OutPosition.x, _safePosition.x, time),
                         Mathf.Lerp(OutPosition.y, _safePosition.y, time),
                         Mathf.Lerp(OutPosition.z, _safePosition.z, time));
                 }
                 else
                 {
-                    gameObject.transform.position = _safePosition;
+                    gameObject.transform.localPosition = _safePosition;
                     IsOut = true;
                 }
                 yield return null;

@@ -1013,7 +1013,7 @@ Prefab:
       objectReference: {fileID: 9100000, guid: 3887f83df1f5140578c99f10b9b4f6be, type: 2}
     - target: {fileID: 1731965638181804, guid: 937a94fca0a7d445e991a6f2b125d021, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114291035191628598, guid: 937a94fca0a7d445e991a6f2b125d021,
         type: 2}
@@ -2555,6 +2555,21 @@ Prefab:
       propertyPath: lastCkpt
       value: 
       objectReference: {fileID: 577879259}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: moveSettings.boostRunSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: moveSettings.boostRunLength
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114077155531772824, guid: a4f2d785ca9694ee59143c17cb2c1ff6,
+        type: 2}
+      propertyPath: moveSettings.boostRunCool
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4f2d785ca9694ee59143c17cb2c1ff6, type: 2}
   m_IsPrefabParent: 0
