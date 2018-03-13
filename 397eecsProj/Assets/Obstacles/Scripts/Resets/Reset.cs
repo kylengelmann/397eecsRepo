@@ -26,9 +26,9 @@ public class Reset : MonoBehaviour {
 	}
 
     public void reset() {
+        transform.parent = initParent;
         transform.localPosition = initPos;
         transform.localRotation = initRot;
-        transform.parent = initParent;
         if (rb) {
             rb.velocity = initVel;
         }
