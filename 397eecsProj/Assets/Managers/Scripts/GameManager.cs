@@ -68,15 +68,21 @@ public class GameManager : MonoBehaviour {
     IEnumerator doSwitch(Quaternion startRot, Quaternion endRot, GameObject face, Transform linked) {
         float t = 0f;
         bool p1Moving = character.anim.GetBool("isP1Moving");
-        character.gameObject.SetActive(false);
+        character.transform.GetChild(0).gameObject.SetActive(false);
+        character.enabled = false;
         while(t < faceSwitchTime) {
             world.transform.rotation = Quaternion.Slerp(startRot, endRot, t/faceSwitchTime);
             t += Time.deltaTime;
             yield return null;
         }
-        character.gameObject.SetActive(true);
+        character.enabled = true;
+        character.transform.GetChild(0).gameObject.SetActive(true);
+        character.velocity = Vector3.zero;
         character.anim.SetBool("isP1Moving", p1Moving);
-        character.transform.position = linked.transform.position + linked.transform.up;
+        character.transform.position = linked.transform.position + Vector3.up;
+        character.transform.rotation = linked.transform.rotation;
+        character.goalCamRotNoY = character.transform.rotation;
+
         face.SetActive(true);
     }
 }

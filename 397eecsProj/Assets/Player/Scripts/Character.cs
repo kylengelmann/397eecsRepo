@@ -36,7 +36,7 @@ public class Character : MonoBehaviour {
     //For camera calculations
     Vector3 goalCamPos;
     Quaternion goalCamRot = Quaternion.identity;
-    Quaternion goalCamRotNoY = Quaternion.identity;
+    public Quaternion goalCamRotNoY = Quaternion.identity;
     Vector2 camAxis;
     float camRotY = 30f;
 
