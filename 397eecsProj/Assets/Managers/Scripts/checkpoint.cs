@@ -5,7 +5,7 @@ using UnityEngine;
 public class checkpoint : MonoBehaviour {
 
     public ParticleSystem fireworks;
-    public bool hasBeenTriggered;
+    [HideInInspector] public bool hasBeenTriggered;
 
 	// Use this for initialization
 	void Start () {
