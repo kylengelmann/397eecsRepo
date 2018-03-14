@@ -354,19 +354,23 @@ public class Character : MonoBehaviour {
         // TODO
         if (currentState == characterState.moving) {
             //movingCube.isKinematic = false;
-            if(isGrounded) {
-                movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
-                movingCube.constraints |= RigidbodyConstraints.FreezePositionY;
-            }
-            else {
-                movingCube.constraints &= ~RigidbodyConstraints.FreezePositionY;
-            }
+            //if(isGrounded) {
+            //    movingCube.MovePosition(movingCube.position + groundNormal*0.1f);
+            //    movingCube.constraints |= RigidbodyConstraints.FreezePositionY;
+            //}
+            //else {
+            //    movingCube.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            //}
             //movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
             //                         RigidbodyConstraints.FreezeRotationZ | 
             //                         RigidbodyConstraints.FreezePositionY;
             //movingCube.drag = 10f;
             //movingCube.angularDrag = 10f;
 
+            movingCube.transform.position = new Vector3(movingCube.transform.position.x, 
+                                                        transform.position.y + cubeHeight,
+                                                        movingCube.transform.position.z);
+            
             Vector3 goalPos = grabPoint.position + grabPoint.forward * 0.75f;
             Quaternion goalRot = moved.transform.rotation;
             Vector3 goalDir = transform.position - goalPos; // dir from goal to player
@@ -650,6 +654,7 @@ public class Character : MonoBehaviour {
     Rigidbody movingCube; // rb of the cube player is moving 
     Transform grabPoint; // transform corr. w/ face player grabs
 
+    float cubeHeight;
     public void moveObject(bool isPressed) //////////////////////// MOVING OBJECTS
     // TODO
     {
@@ -694,6 +699,8 @@ public class Character : MonoBehaviour {
             //moved.transform.parent = transform; // parent that ish
             //movingCube.isKinematic = false;
 
+            movingCube.transform.position += groundNormal*.1f;
+            cubeHeight = movingCube.transform.position.y - transform.position.y;
             movingCube.constraints = RigidbodyConstraints.FreezeRotationX | 
                 RigidbodyConstraints.FreezeRotationZ | 
                 RigidbodyConstraints.FreezePositionY;
