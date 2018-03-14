@@ -66673,6 +66673,7 @@ MeshFilter:
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1015083220
 GameObject:
   m_ObjectHideFlags: 0
@@ -66757,6 +66758,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1015083220}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 =======
 >>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 --- !u!1 &1030374747
@@ -75589,6 +75592,7 @@ Transform:
   m_GameObject: {fileID: 1238006942}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 5, y: 0, z: 17.5}
   m_LocalScale: {x: 5, y: 1, z: 20}
 =======
@@ -75597,6 +75601,10 @@ Transform:
   m_LocalPosition: {x: 17.5, y: 2.5, z: 13}
   m_LocalScale: {x: 5, y: 4, z: 1}
 >>>>>>> master
+=======
+  m_LocalPosition: {x: 0, y: 0, z: 17.5}
+  m_LocalScale: {x: 5, y: 1, z: 40}
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 =======
   m_LocalPosition: {x: 0, y: 0, z: 17.5}
   m_LocalScale: {x: 5, y: 1, z: 40}
@@ -100489,6 +100497,7 @@ ParticleSystem:
     vectorLabel1_3: W
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!21 &1285984131
 Material:
   serializedVersion: 6
@@ -101574,6 +101583,8 @@ MeshFilter:
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1474433567
 =======
+=======
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 --- !u!1 &1344683085
 >>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 GameObject:
@@ -102001,12 +102012,17 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 13.25, y: 8.25, z: 18.250004}
   m_LocalScale: {x: 3.5, y: 0.5, z: 3.5}
 =======
   m_LocalPosition: {x: 7.5, y: 2.1, z: 18.82}
   m_LocalScale: {x: 10, y: 3, z: 2.5}
 >>>>>>> master
+=======
+  m_LocalPosition: {x: 13.25, y: 8.250003, z: 18.250004}
+  m_LocalScale: {x: 3.5, y: 0.50000024, z: 3.500002}
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 =======
   m_LocalPosition: {x: 13.25, y: 8.250003, z: 18.250004}
   m_LocalScale: {x: 3.5, y: 0.50000024, z: 3.500002}
@@ -105616,6 +105632,7 @@ ParticleSystem:
     vectorLabel1_3: W
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!21 &1436270718
 =======
 --- !u!1001 &1545402804
@@ -106760,6 +106777,9 @@ SpriteRenderer:
   m_MaskInteraction: 0
 --- !u!1 &1623412601
 >>>>>>> master
+=======
+--- !u!1 &1437597905
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1659895871447162, guid: 187c2e39f73014ec09cfb8bbf1234b3b,
@@ -106825,6 +106845,7 @@ Transform:
   m_Father: {fileID: 481218704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1477758469
@@ -107417,6 +107438,8 @@ MeshFilter:
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1652376347
 =======
+=======
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 --- !u!1 &1488423075
 >>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 GameObject:
@@ -107446,9 +107469,12 @@ Transform:
   m_GameObject: {fileID: 1652376347}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LocalPosition: {x: 10.5, y: -4, z: -18.5}
   m_LocalScale: {x: 3, y: 1, z: 3}
 =======
+=======
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
   m_LocalPosition: {x: -7.5, y: 2.1, z: 13.75}
   m_LocalScale: {x: 10, y: 3, z: 2.5}
 >>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
@@ -126435,6 +126461,7 @@ MeshFilter:
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1737828680
 GameObject:
   m_ObjectHideFlags: 0
@@ -126519,6 +126546,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1737828680}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 =======
 >>>>>>> parent of 73d9d85... Tweeked Tutorial Levels
 --- !u!1 &1741628832
