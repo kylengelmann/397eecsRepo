@@ -68,7 +68,7 @@ namespace Assets.Obstacles.Scripts
             halfExtents.z *= transform.lossyScale.z;
 
 
-            Debug.Log(halfExtents);
+            //Debug.Log(halfExtents);
 
 
 

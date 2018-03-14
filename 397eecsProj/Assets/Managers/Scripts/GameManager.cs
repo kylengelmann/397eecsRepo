@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour {
             t += Time.deltaTime;
             yield return null;
         }
+        yield return new WaitForSeconds(.1f);
         character.enabled = true;
         character.transform.GetChild(0).gameObject.SetActive(true);
         character.velocity = Vector3.zero;
