@@ -23,7 +23,9 @@ public class checkpoint : MonoBehaviour {
             Character chara;
             if (chara = other.gameObject.GetComponent<Character>()) {
                 chara.lastCkpt = this;
-                fireworks.Play();
+                if(fireworks) {
+                    fireworks.Play();
+                }
                 hasBeenTriggered = true;
             }
         }
