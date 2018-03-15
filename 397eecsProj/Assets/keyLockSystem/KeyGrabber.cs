@@ -43,7 +43,9 @@ public class KeyGrabber : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-        if(grabbedKey) {
+        if(grabbedKey)
+        {
+            grabbedKey.constraints = RigidbodyConstraints.None;
             Vector3 grabForce = (goalKeyPos.position - grabbedKey.position)*grabForceMultiplier;
             Vector3 dragForce = grabbedKey.velocity*(-damping);
             grabbedKey.AddForce(grabForce + dragForce);

@@ -33,7 +33,7 @@ public class laserWall : MonoBehaviour {
 	void FixedUpdate () {
         if(isOn && movingBehavior != MovingBehavior.noMove)
         {
-            Debug.Log(goal);
+            //Debug.Log(goal);
             //Debug.Log(Vector3.MoveTowards(transform.position, goal, speed * Time.fixedDeltaTime));
             transform.position = Vector3.MoveTowards(transform.position, goal, speed*Time.fixedDeltaTime);
             if(movingBehavior != MovingBehavior.oneWay && Vector3.SqrMagnitude(transform.position - goal) < 0.001f) {
